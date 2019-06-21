@@ -91,6 +91,11 @@
    </t>
 
    <t>
+       This document describes the benefits, problems, and trade-offs for
+       using OAM in wireless networks to provide availability and predictability.
+       </t>
+    
+   <t>
       In this document, the term OAM will be used according to its definition
       specified in <xref target="RFC6291"/>.
       We expect to implement an OAM framework in PAW networks to maintain a real-time
@@ -127,7 +132,7 @@
  
 </section>
 
-<section title="real-time OAM">
+<section title="OAM to provision appropriately the resources">
    <t>
       PAW networks expect to make the communications predictable on top of a
       wireless network infrastructure. Most critical applications will define
@@ -138,16 +143,81 @@
    <t>
       To respect strict guarantees, PAW relies on a PCE which has to schedule
       the transmissions in the different wireless networks. Thus, resources
-      have to be provisionned to handle any defect. 
-      
-      
+      have to be provisionned to handle any defect. OAM represents the core of
+      the overprovisonning process, and maintains the network operational by
+      updating the schedule dynmically.
       </t>
+   
+   <t>
+      Fault-tolerance also assumes that multiple path have to be provisionned
+      so that an end-to-end circuit keeps on existing whatever the conditions.
+      OAM is in charge of controling the recplication/ process
+      </t>
+      
    
    
 </section>
 
 
+<section title="Operation">
+   <t>
+      
+      </t>
+   
+   </section>
+<section title="Administration">
+   
+   <t>
+      To take proper decision, the network has to expose a collection of metrics
+      
+      <list style="symbols">
+         <t>
+            Packet losses: the time-window average value of the number of packet
+            losses
+            </t>
+         
+         <t>
+            Received Signal Strength Indicator (RSSI) is a very common metric
+            in wireless to denote the link quality. The radio chipset is in charge
+            of translating a received signal strngth into a normalized
+            quality indicator.
+            </t>
+         
+         <t>
+            Delay:
+            </t>
+         
+      </list>
+      </t>
+   <t>
+      These metrics should be collected:
+      <list style="symbols">
+         <t>
+            per virtual circuit to measure the end-to-end performance for a given flow.
+            Each of the paths has to be isolated in multipath strategies;
+            </t>
+         
+         <t>per radio channel to measure e.g. the level of external interfence,
+            and to be able to apply counter-measures (e.g. blacklisting)
+            </t>
+         
+         <t>
+            per device to detect misbehaving node, when it relays the packets of
+            several flows.
+            </t>
+         </list>
+   </t>
+      
+   
+   
+   </section>
+   
 
+
+   <section title="Maintenance">
+      <t>
+         </t>
+      </section>
 </middle>
 
 <back>
