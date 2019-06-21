@@ -13,7 +13,7 @@
 <?rfc authorship="yes"?>
 <?rfc tocappendix="yes"?>
 
-<rfc category="std" ipr="trust200902" docName="draft-paw-oam-support">
+<rfc category="std" ipr="trust200902" docName="draft-paw-oam-support-00">
 
 
 <front> 
@@ -81,16 +81,49 @@
 <section title="Introduction">
 
     <t>
-       Produce a Standards Track document to enable operations,
-       administration and maintenance (OAM) inside a RAW network, providing
-       packet loss evaluation, self-testing and automated adaptation to
-       enable trade-offs between resilience and energy consumption.
+      The main purpose of this document is to details the requirements
+      of the operations, administration and maintenance (OAM) features
+      recommended to construct a predictable communication infrastrutue
+      on top of a collection of wireless networks. In particular,
+      we expect to provide packet loss evaluation, self-testing and
+      automated adaptation to enable trade-offs between resilience
+      and energy consumption.
+   </t>
 
-       </t>
+   <t>
+      In this document, the term OAM will be used according to its definition
+      specified in <xref target="RFC6291"/>.
+      We expect to implement an OAM framework in PAW networks to maintain a real-time
+      view of the network infrastructure, and its ability to respect the Service Level
+      Agreements (delay, reliability) assigned to each data flow.
+   </t>
+ 
+ 
+   <section title="Terminology">
+      <t>
+         <list style="symbols">
+            <t>
+               OAM entity: a data flow to be controled;
+            </t>
+            
+            <t>
+               OAM end-devices: the source or destination of a data flow;
+            </t>
+         
+         </list>
 
+         </t>
+      </section>
  
 </section>
 
+<section title="real-time OAM">
+   <t>
+   
+      </t>
+   
+   
+</section>
 
 
 
@@ -105,11 +138,8 @@
    
    <references title="Informative References">
       
-      <?rfc include="reference.RFC.7554"?> <!-- 6TiSCH TSCH -->
-      <?rfc include='reference.I-D.ietf-detnet-problem-statement'?>
-      <?rfc include='reference.I-D.ietf-detnet-use-cases'?>
-      <?rfc include='reference.I-D.ietf-6tisch-architecture'?>
-      <?rfc include='reference.I-D.ietf-detnet-architecture'?>
+      <?rfc include="reference.RFC.6291"?> <!-- OAM definition -->
+
       
       
       
