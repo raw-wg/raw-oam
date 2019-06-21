@@ -110,6 +110,16 @@
                OAM end-devices: the source or destination of a data flow;
             </t>
          
+         <t>
+            defect: a temporary change in the network characteristics (e.g.
+            link quality degradation because of temporary external interference,
+            a mobile obstacle)
+         </t>
+         
+         <t>
+            fault: a definite change which may affect the network performance, e.g.
+            a node runs out of energy,
+            </t>
          </list>
 
          </t>
@@ -119,7 +129,18 @@
 
 <section title="real-time OAM">
    <t>
+      PAW networks expect to make the communications predictable on top of a
+      wireless network infrastructure. Most critical applications will define
+      a Service Level Agreeemnt to respect for the data flows it generates.
+      Thus, the wireless networks have to be dimensionned to respect these SLAs.
+      </t>
    
+   <t>
+      To respect strict guarantees, PAW relies on a PCE which has to schedule
+      the transmissions in the different wireless networks. Thus, resources
+      have to be provisionned to handle any defect. 
+      
+      
       </t>
    
    
