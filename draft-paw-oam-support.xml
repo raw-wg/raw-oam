@@ -132,6 +132,8 @@
  
 </section>
 
+
+
 <section title="OAM to provision appropriately the resources">
    <t>
       PAW networks expect to make the communications predictable on top of a
@@ -153,7 +155,12 @@
       so that an end-to-end circuit keeps on existing whatever the conditions.
       OAM is in charge of controling the recplication/ process
       </t>
-      
+   
+   
+   <t>
+      To be energy-efficient, reserving some dedicated out-of-band resources
+      for OAM seems ireealistic, and only in-band solutions are considered here.
+      </t>
    
    
 </section>
@@ -168,23 +175,25 @@
 <section title="Administration">
    
    <t>
-      To take proper decision, the network has to expose a collection of metrics
+      To take proper decisions, the network has to expose a collection of metrics
       
       <list style="symbols">
          <t>
-            Packet losses: the time-window average value of the number of packet
-            losses
+            Packet losses: the time-window average and maximum values of the
+            number of packet losses has to be measured. Many critical applications
+            stop to work if a few consecutive packets are dropped;
             </t>
          
          <t>
             Received Signal Strength Indicator (RSSI) is a very common metric
             in wireless to denote the link quality. The radio chipset is in charge
             of translating a received signal strngth into a normalized
-            quality indicator.
+            quality indicator;
             </t>
          
          <t>
-            Delay:
+            Delay: the time elapsed between a packet generation / enqueuing
+            and its reception by the destination;
             </t>
          
       </list>
@@ -210,6 +219,31 @@
       
    
    
+   <section title="Energy efficiency requirements">
+      <t>
+         PAW targets also low-power wireless networks, where energy represents a key
+         constraint. Thus, we have to cake care of the energy and bandwidth consumption.
+         The following techniques aim to reduce the cost of such maintenance:
+         <list>
+            <t>
+               piggybacking: some control information has inserted in the data packets
+               if they don't fragment the packet (i.e. the MTU is not exceeded). Information
+               Elements represent a standardized way to handle such information;
+               </t>
+            
+            <t>
+               flags/fields: we have to set-up flags in the packets to monitor to be able
+               to monitor them accurately. A sequence number field may help to detect packet
+               losses. Similarly, path inference tools such as <xref target="ipath"/> insert
+               additionnal information in the headers to identify the path followed by a
+               packet a posteriori.
+               </t>
+            </list>
+         
+         </t>
+      
+      </section>
+   
    </section>
    
 
@@ -233,14 +267,30 @@
 
       
       
+      <reference anchor="ipath" target="https://doi.org/10.1109/TNET.2014.2371459">
+         <front>
+            <title>iPath: path inference in wireless sensor networks.</title>
+            <author initials="Y." surname="Gao" fullname="Y.Gao"></author>
+            <author initials="W." surname="Dong" fullname="W. Dong"></author>
+            <author initials="C." surname="Chen" fullname="C. Chen"></author>
+            <author initials="J." surname="Bu" fullname="J. Bu"></author>
+            <author initials="W." surname="Wu" fullname="W. Wu"></author>
+            <author initials="X." surname="Liu" fullname="X. Liu"></author>
+            <date year="2016"/>
+            <!--
+             IEEE/ACM Transactions on Networking (TON) archive
+             Volume 24 Issue 1, February 2016
+             Pages 517-528
+             -->
+         </front>
+      </reference>
       
       
    </references>
    
    
    
-   
-   
+
 </back>
 
 </rfc>
