@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<?rfc toc="yes"?>
+<?rfc tocompact="yes"?>
+<?rfc tocdepth="3"?>
+<?rfc tocindent="yes"?>
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes"?>
+<?rfc comments="yes"?>
+<?rfc inline="yes"?>
+<?rfc compact="no"?>
+<?rfc subcompact="no"?>
+<?rfc authorship="yes"?>
+<?rfc tocappendix="yes"?>
+
+<rfc category="std" ipr="trust200902" docName="draft-paw-oam-support">
+
+
+<front> 
+
+    <title abbrev="PAW use cases scenarios">PAW use cases</title>
+   
+ 
+ 
+	<author initials="F." surname="Theoleyre" fullname="Fabrice Theoleyre">
+    	<organization>CNRS</organization>
+     	<address>
+        	<postal>
+            	<street>Building B</street>
+             	<street>300 boulevard Sebastien Brant - CS 10413</street>
+             	<city>Illkirch</city>
+             	<code>67400</code>
+             	<country>FRANCE</country>
+         	</postal>
+         	<phone>+33 368 85 45 33</phone>
+         	<email>theoleyre@unistra.fr</email>
+     	</address>
+ 	</author>
+
+
+   <date/>
+
+   <workgroup>PAW</workgroup>
+
+   <abstract>
+   <t>
+   The wireless medium presents significant specific challenges to achieve
+   properties similar to those of wired deterministic networks. At the same
+   time, a number of use cases cannot be solved with wires and justify the
+   extra effort of going wireless. This document presents some of these
+   use-cases.
+   </t>
+   </abstract>
+   
+
+</front>
+
+<middle>
+
+
+
+<!--section title="TEMPORARY EDITORIAL NOTES">
+
+   <t>
+		This document is an Internet Draft, so it is work-in-progress by nature.
+   		It contains the following work-in-progress elements:
+   </t>	
+     		 
+   <t>
+   	<list style="symbols">
+		<t>"TODO" statements are elements which have not yet been written by the authors 
+		for some reason (lack of time, ongoing discussions with no clear consensus, etc).
+		The statement does indicate that the text will be written at some time.</t>
+   	</list>
+   </t>
+   		 
+</section --> 
+
+
+
+<section title="Introduction">
+
+    <t>
+       Produce a Standards Track document to enable operations,
+       administration and maintenance (OAM) inside a RAW network, providing
+       packet loss evaluation, self-testing and automated adaptation to
+       enable trade-offs between resilience and energy consumption.
+
+       </t>
+
+ 
+</section>
+
+
+
+
+</middle>
+
+<back>
+   
+   <!--
+    <references title="Normative References">
+    </references>
+    -->
+   
+   <references title="Informative References">
+      
+      <?rfc include="reference.RFC.7554"?> <!-- 6TiSCH TSCH -->
+      <?rfc include='reference.I-D.ietf-detnet-problem-statement'?>
+      <?rfc include='reference.I-D.ietf-detnet-use-cases'?>
+      <?rfc include='reference.I-D.ietf-6tisch-architecture'?>
+      <?rfc include='reference.I-D.ietf-detnet-architecture'?>
+      
+      
+      
+      
+   </references>
+   
+   
+   
+   
+   
+</back>
+
+</rfc>
