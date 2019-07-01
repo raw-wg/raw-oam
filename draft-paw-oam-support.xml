@@ -13,12 +13,12 @@
 <?rfc authorship="yes"?>
 <?rfc tocappendix="yes"?>
 
-<rfc category="std" ipr="trust200902" docName="draft-paw-oam-support-00">
+<rfc category="std" ipr="trust200902" docName="draft-theoleyre-raw-oam-support-00">
 
 
 <front> 
 
-    <title abbrev="OAM features for PAW">Operations, administration and maintenance (OAM) features for PAW</title>
+    <title abbrev="OAM features for RAW">Operations, administration and maintenance (OAM) features for RAW</title>
    
  
  
@@ -40,7 +40,7 @@
 
    <date/>
 
-   <workgroup>PAW</workgroup>
+   <workgroup>RAW</workgroup>
 
    <abstract>
    <t>
@@ -98,7 +98,7 @@
    <t>
       In this document, the term OAM will be used according to its definition
       specified in <xref target="RFC6291"/>.
-      We expect to implement an OAM framework in PAW networks to maintain a real-time
+      We expect to implement an OAM framework in RAW networks to maintain a real-time
       view of the network infrastructure, and its ability to respect the Service Level
       Agreements (delay, reliability) assigned to each data flow.
    </t>
@@ -136,14 +136,14 @@
 
 <section title="OAM to provision appropriately the resources">
    <t>
-      PAW networks expect to make the communications predictable on top of a
+      RAW networks expect to make the communications predictable on top of a
       wireless network infrastructure. Most critical applications will define
       a Service Level Agreeemnt to respect for the data flows it generates.
       Thus, the wireless networks have to be dimensionned to respect these SLAs.
       </t>
    
    <t>
-      To respect strict guarantees, PAW relies on a PCE which has to schedule
+      To respect strict guarantees, RAW relies on a PCE which has to schedule
       the transmissions in the different wireless networks. Thus, resources
       have to be provisionned to handle any defect. OAM represents the core of
       the overprovisonning process, and maintains the network operational by
