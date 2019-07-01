@@ -37,6 +37,21 @@
      	</address>
  	</author>
 
+    <author initials="G.Z." surname="Papadopoulos" fullname="Georgios Z. Papadopoulos">
+      <organization>IMT Atlantique</organization>
+      <address>         
+        <postal>            
+           <street>Office B00 - 102A</street>
+           <street>2 Rue de la Ch&acirc;taigneraie</street>
+           <city>Cesson-S&eacute;vign&eacute; - Rennes</city>
+            <code>35510</code>
+            <country>FRANCE</country>
+         </postal>
+         <phone>+33 299 12 70 04</phone>
+    <email>georgios.papadopoulos@imt-atlantique.fr</email>
+      </address>
+    </author>
+
 
    <date/>
 
@@ -79,56 +94,53 @@
 
 
 <section title="Introduction">
-
+	<t>
+		RAW (Reliable and Available Wireless) is an effort to provide deterministic behavior over a network that includes a wireless physical layer.
+		Enabling the wireless communication reliable and available is even more challenging than it is with wires, due to the numerous causes of loss in transmission that add up to the congestion losses and the delays caused by overbooked shared resources.
+		To provide quality of service along a multihop path that is composed of wired and wireless hops, additional methods needs to be considered to leverage the potential lossy wireless communication.
+	</t>
+	
+	<t>
+		Traceability belongs to Operations, Administration, and Maintenance (OAM) which is the toolset for fault detection and isolation, and for performance measurement.  
+		More can be found on OAM Tools in <!--<xref target="RFC7276"/>-->.
+	</t>
+   
     <t>
-      The main purpose of this document is to details the requirements
-      of the operations, administration and maintenance (OAM) features
-      recommended to construct a predictable communication infrastrutue
-      on top of a collection of wireless networks. In particular,
-      we expect to provide packet loss evaluation, self-testing and
-      automated adaptation to enable trade-offs between resilience
-      and energy consumption.
-   </t>
+    	The main purpose of this document is to details the requirements of the OAM features recommended to construct a predictable communication infrastructure on top of a collection of wireless networks. 
+      	In particular, we expect to provide packet loss evaluation, self-testing and automated adaptation to enable trade-offs between resilience and energy consumption.
+	</t>
 
-   <t>
-       This document describes the benefits, problems, and trade-offs for
-       using OAM in wireless networks to provide availability and predictability.
-       </t>
+	<t>
+    	This document describes the benefits, problems, and trade-offs for using OAM in wireless networks to provide availability and predictability.
+	</t>
     
    <t>
-      In this document, the term OAM will be used according to its definition
-      specified in <xref target="RFC6291"/>.
-      We expect to implement an OAM framework in RAW networks to maintain a real-time
-      view of the network infrastructure, and its ability to respect the Service Level
-      Agreements (delay, reliability) assigned to each data flow.
+      In this document, the term OAM will be used according to its definition specified in <xref target="RFC6291"/>.
+      We expect to implement an OAM framework in RAW networks to maintain a real-time view of the network infrastructure, and its ability to respect the Service Level Agreements (delay, reliability) assigned to each data flow.
    </t>
  
  
-   <section title="Terminology">
-      <t>
-         <list style="symbols">
-            <t>
-               OAM entity: a data flow to be controled;
-            </t>
+	<section title="Terminology">
+    	<t>
+        	<list style="symbols">
+            	<t>
+               		OAM entity: a data flow to be controled;
+            	</t>
             
-            <t>
-               OAM end-devices: the source or destination of a data flow;
-            </t>
+            	<t>
+               		OAM end-devices: the source or destination of a data flow;
+            	</t>
          
-         <t>
-            defect: a temporary change in the network characteristics (e.g.
-            link quality degradation because of temporary external interference,
-            a mobile obstacle)
-         </t>
+         		<t>
+            		defect: a temporary change in the network characteristics (e.g. link quality degradation because of temporary external interference, a mobile obstacle)
+         		</t>
          
-         <t>
-            fault: a definite change which may affect the network performance, e.g.
-            a node runs out of energy,
-            </t>
-         </list>
-
-         </t>
-      </section>
+         		<t>
+            	fault: a definite change which may affect the network performance, e.g. a node runs out of energy,
+            	</t>
+         	</list>
+    	</t>
+	</section>
  
 </section>
 
@@ -262,9 +274,8 @@
     -->
    
    <references title="Informative References">
-      
-      <?rfc include="reference.RFC.6291"?> <!-- OAM definition -->
-
+		<?rfc include="reference.RFC.6291"?> <!-- OAM definition -->
+<!--		<?rfc include="reference.RFC.7276"?> -->
       
       
       <reference anchor="ipath" target="https://doi.org/10.1109/TNET.2014.2371459">
