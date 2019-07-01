@@ -47,8 +47,8 @@
    The wireless medium presents significant specific challenges to achieve
    properties similar to those of wired deterministic networks. At the same
    time, a number of use cases cannot be solved with wires and justify the
-   extra effort of going wireless. This document presents some of these
-   use-cases.
+   extra effort of going wireless. 
+   This document presents some of these use-cases.
    </t>
    </abstract>
    
