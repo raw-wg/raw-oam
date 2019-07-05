@@ -28,12 +28,13 @@
         	<postal>
             	<street>Building B</street>
              	<street>300 boulevard Sebastien Brant - CS 10413</street>
-             	<city>Illkirch</city>
+             	<city>Illkirch - Strasbourg</city>
              	<code>67400</code>
              	<country>FRANCE</country>
          	</postal>
          	<phone>+33 368 85 45 33</phone>
-         	<email>theoleyre@unistra.fr</email>
+            <email>theoleyre@unistra.fr</email>
+            <uri>http://www.theoleyre.eu</uri>
      	</address>
  	</author>
 
@@ -165,7 +166,7 @@
    <t>
       Fault-tolerance also assumes that multiple path have to be provisionned
       so that an end-to-end circuit keeps on existing whatever the conditions.
-      OAM is in charge of controling the recplication/ process
+      OAM is in charge of controling the replication/ process
       </t>
    
    
@@ -180,14 +181,59 @@
 
 <section title="Operation">
    <t>
+      RAW expects to operate fault-tolerant networks. Thus, we need mechanisms
+      able to detect faults, before they impact the network performance.
+      </t>
+   
+  <t>
+     We make a distinction between the two following complementary mechanisms:
+     
+     <list style="symbols">
+        <t>
+           Detection: the network detects that a fault occured, i.e. the network
+           has deviated from its expected behavior. While the network must report
+           an alarm, the cause may not be identified precisely. For instance, the
+           end-to-end reliability has decreased significantly, or a buffer overflow
+           occurs;
+           </t>
+        <t>
+           Identification: the network has isolated and identified the cause
+           of the fault. For instance, the quality of a specific link has decreased,
+           requiring more retransmissions, or the level of external interference
+           has locally increased.
+           </t>
+      </list>
+     </t>
+  
+  
+   <t>
+      These two-steps identification is required since RAW expects to rely on wireless
+      networks. Thus, we have to minimize the amount of statistics / measurements to
+      exchange:
+      <list style="symbols">
+         <t>
+            energy efficiency: low-power devices have to limit the volume of monitoring
+            information since every bit consumes energy.
+         </t>
+         <t>
+            bandwidth: wireless networks exhibit a bandwidth significantly lower than
+            wired, best-effort networks.
+         </t>
+      </list>
       
+      Thus, localized and centralized mechanisms have to be combined together, and
+      additionnal control packets have to be triggered only after a fault detection.
+         
       </t>
    
    </section>
+
+
+
 <section title="Administration">
    
    <t>
-      To take proper decisions, the network has to expose a collection of metrics
+      To take proper decisions, the network has to expose a collection of metrics, including:
       
       <list style="symbols">
          <t>
@@ -205,7 +251,12 @@
          
          <t>
             Delay: the time elapsed between a packet generation / enqueuing
-            and its reception by the destination;
+            and its reception by the next hop;
+            </t>
+         
+         <t>
+            Buffer occupancy: the number of packets present in the buffer,
+            for each the existing flows.
             </t>
          
       </list>
@@ -228,10 +279,28 @@
             </t>
          </list>
    </t>
+   
+   
+   <section title="Worst-case constraint">
+      <t>
+         RAW aims to enable real-time communications on top of an heterogeneous
+         architecture. Since wireless networks are known to be lossy, RAW has
+         to implement strategies to improve the reliability on top of unreliable
+         links. Hybrid Automatic Repeat reQuest (ARQ) has typically to enable
+         retransmissions based on the end-to-end reliability and latency
+         requirements.
+      </t>
       
+      <t>
+         To take correct decisions, the controller needs to know the distribution
+         of packet losses for each flow, and for each hop of the paths. In other words,
+         average end-to-end statistics are not enough. They must allow the controller
+         to predict the worst-case.
+         </t>
+      
+   </section>
    
-   
-   <section title="Energy efficiency requirements">
+   <section title="Energy efficiency constraint">
       <t>
          RAW targets also low-power wireless networks, where energy represents a key
          constraint. Thus, we have to cake care of the energy and bandwidth consumption.
@@ -258,12 +327,56 @@
    
    </section>
    
-
+<!-- speak about predictive maintenance? -->
 
    <section title="Maintenance">
       <t>
+         RAW needs to implement a self-healing and self-optimization approach.
+         The network must continuously retrieve the state of the network,
+         to judge about the relevance of a reconfiguration, quantifying:
+         <list>
+            <t> the cost of the sub-optimality: resources may not be used
+               optimally (e.g. a better path exists);
+            </t>
+            <t>
+               the reconfiguration cost: the controller needs to trigger some
+               reconfigurations. For this transient period, resources may be twice
+               reserved, control packets have to be transmitted.
+            </t>
+         </list>
+         Thus, reconfiguration may only be triggered if the gain is significant.
+         </t>
+      
+      <t>
+         Since RAW expects to support real-time flows, we have to soft-reconfiguration,
+         where the novel ressources are reserved before the ancient ones are released.
+         Some mechanisms have to be proposed so that packets are forwarded through the
+         novel track only when the resources are ready to be used, while maintaining
+         the global state consistent (no packet re-ordering, duplication, etc.)
+         </t>
+      <t>
+         In particular, RAW has to support the following modifications:
+         <list>
+            <t>
+               patching a schedule, relocating some radion resources (radio channel,
+               timeslots);
+            </t>
+            <t>
+               a device can be reset (e.g. firmware upgrade) safely, all the flows
+               being forwarded temporarly through alternative paths;
+               </t>
+            <t>
+               a better path (delay, reliability, energy consumption) has been identified.
+               </t>
+         </list>
+
          </t>
       </section>
+
+   
+
+      
+      
 </middle>
 
 <back>
@@ -275,8 +388,7 @@
    
    <references title="Informative References">
 		<?rfc include="reference.RFC.6291"?> <!-- OAM definition -->
-<!--		<?rfc include="reference.RFC.7276"?> -->
-      
+  
       
       <reference anchor="ipath" target="https://doi.org/10.1109/TNET.2014.2371459">
          <front>
