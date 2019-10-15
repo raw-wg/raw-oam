@@ -147,7 +147,12 @@
 
 
 
-<section title="OAM to provision appropriately the resources">
+
+
+<!-- INTEREST OF OAM          -->
+
+
+<section title="Needs for OAM in RAW">
    <t>
       RAW networks expect to make the communications predictable on top of a
       wireless network infrastructure. Most critical applications will define
@@ -175,41 +180,83 @@
       for OAM seems ireealistic, and only in-band solutions are considered here.
       </t>
    
+   <t>
+       We support both proactive and on-demand troubleshooting.
+    </t>
+   
    
 </section>
 
 
+
+
+
+
+<!--  OPERATION          -->
+
+
 <section title="Operation">
+    <t>
+        blabla
+        </t>
+    <section title="Connectivity Verification">
+     <t>We need to verify that two endpoints are connected with each other.
+         Since we reserve resources along the path independenlty for each flow,
+         we must be able to verify that the path exists for a given flow label.
+         </t>
+     
+     <t>
+         The control and data packets may not follow the same path, and the
+         connectivity verification has to be triggered in-band without impacting
+         the data traffic. In particular, the control plane may work while the
+         data plane may be broken.
+         </t>
+     
+     <t>
+         The ping packets must be labeled in the same way as the data packets
+         of the flow to monitor.
+        </t>
+     </section>
+    
+    
+
+    <section title="Route Tracing">
+    <t>
+       Ping and traceroute are two very common tools for diagnotic. They help
+       to identify the list of routers in the route. However, to be predictable,
+       resources are reserved per flow in RAW. Thus, we need to define route
+       tracing tools able to track the route for a specific flow.
+    </t>
+    
+    <t>
+        Because the network has to be fault-tolerant, multipath is the rule,
+        with mutiple Maintenance Intermediate Endpoints for each hop in the path.
+        Thus, we need to retrieve all the possible paths between two maintenance
+        endpoints.
+        </t>
+    </section>
+          
+
+
+   
+   <section title="Fault verification / detection">
+   
    <t>
       RAW expects to operate fault-tolerant networks. Thus, we need mechanisms
       able to detect faults, before they impact the network performance.
       </t>
    
   <t>
-     We make a distinction between the two following complementary mechanisms:
-     
-     <list style="symbols">
-        <t>
-           Detection: the network detects that a fault occured, i.e. the network
-           has deviated from its expected behavior. While the network must report
-           an alarm, the cause may not be identified precisely. For instance, the
-           end-to-end reliability has decreased significantly, or a buffer overflow
-           occurs;
-           </t>
-        <t>
-           Identification: the network has isolated and identified the cause
-           of the fault. For instance, the quality of a specific link has decreased,
-           requiring more retransmissions, or the level of external interference
-           has locally increased.
-           </t>
-      </list>
-     </t>
-  
+     The network has to detect when a fault occured, i.e. the network
+     has deviated from its expected behavior. While the network must report
+     an alarm, the cause may not be identified precisely. For instance, the
+     end-to-end reliability has decreased significantly, or a buffer overflow
+     occurs;
+    </t>
+
   
    <t>
-      These two-steps identification is required since RAW expects to rely on wireless
-      networks. Thus, we have to minimize the amount of statistics / measurements to
-      exchange:
+      We have to minimize the amount of statistics / measurements to exchange:
       <list style="symbols">
          <t>
             energy efficiency: low-power devices have to limit the volume of monitoring
@@ -229,6 +276,27 @@
    </section>
 
 
+   <section title="Fault isolation / identification">
+    <t>
+        The network has isolated and identified the cause of the fault. For instance,
+        the quality of a specific link has decreased, requiring more retransmissions,
+        or the level of external interference has locally increased.
+       </t>
+    
+    </section>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+<!--    ADMINISTRATION          -->
 
 <section title="Administration">
    
@@ -327,6 +395,16 @@
    
    </section>
    
+   
+   
+   
+   
+   
+   
+
+
+<!--   MAINTENANCE          -->
+
 <!-- speak about predictive maintenance? -->
 
    <section title="Maintenance">
@@ -347,30 +425,52 @@
          Thus, reconfiguration may only be triggered if the gain is significant.
          </t>
       
-      <t>
-         Since RAW expects to support real-time flows, we have to soft-reconfiguration,
-         where the novel ressources are reserved before the ancient ones are released.
-         Some mechanisms have to be proposed so that packets are forwarded through the
-         novel track only when the resources are ready to be used, while maintaining
-         the global state consistent (no packet re-ordering, duplication, etc.)
-         </t>
-      <t>
-         In particular, RAW has to support the following modifications:
-         <list>
-            <t>
-               patching a schedule, relocating some radion resources (radio channel,
-               timeslots);
-            </t>
-            <t>
-               a device can be reset (e.g. firmware upgrade) safely, all the flows
-               being forwarded temporarly through alternative paths;
-               </t>
-            <t>
-               a better path (delay, reliability, energy consumption) has been identified.
-               </t>
-         </list>
+     
+      
 
-         </t>
+      <section title="Multipath">
+           <t>
+               To be fault-tolerant, several paths can be reserved between two maintenance
+               endpoints. They must be node-disjoint, so that a path can be available
+               at any time.
+               </t>
+           
+           </section>
+           
+      <section title="Replication / Elimination">
+          <t>
+              When multiple paths are reserved betweeen two maintenance endpoints,
+              they may decide to replicate the packets to introduce redundancy, and
+              thus to alleviate transmission errors and collisions. Each maintenance
+              endpoint will decide to trigger the replication / elimination process when a set of
+              metrics passes through a threshold value.
+              
+              </t>
+          
+          </section>
+         
+      <section title="Resource Reservation">
+          <t>
+            Because the QoS criteria associated to a path may degrade, the network has
+            to provision additionnal resources along the path. We need to provide
+            mechanisms to patch a schedule (changing the channel offset, allocating more
+            timeslots, changing the path, etc.).
+            </t>
+          
+        </section>
+      
+      <section title="Soft transition after reconfiguration">
+          <t>
+              Since RAW expects to support real-time flows, we have to support soft-reconfiguration,
+              where the novel ressources are reserved before the ancient ones are released.
+              Some mechanisms have to be proposed so that packets are forwarded through the
+              novel track only when the resources are ready to be used, while maintaining
+              the global state consistent (no packet re-ordering, duplication, etc.)
+              </t>
+          
+        
+              
+        </section>
       </section>
 
    
