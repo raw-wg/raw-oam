@@ -100,7 +100,7 @@
 		to approach end-to-end deterministic performances over a network that 
 		includes scheduled wireless segments.
 		The wireless and wired media are fundamentally different at the physical level.
-		Enabling thus the wireless communication reliable and available is even more 
+		Enabling thus reliable and available wireless communications is even more
 		challenging than it is in wired IP networks, due to the numerous causes of loss 
 		in transmission that add up to the congestion losses and the delays 
 		caused by overbooked shared resources.
@@ -273,7 +273,7 @@
      		While the network must report an alarm, the cause may not be identified 
      		precisely. 
      		For instance, the end-to-end reliability has decreased significantly, or a 
-     		buffer overflow occurs;
+     		buffer overflow occurs.
 		</t>
 
   
@@ -290,6 +290,14 @@
             	bandwidth: wireless networks exhibit a bandwidth significantly lower than
             	wired, best-effort networks.
          	</t>
+            <t>
+                per-packet cost: is is often more expensive to send several packets instead
+                of combining them in a single link-layer frame.
+               <!--FT: already said later (i.e. technique to exploit this characteristic)
+               Thus, piggybacking is a very common technique oo insert additionnal control
+                information if the packet size doesn't exceed the MTU.
+               -->
+            </t>
       		</list>
       
       		Thus, localized and centralized mechanisms have to be combined together, and
@@ -336,7 +344,7 @@
          
          <t>
             Buffer occupancy: the number of packets present in the buffer,
-            for each the existing flows.
+            for each of the existing flows.
             </t>
          
       </list>
@@ -361,21 +369,19 @@
    </t>
    
    
-   <section title="Worst-case constraint">
+   <section title="Worst-case metrics">
       <t>
-         RAW aims to enable real-time communications on top of an heterogeneous
-         architecture. Since wireless networks are known to be lossy, RAW has
-         to implement strategies to improve the reliability on top of unreliable
-         links. Hybrid Automatic Repeat reQuest (ARQ) has typically to enable
-         retransmissions based on the end-to-end reliability and latency
-         requirements.
+         RAW aims to enable real-time communications on top of an heterogeneous architecture.
+         Since wireless networks are known to be lossy, RAW has to implement strategies to improve the reliability on top of unreliable links.
+         Hybrid Automatic Repeat reQuest (ARQ) has typically to enable retransmissions
+         based on the end-to-end reliability and latency requirements.
       </t>
       
       <t>
          To take correct decisions, the controller needs to know the distribution
-         of packet losses for each flow, and for each hop of the paths. In other words,
-         average end-to-end statistics are not enough. They must allow the controller
-         to predict the worst-case.
+         of packet losses for each flow, and for each hop of the paths.
+         In other words, average end-to-end statistics are not enough.
+         They must allow the controller to predict the worst-case.
          </t>
       
    </section>
@@ -383,19 +389,21 @@
    <section title="Energy efficiency constraint">
       <t>
          RAW targets also low-power wireless networks, where energy represents a key
-         constraint. Thus, we have to cake care of the energy and bandwidth consumption.
+         constraint.
+         Thus, we have to cake care of the energy and bandwidth consumption.
          The following techniques aim to reduce the cost of such maintenance:
          <list>
             <t>
-               piggybacking: some control information has inserted in the data packets
-               if they do not fragment the packet (i.e. the MTU is not exceeded). Information
-               Elements represent a standardized way to handle such information;
+               piggybacking: some control information are inserted in the data packets
+               if they do not fragment the packet (i.e. the MTU is not exceeded).
+               Information Elements represent a standardized way to handle such information;
                </t>
             
             <t>
                flags/fields: we have to set-up flags in the packets to monitor to be able
-               to monitor them accurately. A sequence number field may help to detect packet
-               losses. Similarly, path inference tools such as <xref target="ipath"/> insert
+               to monitor the forwarding process accurately.
+               A sequence number field may help to detect packet losses.
+               Similarly, path inference tools such as <xref target="ipath"/> insert
                additional information in the headers to identify the path followed by a
                packet a posteriori.
                </t>
@@ -430,8 +438,8 @@
             </t>
             <t>
                the reconfiguration cost: the controller needs to trigger some
-               reconfigurations. For this transient period, resources may be twice
-               reserved, control packets have to be transmitted.
+               reconfigurations.
+               For this transient period, resources may be twice reserved, and control packets have to be transmitted.
             </t>
          </list>
          Thus, reconfiguration may only be triggered if the gain is significant.
