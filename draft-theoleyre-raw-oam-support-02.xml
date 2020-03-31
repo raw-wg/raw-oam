@@ -326,33 +326,6 @@
      		buffer overflow occurs.
 		</t>
 
-  
-   		<t>
-   			<!-- GP: we may consider a meeting with Pascal or asking him to review the draft-->
-   			<!-- GP: I think, we may get inputs about the statistics from Bitmaps that can be included in the ACKs-->
-			We have to minimize the amount of statistics / measurements to exchange:
-      		<list style="symbols">
-         	<t>
-            	energy efficiency: low-power devices have to limit the volume of monitoring
-            	information since every bit consumes energy.
-         	</t>
-         	<t>
-            	bandwidth: wireless networks exhibit a bandwidth significantly lower than
-            	wired, best-effort networks.
-         	</t>
-            <t>
-                per-packet cost: is is often more expensive to send several packets instead
-                of combining them in a single link-layer frame.
-               <!--FT: already said later (i.e. technique to exploit this characteristic)
-               Thus, piggybacking is a very common technique oo insert additionnal control
-                information if the packet size doesn't exceed the MTU.
-               -->
-            </t>
-      		</list>
-      
-      		Thus, localized and centralized mechanisms have to be combined together, and
-      		additional control packets have to be triggered only after a fault detection.
-		</t>
 	</section>
 
 
@@ -419,6 +392,37 @@
    </t>
    
    
+    <section title="Collection of metrics">
+   
+   
+         <t>
+             We have to minimize the amount of statistics / measurements to exchange:
+             <list style="symbols">
+             <t>
+                 energy efficiency: low-power devices have to limit the volume of monitoring
+                 information since every bit consumes energy.
+             </t>
+             <t>
+                 bandwidth: wireless networks exhibit a bandwidth significantly lower than
+                 wired, best-effort networks.
+             </t>
+             <t>
+                 per-packet cost: is is often more expensive to send several packets instead
+                 of combining them in a single link-layer frame.
+             </t>
+             </list>
+       
+             Thus, localized and centralized mechanisms have to be combined together, and
+             additional control packets have to be triggered only after a fault detection.
+         </t>
+         
+         <t>
+             TODO:  be expanded to how active OAM and on-path OAM (for example iOAM, iPath, INT from P4) can be combined, complement each other. 
+             
+             </t>
+
+       </section>
+         
    <section title="Worst-case metrics">
       <t>
          RAW aims to enable real-time communications on top of an heterogeneous architecture.
