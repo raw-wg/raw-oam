@@ -78,7 +78,11 @@
    properties similar to those of wired deterministic networks. At the same
    time, a number of use cases cannot be solved with wires and justify the
    extra effort of going wireless. 
-   This document presents some of these use-cases.
+   This document lists the requirements of
+   the Operation, Administration, and Maintenance (OAM) features recommended to construct a predictable communication
+   infrastructure on top of a collection of wireless segments.  This
+   document describes the benefits, problems, and trade-offs for using
+   OAM in wireless networks to achieve Service Level Objectives.
    </t>
    </abstract>
    
@@ -143,7 +147,7 @@
       	in <xref target="RFC6291"/>.
       	We expect to implement an OAM framework in RAW networks to maintain a real-time 
       	view of the network infrastructure, and its ability to respect the Service Level 
-      	Agreements (SLA), such as delay and reliability, assigned to each data flow.
+      	Objectives (SLO), such as delay and reliability, assigned to each data flow.
    </t>
  
  
@@ -189,7 +193,7 @@
 	<t>
       RAW networks expect to make the communications reliable and predictable on top of a
       wireless network infrastructure. 
-      Most critical applications will define a SLA to respect for the data flows it 
+      Most critical applications will define a SLO to respect for the data flows it
       generates.
       RAW considers network plane protocol elements such as OAM to improve the RAW operation 
       at the service and at the forwarding sub-layers.
@@ -197,8 +201,10 @@
 
 
 	<t>
-      To respect strict guarantees, RAW relies on a Path Computation Element (PCE) which 
-      will be responsible to schedule the transmissions in the deployed network.
+      To respect strict guarantees, RAW relies on an orchestrator able to monitor and
+      maintain the network. Typically, a SDN controller is in charge of scheduling the transmissions
+      in the deployed network, based on the radio link characteristics, SLO of the flows, the
+      amount of packets to forward.
       Thus, resources have to be provisioned a priori to handle any defect. 
       OAM represents the core of the over provisioning process, and maintains the network 
       operational by updating the schedule dynamically.
@@ -208,7 +214,9 @@
 	<t>
       Fault-tolerance also assumes that multiple path have to be provisioned
       so that an end-to-end circuit keeps on existing whatever the conditions.
-      OAM is in charge of controlling the replication/elimination processes.
+      The replication/elimination processes (PREOF) on a node is typically controlled by the
+      central controller/orchestrator.
+      OAM is in charge of controlling that PREOF is working properly on a node and within the domain.
 	</t>
 
 
@@ -235,27 +243,38 @@
 	</t>
 
 
-    <section title="Connectivity Verification">
+    <section title="Continuity Check">
 		<t>
 			We need to verify that two endpoints are connected with each other.
-         	Since we reserve resources along the path independently for each flow,
-         	we must be able to verify that the path exists for a given flow label.
-		</t>
+            In other words, there exists "one" way to deliver the packets between
+            two endpoints A and B.
+ 		</t>
+        
+        </section>
 
-
-		<t>
-			The control and data packets may not follow the same path, and the
-         	connectivity verification has to be triggered in-band without impacting
-         	the data traffic. 
-         	In particular, the control plane may work while the data plane may be broken.
-		</t>
-
+        
+        <section title="Connectivity Verification">
 
 		<t>
-        	The ping packets must be labeled in the same way as the data packets of the 
-        	flow to monitor.
-        	<!-- GP: I do not understand this sentence-->
+            Additionnaly to the Continuity Check, we have to verify the connectivity.
+            This verification considers additionnal constraints, i.e., the absence of
+            misconnection.
+        </t>
+        <t>
+            In particular, the resources have to be reserved by a given flow, and no
+            packets from other flows steal the correponding resources. Similarly, the
+            destination does not receive packets from different flows through its interface.
+            </t>
+     
+        <t>
+			It is worth noting that the control and data packets may not follow the same
+            path, and the connectivity verification has to be triggered in-band without
+            impacting the data traffic.
+         	Indeed, a continuity check is not sufficient since the control plane may work
+            while the data plane may be broken.
 		</t>
+
+
 	</section>
         
 
@@ -271,8 +290,19 @@
 
 
 		<t>
-        	Because the network has to be fault-tolerant, multipath can be considered, with 
-        	multiple Maintenance Intermediate Endpoints for each hop in the path.
+            Wireless networks are meshed ny nature: we have many redundant radio links.
+            These meshed networks are both an asset and a drawback: while several paths exist
+            between two endpoints, we should choose the most efficient one(s), concerning
+            specifically the reliability, and the delay.
+           </t>
+        
+        <t>
+            Thus, multipath can be considered to make the network fault-tolerant.
+            Even better, we can exploit the broadcast nature of wireless networks to exploit
+            meshed multipath: we may have multiple Maintenance Intermediate Endpoints for each
+            hop in the path.
+            In that way, each Maintenance Intermediate Endpoint has several possible next hops
+            in the forwarding plane.
 			Thus, all the possible paths between two maintenance endpoints should be 
 			retrieved.
         </t>
