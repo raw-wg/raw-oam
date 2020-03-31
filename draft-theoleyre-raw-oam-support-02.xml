@@ -297,9 +297,9 @@
            </t>
         
         <t>
-            Thus, multipath can be considered to make the network fault-tolerant.
+            Thus, multipath routing can be considered to make the network fault-tolerant.
             Even better, we can exploit the broadcast nature of wireless networks to exploit
-            meshed multipath: we may have multiple Maintenance Intermediate Endpoints for each
+            meshed multipath routing: we may have multiple Maintenance Intermediate Endpoints for each
             hop in the path.
             In that way, each Maintenance Intermediate Endpoint has several possible next hops
             in the forwarding plane.
@@ -377,7 +377,7 @@
       <list style="symbols">
          <t>
             per virtual circuit to measure the end-to-end performance for a given flow.
-            Each of the paths has to be isolated in multipath strategies;
+            Each of the paths has to be isolated in multipath routing strategies;
             </t>
          
          <t>per radio channel to measure e.g. the level of external interference,
@@ -417,7 +417,7 @@
          </t>
          
          <t>
-             TODO:  be expanded to how active OAM and on-path OAM (for example iOAM, iPath, INT from P4) can be combined, complement each other. 
+             TODO:  be expanded to how active OAM and on-path OAM (for example iOAM, iPath, INT from P4) can be combined, complement each other.
              
              </t>
 
@@ -502,7 +502,7 @@
      
       
 
-      <section title="Multipath">
+      <section title="Multipath Routing">
            <t>
                To be fault-tolerant, several paths can be reserved between two maintenance
                endpoints. 
