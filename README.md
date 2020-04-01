@@ -11,4 +11,4 @@ the Operation, Administration, and Maintenance (OAM) features recommended to con
 
 
 # raw problem statement
-https://tools.ietf.org/html/draft-pthubert-raw-problem-statement-04.html
+https://tools.ietf.org/html/draft-pthubert-raw-problem-statement.html
