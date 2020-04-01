@@ -133,6 +133,18 @@
 		measurement.  
 		More can be found on OAM Tools in <xref target="RFC7276"/>.
 	</t>
+    
+    <t>
+        TODO:
+        
+        Wired networks (WAN) -> expensive to verify the QoS, read the flags, etc.
+       
+       Wireless Networks (RAW) -> the bandwidth is much lower, so each router has
+       less packets to inspect.
+       It is relevant to consume conmputational ressources to save network resources
+       (badnwidth + energy).
+        
+        </t>
    
     <t>
     	The main purpose of this document is to detail the requirements of the OAM 
@@ -241,7 +253,14 @@
     	purposes.
 	</t>
 
+    <section title="Information collection">
+           <t>
+               SNMP, and co.
+               </t>
+           </section>
 
+    
+    
     <section title="Continuity Check">
 		<t>
 			We need to verify that two endpoints are connected with each other.
@@ -276,7 +295,8 @@
 
 	</section>
         
-
+        
+   
     <section title="Route Tracing">
 		<t>
        		Ping and traceroute are two very common tools for diagnostic. 
@@ -499,6 +519,12 @@
          </t>
       
      
+     
+     <t>
+         TODO: OAM is the glue between the controller (e.g. SDN controller) and the wireless infrastructure.
+         In other words, we need to maintain a very precise and configurable view of the network performances.
+         
+         </t>
       
 
       <section title="Multipath Routing">
