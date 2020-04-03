@@ -74,15 +74,12 @@
 
    <abstract>
    <t>
-   The wireless medium presents significant specific challenges to achieve
-   properties similar to those of wired deterministic networks. At the same
-   time, a number of use cases cannot be solved with wires and justify the
-   extra effort of going wireless. 
-   This document lists the requirements of
-   the Operation, Administration, and Maintenance (OAM) features recommended to construct a predictable communication
-   infrastructure on top of a collection of wireless segments.  This
-   document describes the benefits, problems, and trade-offs for using
-   OAM in wireless networks to achieve Service Level Objectives.
+    Some critical applications may use a wireless infrastructure.
+    However, wireless networks exhibit a bandiwdth several orders of magnitude lower than wired networks.
+    Besides, wireless transmissions are lossy by nature, the probablity that a transmission cannot be decoded correctly  by the receiver may be quite high.
+    In these conditions, guaranteeing the network infrastructure works properly is particularly challenging, since we musta address some issues specific to wireless networks.
+    This document lists the requirements of  the Operation, Administration, and Maintenance (OAM) features recommended to construct a predictable communication infrastructure on top of a collection of wireless segments.
+    This document describes the benefits, problems, and trade-offs for using OAM in wireless networks to achieve Service Level Objectives.
    </t>
    </abstract>
    
@@ -117,39 +114,32 @@
 		Reliable and Available Wireless (RAW) is an effort that extends DetNet 
 		to approach end-to-end deterministic performances over a network that 
 		includes scheduled wireless segments.
-		The wireless and wired media are fundamentally different at the physical level.
-		Enabling thus reliable and available wireless communications is even more
-		challenging than it is in wired IP networks, due to the numerous causes of loss 
-		in transmission that add up to the congestion losses and the delays 
-		caused by overbooked shared resources.
-		To provide quality of service along a multihop path that is composed 
-		of wired and wireless hops, additional methods needs to be considered 
-		to leverage the potential lossy wireless communication.
-	</t>
-	
-	<t>
-		Traceability belongs to Operations, Administration, and Maintenance (OAM) 
-		which is the toolset for fault detection and isolation, and for performance 
-		measurement.  
-		More can be found on OAM Tools in <xref target="RFC7276"/>.
-	</t>
+        In wired networks, many Quality of Service approaches tried to implement traffic differentiation so that routers handle differently each type of packets.
+        However, this differentiated treatment was expensive for most applications.
+    </t>
     
     <t>
-        TODO:
-        
-        Wired networks (WAN) -> expensive to verify the QoS, read the flags, etc.
-       
-       Wireless Networks (RAW) -> the bandwidth is much lower, so each router has
-       less packets to inspect.
-       It is relevant to consume conmputational ressources to save network resources
-       (badnwidth + energy).
-        
-        </t>
-   
+        Then, detnet has proposed to provided a bounded end-to-end latency on top of the network infrastructure, comprising both layer 2 bridged and layer 3 routed segments.
+        Their work encompasses the data plane, OAM, time synchronization, management, control, and security aspects.
+    </t>
     <t>
-    	The main purpose of this document is to detail the requirements of the OAM 
+        However, wireless networks create specific challenges.
+        First of all, the radio bandwdidth is significantly smaller than for wired networks.
+        In these conditions, the volume of signaling messages has to be very limited.
+        Even worse, wireless links are lossy: a layer 2 transmission may or may not be decoded correctly by the receiver, depending on a large set of parameters.
+        Thus, providing high reliability through only wireless segments is particularly challenging.
+        </t>
+    <t>
+        Last but not least, radio links present very unstable characteristics.
+        If the wireless networks use an unlicensed band, packet losses are not anymore temporally and spatially independent.
+        Typically, links may exhibit a very bursty characteristic, where several consecutive packets may be dropped.
+        Thus, providing availability and reliability on top of the wireless infrastructure requires specific layer 3 mechanisms to counteract these bursty losses. 
+    </t>
+	   
+    <t>
+    	The main purpose of this document is to detail the specific requirements of the OAM
     	features recommended to construct a predictable communication infrastructure 
-    	on top of a collection of wireless segments. 
+    	on top of a collection of wireless segments.
       	This document describes the benefits, problems, and trade-offs for using OAM in 
     	wireless networks to provide availability and predictability.
 	</t>
