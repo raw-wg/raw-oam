@@ -73,14 +73,14 @@
    <workgroup>RAW</workgroup>
 
    <abstract>
-   <t>
-    Some critical applications may use a wireless infrastructure.
-    However, wireless networks exhibit a bandiwdth several orders of magnitude lower than wired networks.
-    Besides, wireless transmissions are lossy by nature, the probablity that a transmission cannot be decoded correctly  by the receiver may be quite high.
-    In these conditions, guaranteeing the network infrastructure works properly is particularly challenging, since we musta address some issues specific to wireless networks.
-    This document lists the requirements of  the Operation, Administration, and Maintenance (OAM) features recommended to construct a predictable communication infrastructure on top of a collection of wireless segments.
-    This document describes the benefits, problems, and trade-offs for using OAM in wireless networks to achieve Service Level Objectives.
-   </t>
+   		<t>
+    		Some critical applications may use wireless technologies.
+    		However, wireless networks exhibit a bandwidth several orders of magnitude lower than wired networks.
+    		Besides, wireless transmissions are lossy by nature, thus the probability that a transmission cannot be decoded correctly by the receiver might be high.
+    		In these conditions, guaranteeing the network infrastructure operates properly is particularly challenging, since certain issues specific to wireless technologies must addressed.
+    		This document lists the requirements of the Operation, Administration, and Maintenance (OAM) features recommended to construct a predictable communication infrastructure on top of a collection of wireless segments.
+    		This document describes the benefits, problems, and trade-offs for using OAM in wireless networks to achieve Service Level Objectives (SLO).
+   		</t>
    </abstract>
    
 
@@ -111,34 +111,43 @@
 
 <section title="Introduction">
 	<t>
-		Reliable and Available Wireless (RAW) is an effort that extends DetNet 
-		to approach end-to-end deterministic performances over a network that 
-		includes scheduled wireless segments.
-        In wired networks, many Quality of Service approaches tried to implement traffic differentiation so that routers handle differently each type of packets.
+		Reliable and Available Wireless (RAW) is an effort that extends DetNet provide 
+		reliable and available performance over a network that includes scheduled wireless 
+		segments.
+        In wired networks, many Quality of Service (QoS) approaches tried to implement 
+        traffic differentiation so that routers handle differently each type of packets.
         However, this differentiated treatment was expensive for most applications.
     </t>
     
     <t>
-        Then, detnet has proposed to provided a bounded end-to-end latency on top of the network infrastructure, comprising both layer 2 bridged and layer 3 routed segments.
-        Their work encompasses the data plane, OAM, time synchronization, management, control, and security aspects.
+        Then, DetNet has proposed to provided a bounded end-to-end latency on top of the 
+        network infrastructure, comprising both layer 2 bridged and layer 3 routed segments.
+        Their work encompasses the data plane, OAM, time synchronization, management, 
+        control, and security aspects.
     </t>
+    
     <t>
-        However, wireless networks create specific challenges.
-        First of all, the radio bandwdidth is significantly smaller than for wired networks.
-        In these conditions, the volume of signaling messages has to be very limited.
-        Even worse, wireless links are lossy: a layer 2 transmission may or may not be decoded correctly by the receiver, depending on a large set of parameters.
-        Thus, providing high reliability through only wireless segments is particularly challenging.
-        </t>
+        However, wireless networks introduce specific challenges.
+        First of all, the radio bandwdidth is significantly lower than the wired networks.
+        In these conditions, the volume of signaling messages has to be limited by nature.
+        Even worse, wireless links are lossy: a layer 2 transmission may or may not be 
+        decoded correctly by the receiver, depending on a large set of parameters.
+        Thus, providing high reliability over wireless segments only is particularly challenging.
+    </t>
+    
     <t>
         Last but not least, radio links present very unstable characteristics.
-        If the wireless networks use an unlicensed band, packet losses are not anymore temporally and spatially independent.
-        Typically, links may exhibit a very bursty characteristic, where several consecutive packets may be dropped.
-        Thus, providing availability and reliability on top of the wireless infrastructure requires specific layer 3 mechanisms to counteract these bursty losses. 
+        If the wireless networks use an unlicensed band, packet losses are not temporally 
+        and spatially independent.
+        Typically, links may exhibit a very bursty characteristic, where several 
+        consecutive packets may be dropped.
+        Thus, providing availability and reliability on top of the wireless infrastructure 
+        requires specific layer 3 mechanisms to counteract these bursty losses. 
     </t>
 	   
     <t>
     	The main purpose of this document is to detail the specific requirements of the OAM
-    	features recommended to construct a predictable communication infrastructure 
+    	features recommended to construct reliable and available communication infrastructure 
     	on top of a collection of wireless segments.
       	This document describes the benefits, problems, and trade-offs for using OAM in 
     	wireless networks to provide availability and predictability.
@@ -148,8 +157,8 @@
       	In this document, the term OAM will be used according to its definition specified 
       	in <xref target="RFC6291"/>.
       	We expect to implement an OAM framework in RAW networks to maintain a real-time 
-      	view of the network infrastructure, and its ability to respect the Service Level 
-      	Objectives (SLO), such as delay and reliability, assigned to each data flow.
+      	view of the network infrastructure, and its ability to respect the SLO, such as 
+      	delay and reliability, assigned to each data flow.
    </t>
  
  
