@@ -54,7 +54,7 @@
     </author>
 
     <author initials="G." surname="Mirsky" fullname="Grek Minsky">
-      <organization></organization>
+      <organization>ZTE Corp.</organization>
       <address>
         <postal>
            <street></street>
@@ -74,12 +74,14 @@
 
    <abstract>
    		<t>
-    		Some critical applications may use wireless technologies.
-    		However, wireless networks exhibit a bandwidth several orders of magnitude lower than wired networks.
-    		Besides, wireless transmissions are lossy by nature, thus the probability that a transmission cannot be decoded correctly by the receiver might be high.
-    		In these conditions, guaranteeing the network infrastructure operates properly is particularly challenging, since certain issues specific to wireless technologies must addressed.
-    		This document lists the requirements of the Operation, Administration, and Maintenance (OAM) features recommended to construct a predictable communication infrastructure on top of a collection of wireless segments.
-    		This document describes the benefits, problems, and trade-offs for using OAM in wireless networks to achieve Service Level Objectives (SLO).
+            Some critical applications may use a wireless infrastructure.
+              However, wireless networks exhibit a bandiwidth of several orders of magnitude lower than wired networks.
+              Besides, wireless transmissions are lossy by nature; the probability that a packet cannot be decoded correctly  by the receiver may be quite high.
+              In these conditions, guaranteeing the network infrastructure works properly is particularly challenging, since we need to address some issues specific to wireless networks.
+              This document lists the requirements of  the Operation, Administration, and Maintenance (OAM) features recommended to construct a predictable communication
+              infrastructure on top of a collection of wireless segments.
+              This document describes the benefits, problems, and trade-offs for using OAM in wireless networks to achieve Service Level Objectives (SLO).
+
    		</t>
    </abstract>
    
@@ -111,33 +113,32 @@
 
 <section title="Introduction">
 	<t>
-		Reliable and Available Wireless (RAW) is an effort that extends DetNet provide 
-		reliable and available performance over a network that includes scheduled wireless 
-		segments.
-        In wired networks, many Quality of Service (QoS) approaches tried to implement 
-        traffic differentiation so that routers handle differently each type of packets.
+        Reliable and Available Wireless (RAW) is an effort that extends DetNet
+        to approach end-to-end deterministic performances over a network that
+        includes scheduled wireless segments.
+        In wired networks, many approaches to Quality of Service (QoS) tried
+          to implement traffic differentiation so that routers handle differently each type of packets.
         However, this differentiated treatment was expensive for most applications.
     </t>
     
     <t>
-        Then, DetNet has proposed to provided a bounded end-to-end latency on top of the 
-        network infrastructure, comprising both layer 2 bridged and layer 3 routed segments.
-        Their work encompasses the data plane, OAM, time synchronization, management, 
-        control, and security aspects.
+        Deterministic Networking (DetNet) <xref target="RFC8655"/> has proposed to provide a bounded end-to-end latency
+        on top of the network infrastructure, comprising both Layer 2 bridged and Layer 3 routed segments.
+        Their work encompasses the data plane, OAM, time synchronization, management, control, and security aspects.
     </t>
     
     <t>
-        However, wireless networks introduce specific challenges.
-        First of all, the radio bandwdidth is significantly lower than the wired networks.
-        In these conditions, the volume of signaling messages has to be limited by nature.
+        However, wireless networks create specific challenges.
+        First of all, radio bandwdidth is significantly lower than for wired networks.
+        In these conditions, the volume of signaling messages has to be very limited.
         Even worse, wireless links are lossy: a layer 2 transmission may or may not be 
         decoded correctly by the receiver, depending on a large set of parameters.
-        Thus, providing high reliability over wireless segments only is particularly challenging.
+        Thus, providing high reliability through only wireless segments only is particularly challenging.
     </t>
     
     <t>
         Last but not least, radio links present very unstable characteristics.
-        If the wireless networks use an unlicensed band, packet losses are not temporally 
+        If the wireless networks use an unlicensed band, packet losses are not anymore temporally
         and spatially independent.
         Typically, links may exhibit a very bursty characteristic, where several 
         consecutive packets may be dropped.
@@ -146,9 +147,15 @@
     </t>
 	   
     <t>
-    	The main purpose of this document is to detail the specific requirements of the OAM
-    	features recommended to construct reliable and available communication infrastructure 
-    	on top of a collection of wireless segments.
+        Operations, Administration, and Maintenance (OAM) Tools are of primary importance
+        for IP networks <xref target="RFC7276"/>.
+        It defines a toolset for fault detection and isolation, and for performance measurement.
+    </t>
+       
+    <t>
+        The main purpose of this document is to detail the specific requirements of the OAM
+        features recommended to construct a predictable communication infrastructure
+        on top of a collection of wireless segments.
       	This document describes the benefits, problems, and trade-offs for using OAM in 
     	wireless networks to provide availability and predictability.
 	</t>
@@ -157,8 +164,8 @@
       	In this document, the term OAM will be used according to its definition specified 
       	in <xref target="RFC6291"/>.
       	We expect to implement an OAM framework in RAW networks to maintain a real-time 
-      	view of the network infrastructure, and its ability to respect the SLO, such as 
-      	delay and reliability, assigned to each data flow.
+      	view of the network infrastructure, and its ability to respect the Service Level
+          Objectives (SLO), such as delay and reliability, assigned to each data flow.
    </t>
  
  
@@ -170,29 +177,50 @@
             	</t>
             
             	<t>
-               		Maintenance EndPoint (MEP): OAM devices crossed when entering/exiting
+               		Maintenance End Point (MEP): OAM devices crossed when entering/exiting
                     the network. In RAW, it corresponds mostly to the source or destination
                     of a data flow. OAM message can be exchanges between two MEPs;
             	</t>
          
                 <t>
-                    Maintenance Intermediate endPoint (MIP): OAM devices along the flow;
+                    Maintenance Intermediate end Point (MIP): OAM devices along the flow;
                     OAM messages can be exchanged between a MEP and a MIP;
                 </t>
 
                 <t>
-            		defect: a temporary change in the network (e.g. a radio link which is
+            		Defect: a temporary change in the network (e.g. a radio link which is
                     broken due to a mobile obstacle);
          		</t>
          
          		<t>
-            		fault: a definite change which may affect the network performance, 
-            		e.g. a node runs out of energy,
+            		Fault: a definite change which may affect the network performance,
+            		e.g. a node runs out of energy.
             	</t>
          	</list>
     	</t>
 	</section>
+    
+    
+    <section anchor="acronyms-sec" title="Acronyms">
+    <t>OAM                   Operations, Administration, and Maintanence</t>
+    <t>DetNet               Deterministic Networking</t>
+    <t>SLO                    Service Level Objective</t>
+    <t>QoS                   Quality of Service</t>
+    <t>SNMP               Simple Network Management Protocol</t>
+    <t>SDN                  Software Defined Network</t>
+    </section>
+
+            <section title="Requirements Language">
+             <t>
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+   NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
+   "MAY", and "OPTIONAL" in this document are to be interpreted as
+   described in BCP 14 <xref target="RFC2119"/> <xref target="RFC8174"/>
+   when, and only when, they appear in all capitals, as shown here.
+             </t>
+             </section>
  
+
 </section>
 
 
@@ -204,18 +232,18 @@
 	<t>
       RAW networks expect to make the communications reliable and predictable on top of a
       wireless network infrastructure. 
-      Most critical applications will define a SLO to respect for the data flows it
+      Most critical applications will define an SLO to be required for the data flows it
       generates.
       RAW considers network plane protocol elements such as OAM to improve the RAW operation 
-      at the service and at the forwarding sub-layers.
+      at the service and the forwarding sub-layers.
 	</t>
 
 
 	<t>
       To respect strict guarantees, RAW relies on an orchestrator able to monitor and
-      maintain the network. Typically, a SDN controller is in charge of scheduling the transmissions
+      maintain the network. Typically, a Software Defined Network (SDN) controller is in charge of scheduling the transmissions
       in the deployed network, based on the radio link characteristics, SLO of the flows, the
-      amount of packets to forward.
+      number of packets to forward.
       Thus, resources have to be provisioned a priori to handle any defect. 
       OAM represents the core of the over provisioning process, and maintains the network 
       operational by updating the schedule dynamically.
@@ -223,7 +251,7 @@
 
 
 	<t>
-      Fault-tolerance also assumes that multiple path have to be provisioned
+      Fault-tolerance also assumes that multiple paths have to be provisioned
       so that an end-to-end circuit keeps on existing whatever the conditions.
       The replication/elimination processes (PREOF) on a node is typically controlled by the
       central controller/orchestrator.
@@ -252,9 +280,10 @@
     	purposes.
 	</t>
 
-    <section title="Information collection">
+    <section title="Information Collection">
            <t>
-               SNMP, and co.
+               Several solutions (e.g., Simple Network Management Protocol (SNMP), YANG-based data models) are already in charge of collecting the statistics.
+               That way, we can encapsulate these statistics in specific monitoring packets, to send them to the controller.
                </t>
            </section>
 
@@ -262,7 +291,7 @@
     
     <section title="Continuity Check">
 		<t>
-			We need to verify that two endpoints are connected with each other.
+			We need to verify that two endpoints are connected.
             In other words, there exists "one" way to deliver the packets between
             two endpoints A and B.
  		</t>
@@ -273,22 +302,21 @@
         <section title="Connectivity Verification">
 
 		<t>
-            Additionnaly to the Continuity Check, we have to verify the connectivity.
-            This verification considers additionnal constraints, i.e., the absence of
+            Additionally, to the Continuity Check, we have to verify the connectivity.
+            This verification considers additional constraints, i.e., the absence of
             misconnection.
         </t>
         <t>
             In particular, the resources have to be reserved by a given flow, and no
-            packets from other flows steal the correponding resources. Similarly, the
-            destination does not receive packets from different flows through its interface.
+             packets from other flows steal the corresponding resources. Similarly, the
+             destination does not receive packets from different flows through its interface.
             </t>
      
         <t>
 			It is worth noting that the control and data packets may not follow the same
-            path, and the connectivity verification has to be triggered in-band without
+            path, and the connectivity verification has to be conducted in-band without
             impacting the data traffic.
-         	Indeed, a continuity check is not sufficient since the control plane may work
-            while the data plane may be broken.
+            Test packets must share the fate with the monitored data traffic without introducing congestion in normal network conditions.
 		</t>
 
 
@@ -308,7 +336,7 @@
 
 
 		<t>
-            Wireless networks are meshed ny nature: we have many redundant radio links.
+            Wireless networks are meshed by nature: we have many redundant radio links.
             These meshed networks are both an asset and a drawback: while several paths exist
             between two endpoints, we should choose the most efficient one(s), concerning
             specifically the reliability, and the delay.
@@ -327,7 +355,7 @@
     </section>
 
    
-	<section title="Fault verification / detection">
+	<section title="Fault Verification/detection">
 		<t>
       		RAW expects to operate fault-tolerant networks. 
       		Thus, we need mechanisms able to detect faults, before they impact the network 
@@ -336,8 +364,8 @@
 
 
 		<t>
-     		The network has to detect when a fault occurred, i.e. the network has deviated 
-     		from its expected behavior. 
+     		The network has to detect when a fault occurred, i.e., the network has deviated
+             from its expected behavior.
      		While the network must report an alarm, the cause may not be identified 
      		precisely. 
      		For instance, the end-to-end reliability has decreased significantly, or a 
@@ -347,7 +375,7 @@
 	</section>
 
 
-	<section title="Fault isolation / identification">
+	<section title="Fault Isolation/identification">
     	<t>
         	The network has isolated and identified the cause of the fault. 
         	For instance, the quality of a specific link has decreased, requiring more 
@@ -362,12 +390,12 @@
 <section title="Administration">
    
    <t>
-      To take proper decisions, the network has to expose a collection of metrics, including:
+      The network has to expose a collection of metrics to support an operator making proper decisions, including:
       
       <list style="symbols">
          <t>
             Packet losses: the time-window average and maximum values of the
-            number of packet losses has to be measured. Many critical applications
+            number of packet losses have to be measured. Many critical applications
             stop to work if a few consecutive packets are dropped;
             </t>
          
@@ -398,7 +426,7 @@
             Each of the paths has to be isolated in multipath routing strategies;
             </t>
          
-         <t>per radio channel to measure e.g. the level of external interference,
+         <t>per radio channel to measure, e.g., the level of external interference,
             and to be able to apply counter-measures (e.g. blacklisting)
             </t>
          
@@ -414,7 +442,7 @@
    
    
          <t>
-             We have to minimize the amount of statistics / measurements to exchange:
+             We have to minimize the number of statistics / measurements to exchange:
              <list style="symbols">
              <t>
                  energy efficiency: low-power devices have to limit the volume of monitoring
@@ -425,7 +453,7 @@
                  wired, best-effort networks.
              </t>
              <t>
-                 per-packet cost: is is often more expensive to send several packets instead
+                 per-packet cost: it is often more expensive to send several packets instead
                  of combining them in a single link-layer frame.
              </t>
              </list>
@@ -434,25 +462,25 @@
              additional control packets have to be triggered only after a fault detection.
          </t>
          
-         <t>
+    <!-- TODO     <t>
              TODO:  be expanded to how active OAM and on-path OAM (for example iOAM, iPath, INT from P4) can be combined, complement each other.
              
              </t>
-
+-->
        </section>
          
    <section title="Worst-case metrics">
       <t>
-         RAW aims to enable real-time communications on top of an heterogeneous architecture.
-         Since wireless networks are known to be lossy, RAW has to implement strategies to improve the reliability on top of unreliable links.
+         RAW aims to enable real-time communications on top of a heterogeneous architecture.
+         Since wireless networks are known to be lossy, RAW has to implement strategies to improve reliability on top of unreliable links.
          Hybrid Automatic Repeat reQuest (ARQ) has typically to enable retransmissions
          based on the end-to-end reliability and latency requirements.
       </t>
       
       <t>
-         To take correct decisions, the controller needs to know the distribution
-         of packet losses for each flow, and for each hop of the paths.
-         In other words, average end-to-end statistics are not enough.
+         To make correct decisions, the controller needs to know the distribution
+         of packet losses for each flow, and each hop of the paths.
+         In other words, the average end-to-end statistics are not enough.
          They must allow the controller to predict the worst-case.
          </t>
       
@@ -462,12 +490,12 @@
       <t>
          RAW targets also low-power wireless networks, where energy represents a key
          constraint.
-         Thus, we have to cake care of the energy and bandwidth consumption.
+         Thus, we have to take care of power and bandwidth consumption.
          The following techniques aim to reduce the cost of such maintenance:
          <list>
             <t>
                piggybacking: some control information are inserted in the data packets
-               if they do not fragment the packet (i.e. the MTU is not exceeded).
+               if they do not fragment the packet (i.e., the MTU is not exceeded).
                Information Elements represent a standardized way to handle such information;
                </t>
             
@@ -506,7 +534,7 @@
          to judge about the relevance of a reconfiguration, quantifying:
          <list>
             <t> the cost of the sub-optimality: resources may not be used
-               optimally (e.g. a better path exists);
+               optimally (e.g., a better path exists);
             </t>
             <t>
                the reconfiguration cost: the controller needs to trigger some
@@ -518,19 +546,19 @@
          </t>
       
      
-     
+ <!-- TODO
      <t>
-         TODO: OAM is the glue between the controller (e.g. SDN controller) and the wireless infrastructure.
+         TODO: OAM is the glue between the controller (e.g., SDN controller) and the wireless infrastructure.
          In other words, we need to maintain a very precise and configurable view of the network performances.
          
          </t>
-      
+      -->
 
       <section title="Multipath Routing">
            <t>
                To be fault-tolerant, several paths can be reserved between two maintenance
                endpoints. 
-               They must be node-disjoint, so that a path can be available at any time.
+               They must be node-disjoint so that a path can be available at any time.
                </t>
            
            </section>
@@ -542,13 +570,11 @@
               thus to alleviate transmission errors and collisions. 
               For instance, in <xref target="fig_replication"/>, the source node S is 
               transmitting the packet to both parents, nodes A and B.              
-              Each maintenance endpoint will decide to trigger the replication / 
-              elimination process when a set of metrics passes through a threshold value.
+              Each maintenance endpoint will decide to trigger the replication/elimination
+              process when a set of metrics passes through a threshold value.
           </t>
         
-          <figure anchor="fig_replication" align="center"
-            title="Packet Replication: S transmits twice the same data packet, to its DP
-            (A) and to its AP (B).">
+          <figure anchor="fig_replication" align="center" title="Packet Replication: S transmits twice the same data packet, to its DP             (A) and to its AP (B).">
             <artwork align="center"><![CDATA[
  
                ===> (A) => (C) => (E) === 
@@ -564,7 +590,7 @@
          
       <section title="Resource Reservation">
           <t>
-            Because the QoS criteria associated to a path may degrade, the network has
+            Because the QoS criteria associated with a path may degrade, the network has
             to provision additional resources along the path. We need to provide
             mechanisms to patch a schedule (changing the channel offset, allocating more
             timeslots, changing the path, etc.).
@@ -575,10 +601,10 @@
       <section title="Soft transition after reconfiguration">
           <t>
               Since RAW expects to support real-time flows, we have to support soft-reconfiguration,
-              where the novel ressources are reserved before the ancient ones are released.
+              where the novel resources are reserved before the ancient ones are released.
               Some mechanisms have to be proposed so that packets are forwarded through the
               novel track only when the resources are ready to be used, while maintaining
-              the global state consistent (no packet re-ordering, duplication, etc.)
+              the global state consistent (no packet reordering, duplication, etc.)
               </t>
           
         
@@ -590,7 +616,25 @@
 
       
       
+  <section anchor="iana-consider" title="IANA Considerations">
+  <t>This document has no actionable requirements for IANA. This section can be removed before the publication.</t>
+  </section>
+   
+     <section anchor="security" title="Security Considerations">
+     <t>
+This section will be expanded in future versions of the draft.
+     </t>
+
+     </section>
+     
+           <section title="Acknowledgments">
+         <t>
+        TBD
+         </t>
+      </section>
+      
 </middle>
+
 
 <back>
    
@@ -601,8 +645,11 @@
    
    <references title="Informative References">
 		<?rfc include="reference.RFC.6291"?> <!-- OAM definition -->
-		<?rfc include="reference.RFC.7276"?> <!-- An Overview of Operations, Administration, and Maintenance (OAM) Tools -->
-  
+        <?rfc include="reference.RFC.7276"?> <!-- An Overview of Operations, Administration, and Maintenance (OAM) Tools -->
+        <?rfc include="reference.RFC.8174"?> <!-- Ambiguity of Uppercase vs Lowercase -->
+        <?rfc include="reference.RFC.8655"?> <!-- Deterministic Networking Architecture -->
+        <?rfc include="reference.RFC.2119"?> <!-- Key words for use in RFCs to Indicate Requirement Levels  -->
+
       
       <reference anchor="ipath" target="https://doi.org/10.1109/TNET.2014.2371459">
          <front>
@@ -627,7 +674,9 @@
    
    
 
-   
+ <!-- TODO
+ 
+ 
    <section title="TO BE ADDRESSED">
        <t>
            3 principles for high reliability:
@@ -644,8 +693,8 @@
                resource reservation clearly does this. Therefore, I recommend that the
                reliable crossover principle get explicit treatment at this stage so
                the tradeoffs can be properly weighed.
-                 (We've gone through resource reservation protocols before -- remember
-               RSVP? -- and they've not been very successful).
+                 (We've gone through resource reservation protocols before - remember
+               RSVP? - and they've not been very successful).
 
                    
                    </t>
@@ -667,7 +716,7 @@
        
        
        </section>
-
+-->
 
 </back>
 
