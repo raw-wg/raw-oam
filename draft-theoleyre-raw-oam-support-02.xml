@@ -175,6 +175,11 @@
             	<t>
                		OAM entity: a data flow to be controlled;
             	</t>
+                
+                <!-- TODO-Greg-
+                
+                I think it is useful to differentiate between MEP and MIP. But we need to consider the origin of the term is Layer 2. For IETF we might choose/define somewhat different terms, e.g., Test Point for MEP and Monitor Point for MIP.
+                -->
             
             	<t>
                		Maintenance End Point (MEP): OAM devices crossed when entering/exiting
@@ -249,6 +254,9 @@
       operational by updating the schedule dynamically.
 	</t>
 
+<!-- TODO-Greg-
+Strictly speaking, PREOF also includes an order preservation. Do you see it as the required element in RAW?
+-->
 
 	<t>
       Fault-tolerance also assumes that multiple paths have to be provisioned
@@ -258,7 +266,9 @@
       OAM is in charge of controlling that PREOF is working properly on a node and within the domain.
 	</t>
 
-
+<!-- TODO-Greg-
+I think that out-of-band OAM is useful in case of passive OAM that collects counters, statistics from the nodes, e.g., SNMP or Netconf/Restconf using YANG-based data models. Such methods may be used as systems have control and management channels already.
+-->
 	<t>
       To be energy-efficient, reserving some dedicated out-of-band resources
       for OAM seems idealistic, and only in-band solutions are considered here.
@@ -279,6 +289,10 @@
     	OAM features will enable RAW with robust operation both for forwarding and routing 
     	purposes.
 	</t>
+    
+    <!-- TODO-Greg-
+    We can clarify that this is a method of passive OAM (according to RFC 7799 classification of OAM performance measurement methods).
+    -->
 
     <section title="Information Collection">
            <t>
@@ -312,10 +326,14 @@
              destination does not receive packets from different flows through its interface.
             </t>
      
+    
         <t>
 			It is worth noting that the control and data packets may not follow the same
             path, and the connectivity verification has to be conducted in-band without
             impacting the data traffic.
+            <!-- TODO-Greg-
+            It is critical for both CC, CV and, in general, active OAM methods. I think it can be listed in the Requirements for OAM in RAW section.
+            -->
             Test packets must share the fate with the monitored data traffic without introducing congestion in normal network conditions.
 		</t>
 
@@ -326,6 +344,9 @@
    
     <section title="Route Tracing">
 		<t>
+            <!-- TODO-Greg-
+            Do we want to point to ICMP Ping specifically? Principles used in ICMP Ping/traceroute have been used in other networks, for example, MPLS LSP ping.
+            -->
        		Ping and traceroute are two very common tools for diagnostic. 
        		<!-- GP: we may check with Pascal, if he agrees, we may introduce the concepts of Bitmap-->
        		They help to identify a subset of the list of routers in the route.
