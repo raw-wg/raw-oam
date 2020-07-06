@@ -711,7 +711,7 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
           </t>
           <t>
               We have to propose mechanisms to guarantee that the network state is always consistent, even if some control packets are lost.
-              Timeouts are retransmissions are not sufficient since the reconfiguration duration would be in that case unbounded.
+              Timeouts and retransmissions are not sufficient since the reconfiguration duration would be in that case unbounded.
           
           </t>
           
