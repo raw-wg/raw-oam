@@ -286,23 +286,50 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
         </t>
     
     
-    <section title="Broadcast Transmissions">
+    <section title="Link concept and quality">
         <t>
-            a
+            In wireless networks, a <spanx style="emph">link</spanx> doesn't really exist.
+            A common convention is to define a wireless link as a pair of devices
+            that have a non null probability of transmitting and decoding a packet.
+            Similarly, we designate as <spanx style="strong">neighbor</spanx> any device which
+            as a link with a specific transmitter.
+            </t>
+        
+        <t>
+            To each wireless link is associated a link quality, often measured as the
+            Packet Delivery Ratio, i.e., the probability that the receiver is able to decode correctly
+            the packet.
+            It is worth noting that this link quality depends on many criteria such as the level of external
+            interference, the presence of concurrent transmissions, or the radio channel state.
+            This link quality is even time-variant.
             </t>
         </section>
     
-    
-    <section title="Link quality">
+    <section title="Broadcast Transmissions">
         <t>
-            a
+            In modern switching networks, an unicast transmission is delivered uniquely to the destination.
+            Wireless networks are much closer to the ancient shared access wireless networks.
+            An unicast transmission is similar to a broadcast one and can be received by any neighbor.
             </t>
+        
+        <t>
+            However, contrary to wired networks, we cannot be sure that a packet is received by
+            <spanx style="strong">all</spanx> the devices attached to the network. It depends on the radio channel state between the transmitter(s)
+            and the receiver(s).
+            In particular, concurrent transmissions may be possible or not, depending on the radio conditions.
+            </t>
+        
         </section>
     
 
+
     <section title="Complex layer-2 forwarding">
         <t>
-            Anycast
+            Multiple neighbors may receive a transmission.
+            Thus, anycast layer-2 forwarding helps to maximize the reliability by assigning multiple receivers to a single transmission.
+            That way, the packet is lost only if none of the receivers decode it.
+            Practically, it has been proven that different neighbors may exhibit very different radio conditions, and
+            that reception independency may hold for some of them <xref target="anycast-property"/>.
             </t>
         </section>
 
@@ -413,7 +440,7 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
             In that way, each Maintenance Intermediate Endpoint has several possible next hops
             in the forwarding plane.
 			Thus, all the possible paths between two maintenance endpoints should be 
-			retrieved.
+			retrieved, which may quickly become untractable if we apply a naive approach.
         </t>
     </section>
 
@@ -424,7 +451,12 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
       		Thus, we need mechanisms able to detect faults, before they impact the network 
       		performance.
 		</t>
-
+        
+        <t>
+            Wired networs tend to present stable performances.
+            On the contrary, wireless networks are time-variant.
+            We must consequently make a distinction between <spanx style="emph">normal</spanx> evolutions, and malfunction.
+        </t>
 
 		<t>
      		The network has to detect when a fault occurred, i.e., the network has deviated
@@ -441,9 +473,13 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
 	<section title="Fault Isolation/identification">
     	<t>
         	The network has isolated and identified the cause of the fault. 
-        	For instance, the quality of a specific link has decreased, requiring more 
+        	While detnet already expects to identify malfunctions, some problems are specific to wireless networks.
+            We must consequently collect metrics and implement algorithms tailored for wireless networking.
+            For instance, the quality of a specific link has decreased, requiring more
         	retransmissions, or the level of external interference has locally increased.
 		</t>
+        
+        
 	</section>
 </section>
 
@@ -535,7 +571,7 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
    <section title="Worst-case metrics">
       <t>
          RAW aims to enable real-time communications on top of a heterogeneous architecture.
-         Since wireless networks are known to be lossy, RAW has to implement strategies to improve reliability on top of unreliable links.
+         Wireless networks are known to be lossy, and RAW has to implement strategies to improve reliability on top of unreliable links.
          Hybrid Automatic Repeat reQuest (ARQ) has typically to enable retransmissions
          based on the end-to-end reliability and latency requirements.
       </t>
@@ -713,6 +749,21 @@ This section will be expanded in future versions of the draft.
         <?rfc include="reference.RFC.8655"?> <!-- Deterministic Networking Architecture -->
         <?rfc include="reference.RFC.2119"?> <!-- Key words for use in RFCs to Indicate Requirement Levels  -->
 
+        
+        
+        
+        <reference anchor="anycast-property" target="https://doi.org/10.1109/LCNSymposium47956.2019.9000679">
+             <front>
+                <title>Is Link-Layer Anycast Scheduling Relevant for IEEE 802.15.4-TSCH Networks?</title>
+                <author initials="R." surname="Teles Hermeto" fullname="R. Teles Hermeto"></author>
+                <author initials="A." surname="Gallais" fullname="A. Gallais"></author>
+                <author initials="F." surname="Theoleyre" fullname="F. Theoleyre"></author>
+                <date year="2019"/>
+                <!--
+                 IEEE 2019 IEEE 44th LCN Symposium on Emerging Topics in Networking (LCN Symposium) 2019, 14-17 Oct. 2019, Osnabruck, Germany
+                 -->
+             </front>
+          </reference>
       
       <reference anchor="ipath" target="https://doi.org/10.1109/TNET.2014.2371459">
          <front>
