@@ -653,7 +653,11 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
          </t>
       -->
 
-      <section title="Multipath Routing">
+ <!-- TODO-Fabrice
+ nothing here specific to wireless
+ -->
+ <!--
+    <section title="Multipath Routing">
            <t>
                To be fault-tolerant, several paths can be reserved between two maintenance
                endpoints. 
@@ -661,7 +665,7 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
                </t>
            
            </section>
-           
+    -->
       <section title="Replication / Elimination">
           <t>
               When multiple paths are reserved between two maintenance endpoints,
@@ -687,16 +691,37 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
           
 	  </section>
          
-      <section title="Resource Reservation">
+      <section title="Dynamic Resource Reservation">
           <t>
-            Because the QoS criteria associated with a path may degrade, the network has
-            to provision additional resources along the path. We need to provide
-            mechanisms to patch a schedule (changing the channel offset, allocating more
-            timeslots, changing the path, etc.).
+              Wireles networks exhibit time-variant characteristics.
+              Thus, the network has to provision additional resources along the path to fit the worst-case performance.
+              Clearly, this time-variant characteristics malke the resource resservation very challenging: over-reaction waste radio and energy resources.
+              Inversely, under-reaction jeopardize the network operations, and some SLO may be violated.
             </t>
           
         </section>
       
+      
+      
+      <section title="Reliable Reconfiguration">
+          <t>
+            Wireless networks are known to be lossy.
+            Thus, commands may be received or not by the node to reconfigure.
+            Unfortuantely, inconsistent states may create critical misconfigurations, where packets may be lost along a path because it has not been properly configured.
+          </t>
+          <t>
+              We have to propose mechanisms to guarantee that the network state is always consistent, even if some control packets are lost.
+              Timeouts are retransmissions are not sufficient since the reconfiguration duration would be in that case unbounded.
+          
+          </t>
+          
+          
+          </section>
+      
+    <!-- TODO-Fabrice
+        nothing specific to wireless networks here
+    -->
+    <!--
       <section title="Soft transition after reconfiguration">
           <t>
               Since RAW expects to support real-time flows, we have to support soft-reconfiguration,
@@ -709,6 +734,7 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
         
               
         </section>
+-->
       </section>
 
    
