@@ -108,8 +108,8 @@
         Reliable and Available Wireless (RAW) is an effort that extends DetNet
         to approach end-to-end deterministic performances over a network that
         includes scheduled wireless segments.
-        In wired networks, many approaches to Quality of Service (QoS) tried
-          to implement traffic differentiation so that routers handle differently each type of packets.
+        In wired networks, many approaches try to enable Quality of Service (QoS) by
+        implementing traffic differentiation so that routers handle differently each type of packets.
         However, this differentiated treatment was expensive for most applications.
     </t>
     
@@ -125,7 +125,17 @@
         In these conditions, the volume of signaling messages has to be very limited.
         Even worse, wireless links are lossy: a layer 2 transmission may or may not be 
         decoded correctly by the receiver, depending on a large set of parameters.
-        Thus, providing high reliability through only wireless segments only is particularly challenging.
+        Thus, providing high reliability through wireless segments only is particularly challenging.
+    </t>
+    
+    <t>
+        Wired networks rely on the concept of <spanx style="emph">links</spanx>. All the devices attached
+        to a link receive any transmission. The concept of link in wireless networks is much more weird.
+        A receiver may or may not receive a transmission, depending on a colliding transmission, the
+        quality of the radio channel, and external interference.
+        Besides, a wireless transmissions is broadcast by nature: any <spanx style="emph">neighboring</spanx>
+        device may be able to decode it. We will detail what are the implications on the OAM features.
+        
     </t>
     
     <t>
@@ -270,6 +280,33 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
 	<t>
        RAW supports both proactive and on-demand troubleshooting.
 	</t>
+    
+    <t>
+        We will detail now the specific characteristics of RAW.
+        </t>
+    
+    
+    <section title="Broadcast Transmissions">
+        <t>
+            a
+            </t>
+        </section>
+    
+    
+    <section title="Link quality">
+        <t>
+            a
+            </t>
+        </section>
+    
+
+    <section title="Complex layer-2 forwarding">
+        <t>
+            Anycast
+            </t>
+        </section>
+
+    
 </section>
 
 
@@ -299,7 +336,7 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
 		<t>
 			We need to verify that two endpoints are connected.
             In other words, there exists "one" way to deliver the packets between
-            two endpoints A and B.
+            two endpoints A and B. The solution may not here defer from those of detnet.
  		</t>
         
         </section>
@@ -316,7 +353,23 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
             In particular, the resources have to be reserved by a given flow, and no
              packets from other flows steal the corresponding resources. Similarly, the
              destination does not receive packets from different flows through its interface.
-            </t>
+        </t>
+        
+        <!-- TODO-Fabrice
+        To focus on wireless aspects, i.e., what is different from detnet.
+        -->
+        <t>
+            Because of the broadcast nature of radio transmissions, several receivers may be
+            active at the same time, to enable anycast layer-2 forwarding. Thus, the connectivity
+            verification must test any combination.
+            We also consider priority based mechanisms for anycast fowarding, i.e., all the receivers
+            haven't the same probability to forward a packet.
+            To verify a delay SLO for a given flow, we must also consider all the possible combinations,
+            leading to a probability distribution function for end-to-end transmissions.
+            If this verification is implemented
+            naively, the number of combinations to test may be exponential, and thus, too costly
+            for wireless networks with a low bandwidth.
+        </t>
      
     
         <t>
@@ -336,13 +389,10 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
    
     <section title="Route Tracing">
 		<t>
-            <!-- TODO-Greg-
-            Do we want to point to ICMP Ping specifically? Principles used in ICMP Ping/traceroute have been used in other networks, for example, MPLS LSP ping.
-            -->
-       		Ping and traceroute are two very common tools for diagnostic. 
+       		ICMP tools are very common tools for diagnostic.
        		<!-- GP: we may check with Pascal, if he agrees, we may introduce the concepts of Bitmap-->
        		They help to identify a subset of the list of routers in the route.
-       		However, to be predictable, resources are reserved per flow in RAW. 
+       		To be predictable, resources are reserved per flow in RAW.
        		Thus, we need to define route tracing tools able to track the route for a 
        		specific flow.
 		</t>
