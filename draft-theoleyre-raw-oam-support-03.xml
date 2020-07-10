@@ -12,8 +12,8 @@
 <?rfc subcompact="no"?>
 <?rfc authorship="yes"?>
 <?rfc tocappendix="yes"?>
+<rfc category="std" ipr="trust200902" docName="draft-theoleyre-raw-oam-support-02">
 
-<rfc category="std" ipr="trust200902" docName="draft-theoleyre-raw-oam-support-03">
 
 <front> 
 
@@ -52,7 +52,7 @@
       </address>
     </author>
 
-    <author initials="G." surname="Mirsky" fullname="Grek Mirsky">
+    <author initials="G." surname="Mirsky" fullname="Greg Mirsky">
       <organization>ZTE Corp.</organization>
       <address>
           <email>gregimirsky@gmail.com</email>
@@ -66,7 +66,7 @@
    <abstract>
    		<t>
             Some critical applications may use a wireless infrastructure.
-              However, wireless networks exhibit a bandiwidth of several orders of magnitude lower than wired networks.
+              However, wireless networks exhibit a bandwidth of several orders of magnitude lower than wired networks.
               Besides, wireless transmissions are lossy by nature; the probability that a packet cannot be decoded correctly  by the receiver may be quite high.
               In these conditions, guaranteeing the network infrastructure works properly is particularly challenging, since we need to address some issues specific to wireless networks.
               This document lists the requirements of  the Operation, Administration, and Maintenance (OAM) features recommended to construct a predictable communication
@@ -84,7 +84,6 @@
         
 
 <!--section title="TEMPORARY EDITORIAL NOTES">
-
    <t>
 		This document is an Internet Draft, so it is work-in-progress by nature.
    		It contains the following work-in-progress elements:
@@ -108,7 +107,7 @@
         to approach end-to-end deterministic performances over a network that
         includes scheduled wireless segments.
         In wired networks, many approaches try to enable Quality of Service (QoS) by
-        implementing traffic differentiation so that routers handle differently each type of packets.
+        implementing traffic differentiation so that routers handle each type of packets differently.
         However, this differentiated treatment was expensive for most applications.
     </t>
     
@@ -120,41 +119,41 @@
     
     <t>
         However, wireless networks create specific challenges.
-        First of all, radio bandwdidth is significantly lower than for wired networks.
+        First of all, radio bandwidth is significantly lower than for wired networks.
         In these conditions, the volume of signaling messages has to be very limited.
         Even worse, wireless links are lossy: a layer 2 transmission may or may not be 
-        decoded correctly by the receiver, depending on a large set of parameters.
-        Thus, providing high reliability through wireless segments only is particularly challenging.
+        decoded correctly by the receiver, depending on a broad set of parameters.
+        Thus, providing high reliability through wireless segments is particularly challenging.
     </t>
     
     <t>
         Wired networks rely on the concept of <spanx style="emph">links</spanx>. All the devices attached
-        to a link receive any transmission. The concept of link in wireless networks is much more weird.
-        A receiver may or may not receive a transmission, depending on a colliding transmission, the
-        quality of the radio channel, and external interference.
-        Besides, a wireless transmissions is broadcast by nature: any <spanx style="emph">neighboring</spanx>
-        device may be able to decode it. We will detail what are the implications on the OAM features.
-        
+        to a link receive any transmission. The concept of a link in wireless
+        networks is somewhat different from what many are used to in wireline networks.
+        A receiver may or may not receive a transmission, depending on
+        the presence of a colliding transmission, the radio channel's quality, and the external interference.
+        Besides, a wireless transmission is broadcast by nature: any <spanx style="emph">neighboring</spanx>
+        device may be able to decode it. The document includes detailed information on what the implications for the OAM features are.
     </t>
     
     <t>
-        Last but not least, radio links present very unstable characteristics.
+        Last but not least, radio links present volatile characteristics.
         If the wireless networks use an unlicensed band, packet losses are not anymore temporally
         and spatially independent.
         Typically, links may exhibit a very bursty characteristic, where several 
         consecutive packets may be dropped.
         Thus, providing availability and reliability on top of the wireless infrastructure 
-        requires specific layer 3 mechanisms to counteract these bursty losses. 
+        requires specific Layer 3 mechanisms to counteract these bursty losses. 
     </t>
 	   
     <t>
         Operations, Administration, and Maintenance (OAM) Tools are of primary importance
         for IP networks <xref target="RFC7276"/>.
-        It defines a toolset for fault detection and isolation, and for performance measurement.
+        It defines a toolset for fault detection, isolation, and performance measurement.
     </t>
        
     <t>
-        The main purpose of this document is to detail the specific requirements of the OAM
+        The primary purpose of this document is to detail the specific requirements of the OAM
         features recommended to construct a predictable communication infrastructure
         on top of a collection of wireless segments.
       	This document describes the benefits, problems, and trade-offs for using OAM in 
@@ -189,18 +188,18 @@
             	</t>
          
                 <t>
-                    Maintenance Intermediate end Point (MIP): OAM devices along the flow;
+                    Maintenance Intermediate endPoint (MIP): OAM devices along the flow;
                     OAM messages can be exchanged between a MEP and a MIP;
                 </t>
 
                 <t>
-            		Defect: a temporary change in the network (e.g. a radio link which is
+            		Defect: a temporary change in the network (e.g., a radio link which is
                     broken due to a mobile obstacle);
          		</t>
          
          		<t>
             		Fault: a definite change which may affect the network performance,
-            		e.g. a node runs out of energy.
+            		e.g., a node runs out of energy.
             	</t>
          	</list>
     	</t>
@@ -208,12 +207,12 @@
     
     
     <section anchor="acronyms-sec" title="Acronyms">
-    <t>OAM                   Operations, Administration, and Maintanence</t>
+    <t>OAM                   Operations, Administration, and Maintenance</t>
     <t>DetNet               Deterministic Networking</t>
     <t>SLO                    Service Level Objective</t>
     <t>QoS                   Quality of Service</t>
     <t>SNMP               Simple Network Management Protocol</t>
-    <t>SDN                  Software Defined Network</t>
+    <t>SDN                  Software-Defined Network</t>
     </section>
 
             <section title="Requirements Language">
@@ -247,11 +246,11 @@
 
 	<t>
       To respect strict guarantees, RAW relies on an orchestrator able to monitor and
-      maintain the network. Typically, a Software Defined Network (SDN) controller is in charge of scheduling the transmissions
+      maintain the network. Typically, a Software-Defined Network (SDN) controller is in charge of scheduling the transmissions
       in the deployed network, based on the radio link characteristics, SLO of the flows, the
       number of packets to forward.
       Thus, resources have to be provisioned a priori to handle any defect. 
-      OAM represents the core of the over provisioning process, and maintains the network 
+      OAM represents the core of the pre-provisioning process and maintains the network 
       operational by updating the schedule dynamically.
 	</t>
 
@@ -262,9 +261,9 @@ Strictly speaking, PREOF also includes an order preservation. Do you see it as t
 	<t>
       Fault-tolerance also assumes that multiple paths have to be provisioned
       so that an end-to-end circuit keeps on existing whatever the conditions.
-      The replication/elimination processes (PREOF) on a node is typically controlled by the
+      The Packet Replication and Elimination Function (<xref target="PREF-draft"/>) on a node is typically controlled by a
       central controller/orchestrator.
-      OAM is in charge of controlling that PREOF is working properly on a node and within the domain.
+      OAM mechanisms can be used to monitor that PREOF is working correctly on a node and within the domain.
 	</t>
 
 <!-- TODO-Greg-
@@ -281,24 +280,23 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
 	</t>
     
     <t>
-        We will detail now the specific characteristics of RAW.
+        The specific characteristics of RAW are discussed below.
         </t>
     
     
     <section title="Link concept and quality">
         <t>
-            In wireless networks, a <spanx style="emph">link</spanx> doesn't really exist.
+            In wireless networks, a <spanx style="emph">link</spanx> does not exist.
             A common convention is to define a wireless link as a pair of devices
-            that have a non null probability of transmitting and decoding a packet.
+            that have a non-null probability of transmitting and decoding a packet.
             Similarly, we designate as <spanx style="strong">neighbor</spanx> any device which
             as a link with a specific transmitter.
             </t>
         
         <t>
-            To each wireless link is associated a link quality, often measured as the
-            Packet Delivery Ratio, i.e., the probability that the receiver is able to decode correctly
-            the packet.
-            It is worth noting that this link quality depends on many criteria such as the level of external
+            Each wireless link is associated with a link quality, often measured as the
+            Packet Delivery Ratio (PDR), i.e., the probability that the receiver can decode the packet correctly.
+            It is worth noting that this link quality depends on many criteria, such as the level of external
             interference, the presence of concurrent transmissions, or the radio channel state.
             This link quality is even time-variant.
             </t>
@@ -306,9 +304,9 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
     
     <section title="Broadcast Transmissions">
         <t>
-            In modern switching networks, an unicast transmission is delivered uniquely to the destination.
+            In modern switching networks, the unicast transmission is delivered uniquely to the destination.
             Wireless networks are much closer to the ancient shared access wireless networks.
-            An unicast transmission is similar to a broadcast one and can be received by any neighbor.
+            Unicast transmission is similar to a broadcast one and can be received by any neighbor.
             </t>
         
         <t>
@@ -322,7 +320,7 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
     
 
 
-    <section title="Complex layer-2 forwarding">
+    <section title="Complex Layer 2 Forwarding">
         <t>
             Multiple neighbors may receive a transmission.
             Thus, anycast layer-2 forwarding helps to maximize the reliability by assigning multiple receivers to a single transmission.
@@ -385,27 +383,28 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
         To focus on wireless aspects, i.e., what is different from detnet.
         -->
         <t>
-            Because of the broadcast nature of radio transmissions, several receivers may be
-            active at the same time, to enable anycast layer-2 forwarding. Thus, the connectivity
+             Because of radio transmissions' broadcast nature, several
+   receivers may be active at the same time to enable anycast Layer 2
+   forwarding. Thus, the connectivity
             verification must test any combination.
-            We also consider priority based mechanisms for anycast fowarding, i.e., all the receivers
-            haven't the same probability to forward a packet.
+            We also consider priority-based mechanisms for anycast forwarding, i.e., all the receivers have
+            different probabilities of forwarding a packet.
             To verify a delay SLO for a given flow, we must also consider all the possible combinations,
             leading to a probability distribution function for end-to-end transmissions.
             If this verification is implemented
-            naively, the number of combinations to test may be exponential, and thus, too costly
-            for wireless networks with a low bandwidth.
+            naively, the number of combinations to test may be exponential and too costly
+            for wireless networks with low bandwidth.
         </t>
      
     
         <t>
 			It is worth noting that the control and data packets may not follow the same
-            path, and the connectivity verification has to be conducted in-band without
+            path. The connectivity verification has to be conducted in-band without
             impacting the data traffic.
             <!-- TODO-Greg-
             It is critical for both CC, CV and, in general, active OAM methods. I think it can be listed in the Requirements for OAM in RAW section.
             -->
-            Test packets must share the fate with the monitored data traffic without introducing congestion in normal network conditions.
+            Test packets MUST share the fate with the monitored data traffic without introducing congestion in normal network conditions.
 		</t>
 
 
@@ -415,10 +414,10 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
    
     <section title="Route Tracing">
 		<t>
-       		ICMP tools are very common tools for diagnostic.
+       		ICMP tools are comprehensive tools for diagnostic.
        		<!-- GP: we may check with Pascal, if he agrees, we may introduce the concepts of Bitmap-->
        		They help to identify a subset of the list of routers in the route.
-       		To be predictable, resources are reserved per flow in RAW.
+       		To ensure predictable performance, resources are reserved per flow in RAW.
        		Thus, we need to define route tracing tools able to track the route for a 
        		specific flow.
 		</t>
@@ -427,14 +426,14 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
 		<t>
             Wireless networks are meshed by nature: we have many redundant radio links.
             These meshed networks are both an asset and a drawback: while several paths exist
-            between two endpoints, we should choose the most efficient one(s), concerning
+            between two endpoints, and we should choose the most efficient one(s), concerning
             specifically the reliability, and the delay.
            </t>
         
         <t>
             Thus, multipath routing can be considered to make the network fault-tolerant.
             Even better, we can exploit the broadcast nature of wireless networks to exploit
-            meshed multipath routing: we may have multiple Maintenance Intermediate Endpoints for each
+            meshed multipath routing: we may have multiple Maintenance Intermediate Endpoints (MIE) for each
             hop in the path.
             In that way, each Maintenance Intermediate Endpoint has several possible next hops
             in the forwarding plane.
@@ -452,9 +451,9 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
 		</t>
         
         <t>
-            Wired networs tend to present stable performances.
+            Wired networks tend to present stable performances.
             On the contrary, wireless networks are time-variant.
-            We must consequently make a distinction between <spanx style="emph">normal</spanx> evolutions, and malfunction.
+            We must consequently make a distinction between <spanx style="emph">normal</spanx> evolutions and malfunction.
         </t>
 
 		<t>
@@ -525,7 +524,7 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
             </t>
          
          <t>per radio channel to measure, e.g., the level of external interference,
-            and to be able to apply counter-measures (e.g. blacklisting)
+            and to be able to apply counter-measures (e.g., blacklisting).
             </t>
          
          <t>
@@ -592,7 +591,7 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
          The following techniques aim to reduce the cost of such maintenance:
          <list>
             <t>
-               piggybacking: some control information are inserted in the data packets
+               on-path collection: some control information is inserted in the data packets
                if they do not fragment the packet (i.e., the MTU is not exceeded).
                Information Elements represent a standardized way to handle such information;
                </t>
@@ -684,7 +683,6 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
    source (S)          //\\   //\\         (R) (root)
              \\       //  \\ //  \\      //
                ===> (B) => (D) => (F) ===
-
             ]]></artwork>
           </figure>
           
@@ -692,9 +690,9 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
          
       <section title="Dynamic Resource Reservation">
           <t>
-              Wireles networks exhibit time-variant characteristics.
-              Thus, the network has to provision additional resources along the path to fit the worst-case performance.
-              Clearly, this time-variant characteristics malke the resource resservation very challenging: over-reaction waste radio and energy resources.
+              Wireless networks exhibit time-variant characteristics.
+              Thus, the network has to provide additional resources along the path to fit the worst-case performance.
+              This time-variant characteristics make the resource reservation very challenging: over-reaction waste radio and energy resources.
               Inversely, under-reaction jeopardize the network operations, and some SLO may be violated.
             </t>
           
@@ -706,11 +704,11 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
           <t>
             Wireless networks are known to be lossy.
             Thus, commands may be received or not by the node to reconfigure.
-            Unfortuantely, inconsistent states may create critical misconfigurations, where packets may be lost along a path because it has not been properly configured.
+            Unfortunately, inconsistent states may create critical misconfigurations, where packets may be lost along a path because it has not been properly configured.
           </t>
           <t>
               We have to propose mechanisms to guarantee that the network state is always consistent, even if some control packets are lost.
-              Timeouts and retransmissions are not sufficient since the reconfiguration duration would be in that case unbounded.
+              Timeouts and retransmissions are not sufficient since the reconfiguration duration would be, in that case, unbounded.
           
           </t>
           
@@ -776,13 +774,26 @@ This section will be expanded in future versions of the draft.
 
         
         
+        <reference anchor="PREF-draft" target="https://tools.ietf.org/html/draft-thubert-bier-replication-elimination">
+            <front>
+                <title>BIER-TE extensions for Packet Replication and Elimination Function (PREF) and OAM</title>
+                <author fullname="P. Thubert"/>
+                <author fullname="T. Eckert"/>
+                <author fullname="Z. Brodard"/>
+                <author fullname="H. Jiang"/>
+                <date year="2018"/>
+            </front>
+        </reference>
+        
+
+        
         
         <reference anchor="anycast-property" target="https://doi.org/10.1109/LCNSymposium47956.2019.9000679">
              <front>
                 <title>Is Link-Layer Anycast Scheduling Relevant for IEEE 802.15.4-TSCH Networks?</title>
-                <author initials="R." surname="Teles Hermeto" fullname="R. Teles Hermeto"></author>
-                <author initials="A." surname="Gallais" fullname="A. Gallais"></author>
-                <author initials="F." surname="Theoleyre" fullname="F. Theoleyre"></author>
+                <author initials="R." surname="Teles Hermeto" fullname="R. Teles Hermeto"/>
+                <author initials="A." surname="Gallais" fullname="A. Gallais"/>
+                <author initials="F." surname="Theoleyre" fullname="F. Theoleyre"/>
                 <date year="2019"/>
                 <!--
                  IEEE 2019 IEEE 44th LCN Symposium on Emerging Topics in Networking (LCN Symposium) 2019, 14-17 Oct. 2019, Osnabruck, Germany
@@ -793,12 +804,12 @@ This section will be expanded in future versions of the draft.
       <reference anchor="ipath" target="https://doi.org/10.1109/TNET.2014.2371459">
          <front>
             <title>iPath: path inference in wireless sensor networks.</title>
-            <author initials="Y." surname="Gao" fullname="Y.Gao"></author>
-            <author initials="W." surname="Dong" fullname="W. Dong"></author>
-            <author initials="C." surname="Chen" fullname="C. Chen"></author>
-            <author initials="J." surname="Bu" fullname="J. Bu"></author>
-            <author initials="W." surname="Wu" fullname="W. Wu"></author>
-            <author initials="X." surname="Liu" fullname="X. Liu"></author>
+            <author initials="Y." surname="Gao" fullname="Y.Gao"/>
+            <author initials="W." surname="Dong" fullname="W. Dong"/>
+            <author initials="C." surname="Chen" fullname="C. Chen"/>
+            <author initials="J." surname="Bu" fullname="J. Bu"/>
+            <author initials="W." surname="Wu" fullname="W. Wu"/>
+            <author initials="X." surname="Liu" fullname="X. Liu"/>
             <date year="2016"/>
             <!--
              IEEE/ACM Transactions on Networking (TON) archive
@@ -834,7 +845,6 @@ This section will be expanded in future versions of the draft.
                the tradeoffs can be properly weighed.
                  (We've gone through resource reservation protocols before - remember
                RSVP? - and they've not been very successful).
-
                    
                    </t>
            <t>detection of faults as they occur: 3.3 and 3.4 treat this, but, IMHO, the organization should again be
@@ -847,7 +857,6 @@ This section will be expanded in future versions of the draft.
            always be the _last_ to be discussed, not the first.
               SNMP is nowhere mentioned in the draft. Sooner or later, you're
            going to need gets, sets and traps.  Is now the right time?
-
                
                </t>
            </list>
