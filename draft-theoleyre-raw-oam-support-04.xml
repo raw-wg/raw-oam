@@ -386,8 +386,7 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
 
     <section title="Information Collection">
            <t>
-               Several solutions (e.g., Simple Network Management Protocol (SNMP), YANG-based data models) are already in charge of collecting the statistics.
-               That way, we can encapsulate these statistics in specific monitoring packets, to send them to the controller.
+               The methods to collect information should be the same ad for detnet network, for the sake of inter-operability.
                </t>
            </section>
 
@@ -395,9 +394,7 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
     
     <section title="Continuity Check">
 		<t>
-			We need to verify that two endpoints are connected.
-            In other words, there exists <spanx style="strong">at least</spanx> one way to deliver the packets between
-            two endpoints A and B. The solution may not here defer from those of detnet.
+			Similarly to detnet, we need to verify that the source and the destination are connected (at least one valid path exists)
  		</t>
         
         </section>
@@ -406,19 +403,13 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
         <section title="Connectivity Verification">
 
 		<t>
-            Additionally, to the Continuity Check, we have to verify the connectivity.
-            This verification considers additional constraints, i.e., the absence of
+            As in detnet, we have to verify the absence of
             misconnection.
+            We will focus here on the RAW specificities.
         </t>
-        <t>
-            In particular, the resources have to be reserved by a given flow, and no
-             packets from other flows steal the corresponding resources. Similarly, the
-             destination does not receive packets from different flows through its interface.
-        </t>
+     
         
-        <!-- TODO-Fabrice
-        To focus on wireless aspects, i.e., what is different from detnet.
-        -->
+        
         <t>
              Because of radio transmissions' broadcast nature, several
    receivers may be active at the same time to enable anycast Layer 2
@@ -434,15 +425,7 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
         </t>
      
     
-        <t>
-			It is worth noting that the control and data packets may not follow the same
-            path. The connectivity verification has to be conducted in-band without
-            impacting the data traffic.
-            <!-- TODO-Greg-
-            It is critical for both CC, CV and, in general, active OAM methods. I think it can be listed in the Requirements for OAM in RAW section.
-            -->
-            Test packets MUST share the fate with the monitored data traffic without introducing congestion in normal network conditions.
-		</t>
+        
 
 
 	</section>
@@ -481,11 +464,6 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
 
    
 	<section title="Fault Verification/detection">
-		<t>
-      		RAW expects to operate fault-tolerant networks. 
-      		Thus, we need mechanisms able to detect faults, before they impact the network 
-      		performance.
-		</t>
         
         <t>
             Wired networks tend to present stable performances.
@@ -493,14 +471,7 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
             We must consequently make a distinction between <spanx style="emph">normal</spanx> evolutions and malfunction.
         </t>
 
-		<t>
-     		The network has to detect when a fault occurred, i.e., the network has deviated
-             from its expected behavior.
-     		While the network must report an alarm, the cause may not be identified 
-     		precisely. 
-     		For instance, the end-to-end reliability has decreased significantly, or a 
-     		buffer overflow occurs.
-		</t>
+		
 
 	</section>
 
