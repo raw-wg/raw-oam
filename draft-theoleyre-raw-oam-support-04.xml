@@ -323,11 +323,10 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
     
     <section title="Link concept and quality">
         <t>
-            In wireless networks, a <spanx style="emph">link</spanx> does not exist.
+            In wireless networks, a <spanx style="emph">link</spanx> does not exist physically.
             A common convention is to define a wireless link as a pair of devices
-            that have a non-null probability of transmitting and decoding a packet.
-            Similarly, we designate as <spanx style="strong">neighbor</spanx> any device which
-            as a link with a specific transmitter.
+            that have a non-null probability of exchanging a packet that the receiver can decode.
+            Similarly, we designate as <spanx style="strong">neighbor</spanx> any device with a radio link with a specific transmitter.
             </t>
         
         <t>
@@ -342,15 +341,16 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
     <section title="Broadcast Transmissions">
         <t>
             In modern switching networks, the unicast transmission is delivered uniquely to the destination.
-            Wireless networks are much closer to the ancient shared access wireless networks.
-            Unicast transmission is similar to a broadcast one and can be received by any neighbor.
+            Wireless networks are much closer to the ancient <spanx style="strong">shared access</spanx> networks.
+            Practically, unicast and broadcast frames are handled similarly at the physical layer.
+            The link layer is just in charge of filtering the frames to discard irrelevant receptions (e.g., different unicast MAC address).
             </t>
         
         <t>
             However, contrary to wired networks, we cannot be sure that a packet is received by
-            <spanx style="strong">all</spanx> the devices attached to the network. It depends on the radio channel state between the transmitter(s)
-            and the receiver(s).
-            In particular, concurrent transmissions may be possible or not, depending on the radio conditions.
+            <spanx style="strong">all</spanx> the devices attached to the layer-2 segment.
+            It depends on the radio channel state between the transmitter(s) and the receiver(s).
+            In particular, concurrent transmissions may be possible or not, depending on the radio conditions (e.g., do the different transmitters use a different radio channel or are they sufficiently spatially separated?)
             </t>
         
         </section>
@@ -361,7 +361,7 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
         <t>
             Multiple neighbors may receive a transmission.
             Thus, anycast layer-2 forwarding helps to maximize the reliability by assigning multiple receivers to a single transmission.
-            That way, the packet is lost only if none of the receivers decode it.
+            That way, the packet is lost only if <spanx style="strong">none</spanx> of the receivers decode it.
             Practically, it has been proven that different neighbors may exhibit very different radio conditions, and
             that reception independency may hold for some of them <xref target="anycast-property"/>.
             </t>
@@ -386,7 +386,13 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
 
     <section title="Information Collection">
            <t>
-               The methods to collect information should be the same ad for detnet network, for the sake of inter-operability.
+               The model to exchange information should be the same as for detnet network, for the sake of inter-operability.
+               YANG may typically fulfill this objective.
+            </t>
+           
+           <t>
+               However, RAW networks imply specific constraints (e.g., low bandwidth, packet losses, cost of medium access) that may require to minimize the volume of information to collect.
+               Thus, we discuss in <xref target="dataretrieval"/> the different ways to collect information, i.e., transfer physically the OAM information from the emitter to the receiver.
                </t>
            </section>
 
@@ -433,14 +439,6 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
         
    
     <section title="Route Tracing">
-		<t>
-       		ICMP tools are comprehensive tools for diagnostic.
-       		<!-- GP: we may check with Pascal, if he agrees, we may introduce the concepts of Bitmap-->
-       		They help to identify a subset of the list of routers in the route.
-       		To ensure predictable performance, resources are reserved per flow in RAW.
-       		Thus, we need to define route tracing tools able to track the route for a 
-       		specific flow.
-		</t>
 
 
 		<t>
@@ -481,9 +479,11 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
         	The network has isolated and identified the cause of the fault. 
         	While detnet already expects to identify malfunctions, some problems are specific to wireless networks.
             We must consequently collect metrics and implement algorithms tailored for wireless networking.
-            For instance, the quality of a specific link has decreased, requiring more
-        	retransmissions, or the level of external interference has locally increased.
-		</t>
+        </t>
+        <t>
+            For instance, the decrease in the link quality may be caused by several factors: external interference, obstacles, multipath fading, mobility.
+            It it fundamental to be able to discriminate the different causes to make the right decision.
+        </t>
         
         
 	</section>
@@ -495,7 +495,7 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
 <section title="Administration">
    
    <t>
-      The network has to expose a collection of metrics to support an operator making proper decisions, including:
+      The RAW network has to expose a collection of metrics to support an operator making proper decisions, including:
       
       <list style="symbols">
          <t>
@@ -543,35 +543,7 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
    </t>
    
    
-    <section title="Collection of metrics">
    
-         <t>
-             We have to minimize the number of statistics / measurements to exchange:
-             <list style="symbols">
-             <t>
-                 energy efficiency: low-power devices have to limit the volume of monitoring
-                 information since every bit consumes energy.
-             </t>
-             <t>
-                 bandwidth: wireless networks exhibit a bandwidth significantly lower than
-                 wired, best-effort networks.
-             </t>
-             <t>
-                 per-packet cost: it is often more expensive to send several packets instead
-                 of combining them in a single link-layer frame.
-             </t>
-             </list>
-       
-             Thus, localized and centralized mechanisms have to be combined together, and
-             additional control packets have to be triggered only after a fault detection.
-         </t>
-         
-    <!-- TODO     <t>
-             TODO:  be expanded to how active OAM and on-path OAM (for example iOAM, iPath, INT from P4) can be combined, complement each other.
-             
-             </t>
--->
-       </section>
          
    <section title="Worst-case metrics">
       <t>
@@ -590,11 +562,36 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
     
    </section>
    
-   <section title="Energy efficiency constraint">
+   <section title="Efficient data retrieval" anchor="dataretrieval">
       <t>
-         RAW targets also low-power wireless networks, where energy represents a key
-         constraint.
-         Thus, we have to take care of power and bandwidth consumption.
+           We have to minimize the number of statistics / measurements to exchange:
+           <list style="symbols">
+           <t>
+               energy efficiency: low-power devices have to limit the volume of monitoring
+               information since every bit consumes energy.
+           </t>
+           <t>
+               bandwidth: wireless networks exhibit a bandwidth significantly lower than
+               wired, best-effort networks.
+           </t>
+           <t>
+               per-packet cost: it is often more expensive to send several packets instead
+               of combining them in a single link-layer frame.
+           </t>
+           </list>
+     
+        </t>
+       
+  <!-- TODO     <t>
+           TODO:  be expanded to how active OAM and on-path OAM (for example iOAM, iPath, INT from P4) can be combined, complement each other.
+           
+           </t>
+-->
+
+          
+          
+          <t>
+         In conclusion, we have to take care of power and bandwidth consumption.
          The following techniques aim to reduce the cost of such maintenance:
          <list>
             <t>
@@ -611,6 +608,14 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
                additional information in the headers to identify the path followed by a
                packet a posteriori.
                </t>
+            
+            <t>
+                hierarchical monitoring;  localized and centralized mechanisms have to be combined together.
+                Typically, a local mechanism should contiuously monitor a set of metrics and trigger distant OAM exchances only when a fault is detected (but possibly not identified).
+                For instance, local temporary defects must not trigger expensive OAM transmissions. 
+
+            </t>
+            
             </list>
          
          </t>
