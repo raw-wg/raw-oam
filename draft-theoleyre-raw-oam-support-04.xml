@@ -198,18 +198,25 @@
             <t>control/data plane: while the control plane expects to configure and control the network (long-term), the data plane takes the individual decision;
                 </t>
             
-            <t>In-band: control information follows the same path as the data packets.
-                In other words, a failure in the data plane may prevent the control information to reach the destination (e.g., end-device or controller).
+
+            <t>passive / active methods (as defined in <xref target="RFC7799"/>):
+                active methods send additionnal control information (inserting novel fields, generating novel control packets).
+                Passive methods infer information just by observing unmodified existing flows.
                 </t>
             
-            <t>out-of-band: control information is sent separately from the data packets.
-                Thus, the behavior of control vs. data packets may differ;
+            <t>active methods may implement one of these two strategies:
+                <list style="symbols">
+                
+                    <t>
+                        In-band: control information follows the same path as the data packets.
+                        In other words, a failure in the data plane may prevent the control information to reach the destination (e.g., end-device or controller).
+                    </t>
+                    <t>
+                        out-of-band: control information is sent separately from the data packets.
+                        Thus, the behavior of control vs. data packets may differ;
+                    </t>
+                </list>
                 </t>
-            <t>passive / active monitoring:
-                active monitoring consists in sending additionnal control information.
-                Passive monitoring consists in infering information from measurements on existing packets.
-                </t>
-            
             </list>
         </t>
         
@@ -787,6 +794,7 @@ This section will be expanded in future versions of the draft.
         <?rfc include="reference.RFC.8174"?> <!-- Ambiguity of Uppercase vs Lowercase -->
         <?rfc include="reference.RFC.8655"?> <!-- Deterministic Networking Architecture -->
         <?rfc include="reference.RFC.2119"?> <!-- Key words for use in RFCs to Indicate Requirement Levels  -->
+        <?rfc include="reference.RFC.7799"?> <!-- passive / active methods   -->
 
         
         
