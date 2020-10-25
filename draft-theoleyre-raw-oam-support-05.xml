@@ -12,9 +12,9 @@
 <?rfc subcompact="no"?>
 <?rfc authorship="yes"?>
 <?rfc tocappendix="yes"?>
-<rfc category="std" ipr="trust200902" docName="draft-theoleyre-raw-oam-support-04">
+<rfc  xmlns:xi="http://www.w3.org/2001/XInclude" category="info" ipr='trust200902' tocInclude="true"  obsoletes="" updates="" submissionType="IETF" xml:lang="en" version="5" docName="draft-theoleyre-raw-oam-support-05" >
 
-
+        
 <front> 
 
     <title abbrev="OAM features for RAW">Operations, Administration and Maintenance (OAM) features for RAW</title>
@@ -61,6 +61,7 @@
 
    <date/>
 
+   <area>Routing</area>
    <workgroup>RAW</workgroup>
 
    <abstract>
