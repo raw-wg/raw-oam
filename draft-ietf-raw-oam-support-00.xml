@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="US-ASCII"?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
-<?rfc toc="yes"?>
-<?rfc tocompact="yes"?>
-<?rfc tocdepth="3"?>
-<?rfc tocindent="yes"?>
-<?rfc symrefs="yes"?>
-<?rfc sortrefs="yes"?>
-<?rfc comments="yes"?>
-<?rfc inline="yes"?>
-<?rfc compact="no"?>
-<?rfc subcompact="no"?>
-<?rfc authorship="yes"?>
-<?rfc tocappendix="yes"?>
-<rfc  xmlns:xi="http://www.w3.org/2001/XInclude" category="info" ipr='trust200902' tocInclude="true"  obsoletes="" updates="" submissionType="IETF" xml:lang="en" version="5" docName="draft-theoleyre-raw-oam-support-05" >
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 
+<?rfc strict="yes" ?>
+<!-- give errors regarding ID-nits and DTD validation -->
+<!-- control the table of contents (ToC) -->
+<?rfc toc="yes"?>
+<!-- generate a ToC -->
+<?rfc tocdepth="3"?>
+<!-- the number of levels of subsections in ToC. default: 3 -->
+<!-- control references -->
+<?rfc symrefs="yes"?>
+<!-- use symbolic references tags, i.e, [RFC2119] instead of [1] -->
+<?rfc sortrefs="yes" ?>
+<!-- sort the reference entries alphabetically -->
+<!-- control vertical white space
+     (using these PIs as follows is recommended by the RFC Editor) -->
+<?rfc compact="yes" ?>
+<!-- do not start each main section on a new page -->
+<?rfc subcompact="no" ?>
+<!-- keep one blank line between list items -->
+<!-- end of list of popular I-D processing instructions -->
+<rfc category="info" docName="draft-ietf-raw-oam-support-00" updates="draft-theoleyre-raw-oam-support-04" ipr="trust200902">
+
+<!--<rfc  version="00" docName="draft-ietf-raw-oam-support-00" submissionType="IETF"
+    ipr="trust200902" tocInclude="true">
+-->
         
 <front> 
 
