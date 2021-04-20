@@ -10,6 +10,7 @@ the Operation, Administration, and Maintenance (OAM) features recommended to con
 * November 2019: OAM, https://tools.ietf.org/html/draft-theoleyre-raw-oam-support-01
 * March 2020: novel OAM constraints
 * July 2020: only RAW networks, https://tools.ietf.org/html/draft-theoleyre-raw-oam-support-03
+* April 2021: the working group adoption call has been positively closed, https://tools.ietf.org/html/draft-ietf-raw-oam-support-00
 
 
 # raw problem statement
