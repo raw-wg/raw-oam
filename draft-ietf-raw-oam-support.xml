@@ -21,7 +21,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="info" docName="draft-ietf-raw-oam-support-00" updates="draft-theoleyre-raw-oam-support-04" ipr="trust200902">
+<rfc category="info" docName="draft-ietf-raw-oam-support-01" updates="draft-ietf-raw-oam-support-00" ipr="trust200902">
 
 <!--<rfc  version="00" docName="draft-ietf-raw-oam-support-00" submissionType="IETF"
     ipr="trust200902" tocInclude="true">
@@ -258,6 +258,9 @@
            <t>
                Fault: a definite change which may affect the network performance, e.g., a node runs out of energy.
            </t>
+           <t>
+                End-to-end delay: the time between the packet generation and its reception by the destination.
+            </t>
         </list>
         </t>
     </section>
@@ -387,7 +390,25 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
             </t>
         </section>
 
-    
+  
+    <section title="End-to-end delay">
+      <t>
+            In a wireless network, additionnal transmissions opportunities are provisionned to accomodate packet losses.
+            Thus, the end-to-end delay consists in:
+            
+            <list style="symbols">
+                <t>
+                    transmission delay is fixed, and depends mainly on the data rate, and the presence or absence of an acknowledgement.
+                </t>
+                <t>
+                    residence time corresponds to the buffering delay depends on the schedule.
+                    To account for retransmisisons, the residence time is equal to the difference between the time of last reception from the previous hop (among all the retransmisions) and the time of emission of the last retransmission.
+                </t>
+
+            </list>
+        </t>
+      </section>
+  
 </section>
 
 
@@ -658,117 +679,45 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
 
    <section title="Maintenance">
       <t>
-         RAW needs to implement a self-healing and self-optimization approach.
-         The network must continuously retrieve the state of the network,
-         to judge about the relevance of a reconfiguration, quantifying:
-         <list>
-            <t> the cost of the sub-optimality: resources may not be used
-               optimally (e.g., a better path exists);
-            </t>
-            <t>
-               the reconfiguration cost: the controller needs to trigger some
-               reconfigurations.
-               For this transient period, resources may be twice reserved, and control packets have to be transmitted.
-            </t>
-         </list>
-         Thus, reconfiguration may only be triggered if the gain is significant.
-         </t>
-      
-     
- <!-- TODO
-     <t>
-         TODO: OAM is the glue between the controller (e.g., SDN controller) and the wireless infrastructure.
-         In other words, we need to maintain a very precise and configurable view of the network performances.
-         
-         </t>
-      -->
+        Maintenance needs to facilitate the maintenance (repairs and upgrades).
+        In wireless networks, repairs are expected to occur much more frequently, since the link quality may be highly time-variant.
+        Thus, maintenance represents a key feature for RAW.
+     </t>
 
- <!-- TODO-Fabrice
- nothing here specific to wireless
- -->
- <!--
-    <section title="Multipath Routing">
-           <t>
-               To be fault-tolerant, several paths can be reserved between two maintenance
-               endpoints. 
-               They must be node-disjoint so that a path can be available at any time.
+
+ 
+    <section title="Soft transition after reconfiguration">
+        <t>
+            Because of the wireless medium, the link quality may fluctuate, and the network needs to reconfigure itself continuously.
+            During this transient state, flows may begin to be gradually re-forwarded, consuming resources in different parts of the network.
+            OAM has to make a distinction between a metric that changed because of a legal network change (e.g., flow  redirection) and an unexpected event (e.g., a fault).
+       </t>
+    </section>
+ 
+    <section title="Predictive maintenance">
+        <t>
+            RAW needs to implement self-optimization features.
+            While the network is configured to be fault-tolerant, a reconfiguration may be required to keep on respecting long-term objectives.
+            Obviously, the network keeps on respecting the SLO after a node's crash, but a reconfiguration is required to handle the future faults.
+            In other words, the reconfiguration delay MUST be strictly smaller than the inter-fault time.
+        </t>
+        <t>
+            The network must continuously retrieve the state of the network,
+            to judge about the relevance of a reconfiguration, quantifying:
+            <list>
+               <t> the cost of the sub-optimality: resources may not be used
+                  optimally (e.g., a better path exists);
                </t>
-           
-           </section>
-
-      <section title="Replication / Elimination">
-          <t>
-              TODO: RAW specific aspects
-              
-              When multiple paths are reserved between two maintenance endpoints,
-              they may decide to replicate the packets to introduce redundancy, and
-              thus to alleviate transmission errors and collisions. 
-              For instance, in <xref target="fig_replication"/>, the source node S is 
-              transmitting the packet to both parents, nodes A and B.              
-              Each maintenance endpoint will decide to trigger the replication/elimination
-              process when a set of metrics passes through a threshold value.
-          </t>
-        
-          <figure anchor="fig_replication" align="center" title="Packet Replication: S transmits twice the same data packet, to its DP             (A) and to its AP (B).">
-            <artwork align="center"><![CDATA[
- 
-               ===> (A) => (C) => (E) === 
-             //        \\//   \\//       \\
-   source (S)          //\\   //\\         (R) (root)
-             \\       //  \\ //  \\      //
-               ===> (B) => (D) => (F) ===
-            ]]></artwork>
-          </figure>
-          
-	  </section>
-             -->
- 
- 
-      <section title="Dynamic Resource Reservation">
-          <t>
-              Wireless networks exhibit time-variant characteristics.
-              Thus, the network has to provide additional resources along the path to fit the worst-case performance.
-              This time-variant characteristics make the resource reservation very challenging: over-reaction waste radio and energy resources.
-              Inversely, under-reaction jeopardize the network operations, and some SLO may be violated.
-            </t>
-          
-        </section>
-      
-      
-      
-      <section title="Reliable Reconfiguration">
-          <t>
-            Wireless networks are known to be lossy.
-            Thus, commands may be received or not by the node to reconfigure.
-            Unfortunately, inconsistent states may create critical misconfigurations, where packets may be lost along a path because it has not been properly configured.
-          </t>
-          <t>
-              We have to propose mechanisms to guarantee that the network state is always consistent, even if some control packets are lost.
-              Timeouts and retransmissions are not sufficient since the reconfiguration duration would be, in that case, unbounded.
-          
-          </t>
-          
-          
-          </section>
-      
-    <!-- TODO-Fabrice
-        nothing specific to wireless networks here
-    -->
-    <!--
-      <section title="Soft transition after reconfiguration">
-          <t>
-              Since RAW expects to support real-time flows, we have to support soft-reconfiguration,
-              where the novel resources are reserved before the ancient ones are released.
-              Some mechanisms have to be proposed so that packets are forwarded through the
-              novel track only when the resources are ready to be used, while maintaining
-              the global state consistent (no packet reordering, duplication, etc.)
-              </t>
-          
-        
-              
-        </section>
--->
-      </section>
+               <t>
+                  the reconfiguration cost: the controller needs to trigger some
+                  reconfigurations.
+                  For this transient period, resources may be twice reserved, and control packets have to be transmitted.
+               </t>
+            </list>
+            Thus, reconfiguration may only be triggered if the gain is significant.
+        </t>
+    </section>
+ </section>
 
    
 
