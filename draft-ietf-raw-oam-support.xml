@@ -81,7 +81,7 @@
             Some critical applications may use a wireless infrastructure.
               However, wireless networks exhibit a bandwidth of several orders of magnitude lower than wired networks.
               Besides, wireless transmissions are lossy by nature; the probability that a packet cannot be decoded correctly  by the receiver may be quite high.
-              In these conditions, guaranteeing the network infrastructure works properly is particularly challenging, since we need to address some issues specific to wireless networks.
+              In these conditions, guaranteeing that the network infrastructure works properly is particularly challenging, since we need to address some issues specific to wireless networks.
               This document lists the requirements of  the Operation, Administration, and Maintenance (OAM) features recommended to construct a predictable communication
               infrastructure on top of a collection of wireless segments.
               This document describes the benefits, problems, and trade-offs for using OAM in wireless networks to achieve Service Level Objectives (SLO).
@@ -134,7 +134,7 @@
         However, wireless networks create specific challenges.
         First of all, radio bandwidth is significantly lower than for wired networks.
         In these conditions, the volume of signaling messages has to be very limited.
-        Even worse, wireless links are lossy: a layer 2 transmission may or may not be 
+        Even worse, wireless links are lossy: a Layer 2 transmission may or may not be 
         decoded correctly by the receiver, depending on a broad set of parameters.
         Thus, providing high reliability through wireless segments is particularly challenging.
     </t>
@@ -187,7 +187,7 @@
             We re-use here the same terminology as <xref target="detnet-oam"/>:
         <list style="symbols">
             <t>
-                OAM entity: a data flow to be controlled;
+                OAM entity: a data flow to be monitored for defects and/or its performance metrics measured.;
             </t>
             
             <!-- TODO-Greg-
@@ -198,7 +198,7 @@
             <t>
                 Maintenance End Point (MEP): OAM devices crossed when entering/exiting
                 the network. In RAW, it corresponds mostly to the source or destination
-                of a data flow. OAM message can be exchanges between two MEPs;
+                of a data flow. OAM message can be exchanged between two MEPs;
             </t>
      
             <t>
@@ -242,12 +242,12 @@
             <t> piggybacking vs. dedicated control packets:
             control information may be encapsulated in specific (dedicated) control packets.
             Alternatively, it may be piggybacked in existing data packets, when the MTU is larger than the actual packet length.
-            Piggybacking makes specifically sense in wireless networks: the cost (bandwidth and energy) is not linear with the packet size.
+            Piggybacking makes specifically sense in wireless networks, as the cost (bandwidth and energy) is not linear with the packet size.
             </t>
             
             <t> router-over vs. mesh under:
                 a control packet is either forwarded directly to the layer-3 next hop (mesh under) or handled hop-by-hop by each router.
-                While the latter option consumes more resource, it allows to collect additionnal intermediary information, particularly relevant in wireless networks.
+                While the latter option consumes more resources, it allows to collect additionnal intermediary information, particularly relevant in wireless networks.
             </t>
             
              <t>
@@ -371,7 +371,7 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
         
         <t>
             However, contrary to wired networks, we cannot be sure that a packet is received by
-            <spanx style="strong">all</spanx> the devices attached to the layer-2 segment.
+            <spanx style="strong">all</spanx> the devices attached to the Layer 2 segment.
             It depends on the radio channel state between the transmitter(s) and the receiver(s).
             In particular, concurrent transmissions may be possible or not, depending on the radio conditions (e.g., do the different transmitters use a different radio channel or are they sufficiently spatially separated?)
             </t>
@@ -383,7 +383,7 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
     <section title="Complex Layer 2 Forwarding">
         <t>
             Multiple neighbors may receive a transmission.
-            Thus, anycast layer-2 forwarding helps to maximize the reliability by assigning multiple receivers to a single transmission.
+            Thus, anycast Layer 2 forwarding helps to maximize the reliability by assigning multiple receivers to a single transmission.
             That way, the packet is lost only if <spanx style="strong">none</spanx> of the receivers decode it.
             Practically, it has been proven that different neighbors may exhibit very different radio conditions, and
             that reception independency may hold for some of them <xref target="anycast-property"/>.
@@ -394,14 +394,14 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
     <section title="End-to-end delay">
       <t>
             In a wireless network, additionnal transmissions opportunities are provisionned to accomodate packet losses.
-            Thus, the end-to-end delay consists in:
+            Thus, the end-to-end delay consists of:
             
             <list style="symbols">
                 <t>
-                    transmission delay is fixed, and depends mainly on the data rate, and the presence or absence of an acknowledgement.
+                    Transmission delay, which is fixed and depends mainly on the data rate, and the presence or absence of an acknowledgement.
                 </t>
                 <t>
-                    residence time corresponds to the buffering delay depends on the schedule.
+                    Residence time, corresponds to the buffering delay and depends on the schedule.
                     To account for retransmisisons, the residence time is equal to the difference between the time of last reception from the previous hop (among all the retransmisions) and the time of emission of the last retransmission.
                 </t>
 
@@ -427,13 +427,13 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
 
     <section title="Information Collection">
            <t>
-               The model to exchange information should be the same as for detnet network, for the sake of inter-operability.
+               The model to exchange information should be the same as for DetNet network, for the sake of inter-operability.
                YANG may typically fulfill this objective.
             </t>
            
            <t>
                However, RAW networks imply specific constraints (e.g., low bandwidth, packet losses, cost of medium access) that may require to minimize the volume of information to collect.
-               Thus, we discuss in <xref target="dataretrieval"/> the different ways to collect information, i.e., transfer physically the OAM information from the emitter to the receiver.
+               Thus, we discuss in <xref target="dataretrieval"/> different ways to collect information, i.e., transfer physically the OAM information from the emitter to the receiver.
                </t>
            </section>
 
@@ -441,7 +441,7 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
     
     <section title="Continuity Check">
 		<t>
-			Similarly to detnet, we need to verify that the source and the destination are connected (at least one valid path exists)
+			Similarly to DetNet, we need to verify that the source and the destination are connected (at least one valid path exists)
  		</t>
         
         </section>
@@ -450,9 +450,9 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
         <section title="Connectivity Verification">
 
 		<t>
-            As in detnet, we have to verify the absence of
+            As in DetNet, we have to verify the absence of
             misconnection.
-            We will focus here on the RAW specificities.
+            We focus here on the RAW specificities.
         </t>
      
         
@@ -492,7 +492,7 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
         <t>
             Thus, multipath routing can be considered to make the network fault-tolerant.
             Even better, we can exploit the broadcast nature of wireless networks to exploit
-            meshed multipath routing: we may have multiple Maintenance Intermediate Endpoints (MIE) for each
+            meshed multipath routing: we may have multiple Maintenance Intermediate Endpoints (MIP) for each
             hop in the path.
             In that way, each Maintenance Intermediate Endpoint has several possible next hops
             in the forwarding plane.
@@ -518,7 +518,7 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
 	<section title="Fault Isolation/identification">
     	<t>
         	The network has isolated and identified the cause of the fault. 
-        	While detnet already expects to identify malfunctions, some problems are specific to wireless networks.
+        	While DetNet already expects to identify malfunctions, some problems are specific to wireless networks.
             We must consequently collect metrics and implement algorithms tailored for wireless networking.
         </t>
         <t>
@@ -588,8 +588,8 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
          
    <section title="Worst-case metrics">
       <t>
-         RAW inherits the same requirements as detnet: we need to know the distribution of a collection of metrics.
-         However, wireless networks are know to be highly variable.
+         RAW inherits the same requirements as DetNet: we need to know the distribution of a collection of metrics.
+         However, wireless networks are known to be highly variable.
          Changes may be frequent, and may exhibit a periodical pattern.
          Collecting and analyzing this amount of measurements is challenging.
          </t>
