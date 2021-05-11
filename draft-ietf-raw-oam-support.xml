@@ -663,6 +663,16 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
       
       </section>
    
+   
+        <section title="Reporting OAM packets to the source">
+            <t>
+               TODO: statistics are collected when a packet goes from the source to the destination.
+               However, it has to be also reported by the source.
+               Problem: resource may not be reserved bidirectionnaly.
+               Even worse: the inverse path may not exist. 
+            </t>
+       </section>
+       
    </section>
    
    
