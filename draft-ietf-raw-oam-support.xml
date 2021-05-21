@@ -379,18 +379,35 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
     <section title="Link concept and quality">
         <t>
             In wireless networks, a <spanx style="emph">link</spanx> does not exist physically.
-            A common convention is to define a wireless link as a pair of devices
-            that have a non-null probability of exchanging a packet that the receiver can decode.
-            Similarly, we designate as <spanx style="strong">neighbor</spanx> any device with a radio link with a specific transmitter.
+            A device has a set of <spanx style="strong">neighbors</spanx> that correspond to all the devices that have a non null probability of receiving correctly its packets.
+            We make a distinction between:
+            <list style="symbols">
+                <t> point-to-point (p2p) link with one transmitter and one receiver.
+                    These links are used to transmit unicast packets.
+                </t>
+                
+                <t> point-to-multipoint (p2m) link associates one transmitter and a collection of receivers.
+                    For instance, broadcast packets assume the existence of p2m links to avoid duplicating a broadcast packet to reach each possible radio neighbor.
+                </t>
+            </list>
+            In scheduled radio networks, p2m and p2p links are commonly not scheduled simultaneously to save energy.
+            More precisely, only one part of the neighbors may wake-up at a given instant.
             </t>
-        
+        <t>
+            Anycast are used in p2m links to improve the reliability.
+            A collection of receivers are scheduled to wake-up simutaneously, so that the transmission fails only if none of the receivers is able to decode the packet.
+            </t>
+     
         <t>
             Each wireless link is associated with a link quality, often measured as the
             Packet Delivery Ratio (PDR), i.e., the probability that the receiver can decode the packet correctly.
             It is worth noting that this link quality depends on many criteria, such as the level of external
             interference, the presence of concurrent transmissions, or the radio channel state.
             This link quality is even time-variant.
+            For p2m links, we have conseqently a collection of PDR (one value per receiver).
+            Other more sophisticated, aggregated metrics exist for these p2m links, such as <xref target="anycast-property"/>
             </t>
+        
         </section>
     
     <section title="Broadcast Transmissions">
@@ -870,6 +887,7 @@ This section will be expanded in future versions of the draft.
       </reference>
       
       
+    
    </references>
    
    
