@@ -404,7 +404,7 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
             It is worth noting that this link quality depends on many criteria, such as the level of external
             interference, the presence of concurrent transmissions, or the radio channel state.
             This link quality is even time-variant.
-            For p2m links, we have conseqently a collection of PDR (one value per receiver).
+            For p2m links, we have consequently a collection of PDR (one value per receiver).
             Other more sophisticated, aggregated metrics exist for these p2m links, such as <xref target="anycast-property"/>
             </t>
         
