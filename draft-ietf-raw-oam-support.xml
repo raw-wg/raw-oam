@@ -100,8 +100,8 @@
             Some critical applications may use a wireless infrastructure.
               However, wireless networks exhibit a bandwidth of several orders of magnitude lower than wired networks.
               Besides, wireless transmissions are lossy by nature; the probability that a packet cannot be decoded correctly  by the receiver may be quite high.
-              In these conditions, guaranteeing that the network infrastructure works properly is particularly challenging, since we need to address some issues specific to wireless networks.
-              This document lists the requirements of  the Operation, Administration, and Maintenance (OAM) features recommended to construct a predictable communication
+              In these conditions, providing high reliability and a low delay is challenging.
+                   This document lists the requirements of  the Operation, Administration, and Maintenance (OAM) features recommended to construct a predictable communication
               infrastructure on top of a collection of wireless segments.
               This document describes the benefits, problems, and trade-offs for using OAM in wireless networks to achieve Service Level Objectives (SLO).
 
@@ -165,7 +165,7 @@
         A receiver may or may not receive a transmission, depending on
         the presence of a colliding transmission, the radio channel's quality, and the external interference.
         Besides, a wireless transmission is broadcast by nature: any <spanx style="emph">neighboring</spanx>
-        device may be able to decode it. The document includes detailed information on what the implications for the OAM features are.
+        device may be able to decode it. This document includes detailed information on what the implications for the OAM features are.
     </t>
     
     <t>
@@ -173,7 +173,7 @@
         If the wireless networks use an unlicensed band, packet losses are not anymore temporally
         and spatially independent.
         Typically, links may exhibit a very bursty characteristic, where several 
-        consecutive packets may be dropped.
+        consecutive packets may be dropped, because of e.g. temporary external interference.
         Thus, providing availability and reliability on top of the wireless infrastructure 
         requires specific Layer 3 mechanisms to counteract these bursty losses. 
     </t>
@@ -181,7 +181,7 @@
     <t>
         Operations, Administration, and Maintenance (OAM) Tools are of primary importance
         for IP networks <xref target="RFC7276"/>.
-        It defines a toolset for fault detection, isolation, and performance measurement.
+        They define a toolset for fault detection, isolation, and performance measurement.
     </t>
        
     <t>
@@ -339,12 +339,13 @@
 	<t>
 To respect strict guarantees, RAW relies on the Path Selection Engine (PSE) (as
 defined in <xref target="I-D.pthubert-raw-architecture" /> to monitor and
-maintain the network. As an example, a Software-Defined Network (SDN) controller
-may be used to schedule the transmissions in the deployed network, based on the
-radio link characteristics, SLO of the flows, the number of packets to forward.
-Thus, resources have to be provisioned a priori to handle any defect. OAM
-represents the core of the pre-provisioning process and maintains the network
-operational by updating the schedule dynamically.
+maintain the L3 network. A L2 scheduler may be used to allocate transmission opportunities,
+based on the radio link characteristics, SLO of the flows, the number of packets to forward.
+The PSE exploits the L2 ressources reserved by the scheduler, and organizes the L3 paths to
+introduce redundancy, fault tolerance, and create backup paths.
+OAM represents the core of the pre-provisioning process by supervising the network.
+It maintains maintains a global view of the network resources, to detect defects, faults, over-provisionning, anomalies.
+
 	</t>
 
 <!-- TODO-Greg-
@@ -368,7 +369,10 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
 
 
 	<t>
-       RAW supports both proactive and on-demand troubleshooting.
+      RAW supports both proactive and on-demand troubleshooting.
+      Proactively, it is necessary to detect anomalies, to report defects, or to reduce over-provisionning if it is not required.
+      However, on-demand may also be required to identify the cause of a specific defect.
+      Indeed, some specific faults may only be detected with a global, detailed view of the network, which is too expensive to acquire in the normal operating mode.
 	</t>
     
     <t>
@@ -390,7 +394,7 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
                     For instance, broadcast packets assume the existence of p2m links to avoid duplicating a broadcast packet to reach each possible radio neighbor.
                 </t>
             </list>
-            In scheduled radio networks, p2m and p2p links are commonly not scheduled simultaneously to save energy.
+            In scheduled radio networks, p2m and p2p links are commonly not scheduled simultaneously to save energy, and/or to reduce the number of collisions.
             More precisely, only one part of the neighbors may wake-up at a given instant.
             </t>
         <t>
@@ -532,21 +536,18 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
 
 
 		<t>
-            Wireless networks are meshed by nature: we have many redundant radio links.
-            These meshed networks are both an asset and a drawback: while several paths exist
-            between two endpoints, and we should choose the most efficient one(s), concerning
-            specifically the reliability, and the delay.
-           </t>
+            Wireless networks are broadcast by nature: a radio transmission can be decoded by any radio neighbor.
+            In multihop wireless networks, several paths exist between two endpoints.
+            In hub networks, a device may be covered by several Access Points.
+            We should choose the most efficient path or AP, concerning specifically the reliability, and the delay.
+       </t>
         
         <t>
-            Thus, multipath routing can be considered to make the network fault-tolerant.
-            Even better, we can exploit the broadcast nature of wireless networks to exploit
-            meshed multipath routing: we may have multiple Maintenance Intermediate Endpoints (MIP) for each
-            hop in the path.
-            In that way, each Maintenance Intermediate Endpoint has several possible next hops
-            in the forwarding plane.
-			Thus, all the possible paths between two maintenance endpoints should be 
-			retrieved, which may quickly become untractable if we apply a naive approach.
+            Thus, multipath routing / multi-attachment can be considered to make the network fault-tolerant.
+            Even better, we can exploit the broadcast nature of wireless networks to exploit: we may have multiple Maintenance Intermediate Endpoints (MIP) for each of this kind of hop.
+            While it may be reasonable in the multi-attachment case, the complexity quickly increases with the path length.
+            Indeed, each Maintenance Intermediate Endpoint has several possible next hops in the forwarding plane.
+			Thus, all the possible paths between two maintenance endpoints should be retrieved, which may quickly become intractable if we apply a naive approach.
         </t>
     </section>
 
@@ -632,13 +633,16 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
          <t>per radio channel to measure, e.g., the level of external interference,
             and to be able to apply counter-measures (e.g., blacklisting).
             </t>
+         <t>per physical radio technology / interface if a device has multiple NIC.
+             </t>
          
          <t>
             per link to detect misbehaving link (assymetrical link, fluctuating quality).
         </t>
+         
         <t>
             per resource block: a collision in the schedule is particularly challenging to identify in radio networks with spectrum reuse.
-            In particular, a collision may not be systematic (depending on the radio characteristics and the traffic profile)
+            In particular, a collision may not be systematic (depending on the radio characteristics and the traffic profile).
             </t>
          </list>
    </t>
@@ -656,8 +660,8 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
          
      <t>
          Wireless networks are known to be lossy, and RAW has to implement strategies to improve reliability on top of unreliable links.
-         Hybrid Automatic Repeat reQuest (ARQ) has typically to enable retransmissions
-         based on the end-to-end reliability and latency requirements.
+         Reliability is typically achieved through Automatic Repeat Request (ARQ), and Forward Error Correction (FEC).
+         Since the different flows have not the same SLO, RAW must adjust the ARQ and FEC based on the link and path characteristics.
       </t>
       
     
@@ -698,7 +702,8 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
             <t>
                on-path collection: some control information is inserted in the data packets
                if they do not fragment the packet (i.e., the MTU is not exceeded).
-               Information Elements represent a standardized way to handle such information;
+               Information Elements represent a standardized way to handle such information.
+               IP hop by hop extension headers may help to collect metrics all along the path;
                </t>
             
             <t>
@@ -711,9 +716,10 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
                </t>
             
             <t>
-                hierarchical monitoring;  localized and centralized mechanisms have to be combined together.
+                hierarchical monitoring: localized and centralized mechanisms have to be combined together.
                 Typically, a local mechanism should contiuously monitor a set of metrics and trigger distant OAM exchances only when a fault is detected (but possibly not identified).
-                For instance, local temporary defects must not trigger expensive OAM transmissions. 
+                For instance, local temporary defects must not trigger expensive OAM transmissions.
+                Besides, the wireless segments represent often the weakest parts of a path: the volume of control information they produce has to be fixed accordingly.
 
             </t>
             
@@ -730,6 +736,10 @@ I think that out-of-band OAM is useful in case of passive OAM that collects coun
                However, it has to be also reported by the source.
                Problem: resource may not be reserved bidirectionnaly.
                Even worse: the inverse path may not exist. 
+            </t>
+            <t>
+                Reporting everything exhaustively to the source may in most cases too exensive.
+                Thus, devices may take local decisions when possible, and receive end-to-end information when possible.
             </t>
        </section>
        
