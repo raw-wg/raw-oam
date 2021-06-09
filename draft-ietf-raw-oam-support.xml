@@ -21,7 +21,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="info" docName="draft-ietf-raw-oam-support-01" updates="draft-ietf-raw-oam-support-00" ipr="trust200902">
+<rfc category="info" docName="draft-ietf-raw-oam-support-02" updates="draft-ietf-raw-oam-support-01" ipr="trust200902">
 
 <!--<rfc  version="00" docName="draft-ietf-raw-oam-support-00" submissionType="IETF"
     ipr="trust200902" tocInclude="true">
