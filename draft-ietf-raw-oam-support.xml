@@ -209,7 +209,7 @@
     	<t>
             We re-use here the same terminology as <xref target="I-D.ietf-detnet-oam-framework"/>:
         </t>
-        <ul empty="true" spacing="normal">
+        <ul>
             <li>
                 OAM entity: a data flow to be monitored for defects and/or its performance metrics measured.;
             </li>
@@ -250,7 +250,7 @@
 
                Active methods may implement one of these two strategies:
                </t>
-               <ul empty="true" spacing="normal">
+               <ul>
                 
                     <li>
                         In-band: control information follows the same path as the data packets.
@@ -275,7 +275,7 @@
         We also adopt the following terminology, which is particularly relevant for RAW segments.
         </t>
         
-        <ul empty="true" spacing="normal">
+        <ul>
           
 
             <li> piggybacking vs. dedicated control packets:
@@ -395,7 +395,7 @@ Fab: +1 (no interest to restrict so much the possibility)
             We make a distinction between:
             </t>
         
-            <ul empty="true" spacing="normal">
+            <ul>
                 <li> point-to-point (p2p) link with one transmitter and one receiver.
                     These links are used to transmit unicast packets.
                 </li>
@@ -462,7 +462,7 @@ Fab: +1 (no interest to restrict so much the possibility)
             In a wireless network, additionnal transmissions opportunities are provisionned to accomodate packet losses.
             Thus, the end-to-end delay consists of:
         </t>
-            <ul empty="true" spacing="normal">
+            <ul>
                 <li>
                     Transmission delay, which is fixed and depends mainly on the data rate, and the presence or absence of an acknowledgement.
                 </li>
@@ -600,7 +600,7 @@ Fab: +1 (no interest to restrict so much the possibility)
    <t>
       The RAW network has to expose a collection of metrics to support an operator making proper decisions, including:
     </t>
-      <ul empty="true" spacing="normal">
+      <ul>
          <li>
             Packet losses: the time-window average and maximum values of the
             number of packet losses have to be measured. Many critical applications
@@ -641,7 +641,7 @@ Fab: +1 (no interest to restrict so much the possibility)
       These metrics should be collected per device, virtual circuit, and path, as detnet already does.
       However, we have to face in RAW to a finer granularity:
      </t>
-     <ul empty="true" spacing="normal">
+     <ul>
          
          <li>per radio channel to measure, e.g., the level of external interference,
             and to be able to apply counter-measures (e.g., blacklisting).
@@ -684,7 +684,7 @@ Fab: +1 (no interest to restrict so much the possibility)
       <t>
            We have to minimize the number of statistics / measurements to exchange:
         </t>
-           <ul empty="true" spacing="normal">
+           <ul>
            <li>
                energy efficiency: low-power devices have to limit the volume of monitoring
                information since every bit consumes energy.
@@ -704,7 +704,7 @@ Fab: +1 (no interest to restrict so much the possibility)
          The following techniques aim to reduce the cost of such maintenance:
          </t>
           
-         <ul empty="true" spacing="normal">
+         <ul>
             <li>
                on-path collection: some control information is inserted in the data packets
                if they do not fragment the packet (i.e., the MTU is not exceeded).
@@ -794,7 +794,7 @@ Fab: +1 (no interest to restrict so much the possibility)
             The network must continuously retrieve the state of the network,
             to judge about the relevance of a reconfiguration, quantifying:
         </t>
-            <ul empty="true" spacing="normal">
+            <ul>
                <li> the cost of the sub-optimality: resources may not be used
                   optimally (e.g., a better path exists);
                </li>
@@ -816,11 +816,11 @@ Fab: +1 (no interest to restrict so much the possibility)
      <t>
          This section lists requirements for OAM in a RAW domain:
      </t>
-    <ol spacing="normal" type="1">
+    <ol>
         <li>
-            Each RAW device MUST expose a list of metrics per track.
-            It MUST at least report the end-to-end Packet Delivery Ratio,
-            the end-to-end latency, and the Maximum Consecutive Failures (MCF).
+            Each Test and Monitoring Endpoint device MUST expose a list of available metrics per track.
+            It MUST at least provide the end-to-end Packet Delivery Ratio,
+            end-to-end latency, and Maximum Consecutive Failures (MCF).
         </li>
          
         <li>
@@ -828,10 +828,15 @@ Fab: +1 (no interest to restrict so much the possibility)
         </li>
         
         <li>
-            OAM nodes MUST provide aggregated statistics to reduce the volume of trafic
-            dedicated to measurements.
-            They MAY send a compressed distribution of measurements, or MIN and MAX values.
+            OAM nodes MUST provide aggregated statistics to reduce the volume of trafic for measurements.
+            They MAY send a compressed distribution of measurements, or MIN / MAX values over a time interval.
         </li>
+        
+        <li>
+            Monitoring Endpoints SHOULD support route tracing with passive OAM techniques.
+        </li>
+        
+        
     </ol>
     </section>
       
