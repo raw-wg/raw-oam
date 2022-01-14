@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" ipr="trust200902" docName="draft-ietf-raw-oam-support-03" obsoletes="" updates="draft-ietf-raw-oam-support-02" submissionType="IETF" xml:lang="en" tocInclude="true" tocDepth="3" symRefs="true" sortRefs="true" version="3">
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" ipr="trust200902" docName="draft-ietf-raw-oam-support-03" obsoletes="" updates="" submissionType="IETF" xml:lang="en" tocInclude="true" tocDepth="3" symRefs="true" sortRefs="true" version="3">
 
 
 
@@ -69,9 +69,9 @@
     </author>
 
     <author initials="G." surname="Mirsky" fullname="Greg Mirsky">
-      <organization>ZTE Corp.</organization>
+      <organization>Ericsson</organization>
       <address>
-          <email>gregory.mirsky@ztetx.com</email>
+          <email>gregimirsky@gmail.com</email>
       </address>
     </author>
 
@@ -105,7 +105,7 @@
               However, wireless networks exhibit a bandwidth of several orders of magnitude lower than wired networks.
               Besides, wireless transmissions are lossy by nature; the probability that a packet cannot be decoded correctly  by the receiver may be quite high.
               In these conditions, providing high reliability and a low delay is challenging.
-                   This document lists the requirements of  the Operation, Administration, and Maintenance (OAM) features recommended to construct a predictable communication
+                   This document lists the requirements of  the Operation, Administration, and Maintenance (OAM) features are recommended to construct a predictable communication
               infrastructure on top of a collection of wireless segments.
               This document describes the benefits, problems, and trade-offs for using OAM in wireless networks to achieve Service Level Objectives (SLO).
 
@@ -155,7 +155,7 @@
     
     <t>
         However, wireless networks create specific challenges.
-        First of all, radio bandwidth is significantly lower than for wired networks.
+        First of all, radio bandwidth is significantly lower than in wired networks.
         In these conditions, the volume of signaling messages has to be very limited.
         Even worse, wireless links are lossy: a Layer 2 transmission may or may not be 
         decoded correctly by the receiver, depending on a broad set of parameters.
@@ -169,7 +169,7 @@
         A receiver may or may not receive a transmission, depending on
         the presence of a colliding transmission, the radio channel's quality, and the external interference.
         Besides, a wireless transmission is broadcast by nature: any <em>neighboring</em>
-        device may be able to decode it. This document includes detailed information on what the implications for the OAM features are.
+        device may be able to decode it. This document includes detailed information on the implications for the OAM features.
     </t>
     
     <t>
@@ -177,7 +177,7 @@
         If the wireless networks use an unlicensed band, packet losses are not anymore temporally
         and spatially independent.
         Typically, links may exhibit a very bursty characteristic, where several 
-        consecutive packets may be dropped, because of e.g. temporary external interference.
+        consecutive packets may be dropped because of, e.g., temporary external interference.
         Thus, providing availability and reliability on top of the wireless infrastructure 
         requires specific Layer 3 mechanisms to counteract these bursty losses. 
     </t>
@@ -254,7 +254,7 @@
                 
                     <li>
                         In-band: control information follows the same path as the data packets.
-                        In other words, a failure in the data plane may prevent the control information to reach the destination (e.g., end-device or controller).
+                        In other words, a failure in the data plane may prevent the control information from reaching the destination (e.g., end-device or controller).
                     </li>
                     <li>
                         out-of-band: control information is sent separately from the data packets.
@@ -286,7 +286,7 @@
             
             <li> router-over vs. mesh under:
                 a control packet is either forwarded directly to the layer-3 next hop (mesh under) or handled hop-by-hop by each router.
-                While the latter option consumes more resources, it allows to collect additionnal intermediary information, particularly relevant in wireless networks.
+                While the latter option consumes more resources, it allows collecting additional intermediary information, particularly relevant in wireless networks.
             </li>
             
              <li>
@@ -336,9 +336,9 @@
 <!-- INTEREST OF OAM          -->
 <section title="Role of OAM in RAW">
 	<t>
-      RAW networks expect to make the communications reliable and predictable on top of a
+      RAW networks expect to make the communications reliable and predictable over a
       wireless network infrastructure. 
-      Most critical applications will define an SLO to be required for the data flows it
+      Most critical applications will define an SLO required for the data flows it
       generates.
       RAW considers network plane protocol elements such as OAM to improve the RAW operation 
       at the service and the forwarding sub-layers.
@@ -348,20 +348,20 @@
 	<t>
 To respect strict guarantees, RAW relies on the Path Selection Engine (PSE) (as
 defined in <xref target="I-D.pthubert-raw-architecture" /> to monitor and
-maintain the L3 network. A L2 scheduler may be used to allocate transmission opportunities,
+maintain the L3 network. An L2 scheduler may be used to allocate transmission opportunities,
 based on the radio link characteristics, SLO of the flows, the number of packets to forward.
-The PSE exploits the L2 ressources reserved by the scheduler, and organizes the L3 paths to
-introduce redundancy, fault tolerance, and create backup paths.
+The PSE exploits the L2 resources reserved by the scheduler and organizes the L3 paths to
+introduce redundancy, fault tolerance and create backup paths.
 OAM represents the core of the pre-provisioning process by supervising the network.
-It maintains maintains a global view of the network resources, to detect defects, faults, over-provisionning, anomalies.
+It maintains a global view of the network resources to detect defects, faults, over-provisioning, anomalies.
 
 	</t>
 
 
 
 	<t>
-      Fault-tolerance also assumes that multiple paths have to be provisioned
-      so that an end-to-end circuit keeps on existing whatever the conditions.
+      Fault tolerance also assumes that multiple paths must be
+   provisioned so that an end-to-end circuit remains operational regardless of the conditions. 
       The Packet Replication and Elimination Function (<xref target="I-D.thubert-bier-replication-elimination"/>) on a node is typically controlled by the PSE.
       OAM mechanisms can be used to monitor that PREOF is working correctly on a node and within the domain.
 	</t>
@@ -371,14 +371,14 @@ Greg: I think that out-of-band OAM is useful in case of passive OAM that collect
 Fab: +1 (no interest to restrict so much the possibility)
 -->
 	<t>
-      To be energy-efficient, out-of-band OAM SHOULD only be used to report aggregated statistics (e.g., counters, histograms) from the nodes using e.g., SNMP or Netconf/Restconf using YANG-based data models.
+      To be energy-efficient, out-of-band OAM SHOULD only be used to report aggregated statistics (e.g., counters, histograms) from the nodes using, e.g., SNMP or Netconf/Restconf using YANG-based data models.
       The out-of-band OAM flow MAY use a dedicated control and management channel, dedicated for this purpose.
 	</t>
 
 
 	<t>
       RAW supports both proactive and on-demand troubleshooting.
-      Proactively, it is necessary to detect anomalies, to report defects, or to reduce over-provisionning if it is not required.
+      Proactively, it is necessary to detect anomalies, report defects, or reduce over-provisioning if it is not required.
       However, on-demand may also be required to identify the cause of a specific defect.
       Indeed, some specific faults may only be detected with a global, detailed view of the network, which is too expensive to acquire in the normal operating mode.
 	</t>
@@ -391,7 +391,7 @@ Fab: +1 (no interest to restrict so much the possibility)
     <section title="Link concept and quality">
         <t>
             In wireless networks, a <em>link</em> does not exist physically.
-            A device has a set of <strong>neighbors</strong> that correspond to all the devices that have a non null probability of receiving correctly its packets.
+            A device has a set of <strong>neighbors</strong> that correspond to all the devices that have a non-null probability of receiving its packets correctly.
             We make a distinction between:
             </t>
         
@@ -400,19 +400,19 @@ Fab: +1 (no interest to restrict so much the possibility)
                     These links are used to transmit unicast packets.
                 </li>
                 
-                <li> point-to-multipoint (p2m) link associates one transmitter and a collection of receivers.
-                    For instance, broadcast packets assume the existence of p2m links to avoid duplicating a broadcast packet to reach each possible radio neighbor.
+                <li> point-to-multipoint (p2mp) link associates one transmitter and a collection of receivers.
+                    For instance, broadcast packets assume the existence of p2mp links to avoid duplicating a broadcast packet to reach each possible radio neighbor.
                 </li>
             </ul>
 
     
             <t>
-            In scheduled radio networks, p2m and p2p links are commonly not scheduled simultaneously to save energy, and/or to reduce the number of collisions.
-            More precisely, only one part of the neighbors may wake-up at a given instant.
+            In scheduled radio networks, p2mp and p2p links are commonly not scheduled simultaneously to save energy and/or to reduce the number of collisions.
+            More precisely, only one part of the neighbors may wake up at a given instant.
             </t>
         <t>
-            Anycast are used in p2m links to improve the reliability.
-            A collection of receivers are scheduled to wake-up simutaneously, so that the transmission fails only if none of the receivers is able to decode the packet.
+            Anycast is used in p2mp links to improve the reliability.
+            A collection of receivers are scheduled to wake up simultaneously, so that the transmission fails only if none of the receivers can decode the packet.
             </t>
      
         <t>
@@ -421,22 +421,22 @@ Fab: +1 (no interest to restrict so much the possibility)
             It is worth noting that this link quality depends on many criteria, such as the level of external
             interference, the presence of concurrent transmissions, or the radio channel state.
             This link quality is even time-variant.
-            For p2m links, we have consequently a collection of PDR (one value per receiver).
-            Other more sophisticated, aggregated metrics exist for these p2m links, such as <xref target="anycast-property"/>
+            For p2mp links, consequently, we have a collection of PDR (one value per receiver).
+            Other more sophisticated, aggregated metrics exist for these p2mp links, such as <xref target="anycast-property"/>
             </t>
         
         </section>
     
     <section title="Broadcast Transmissions">
         <t>
-            In modern switching networks, the unicast transmission is delivered uniquely to the destination.
-            Wireless networks are much closer to the ancient <strong>shared access</strong> networks.
+            The unicast transmission is delivered exclusively to the destination in modern switching networks.
+            Wireless networks are much closer to the traditional <strong>shared access</strong> networks.
             Practically, unicast and broadcast frames are handled similarly at the physical layer.
-            The link layer is just in charge of filtering the frames to discard irrelevant receptions (e.g., different unicast MAC address).
+            The link layer is just in charge of filtering the frames to discard irrelevant receptions (e.g., different unicast MAC addresses).
             </t>
         
         <t>
-            However, contrary to wired networks, we cannot be sure that a packet is received by
+            However, contrary to wired networks, we cannot ensure that a packet is received by
             <strong>all</strong> the devices attached to the Layer 2 segment.
             It depends on the radio channel state between the transmitter(s) and the receiver(s).
             In particular, concurrent transmissions may be possible or not, depending on the radio conditions (e.g., do the different transmitters use a different radio channel or are they sufficiently spatially separated?)
@@ -449,17 +449,17 @@ Fab: +1 (no interest to restrict so much the possibility)
     <section title="Complex Layer 2 Forwarding">
         <t>
             Multiple neighbors may receive a transmission.
-            Thus, anycast Layer 2 forwarding helps to maximize the reliability by assigning multiple receivers to a single transmission.
+            Thus, anycast Layer 2 forwarding helps to maximize reliability by assigning multiple receivers to a single transmission.
             That way, the packet is lost only if <strong>none</strong> of the receivers decode it.
             Practically, it has been proven that different neighbors may exhibit very different radio conditions, and
-            that reception independency may hold for some of them <xref target="anycast-property"/>.
+            that reception independence may hold for some of them <xref target="anycast-property"/>.
             </t>
         </section>
 
   
     <section title="End-to-end delay">
       <t>
-            In a wireless network, additionnal transmissions opportunities are provisionned to accomodate packet losses.
+            In a wireless network, additional transmissions opportunities are provisioned to accommodate packet losses.
             Thus, the end-to-end delay consists of:
         </t>
             <ul>
@@ -468,7 +468,7 @@ Fab: +1 (no interest to restrict so much the possibility)
                 </li>
                 <li>
                     Residence time, corresponds to the buffering delay and depends on the schedule.
-                    To account for retransmisisons, the residence time is equal to the difference between the time of last reception from the previous hop (among all the retransmisions) and the time of emission of the last retransmission.
+                    To account for retransmissions, the residence time is equal to the difference between the time of last reception from the previous hop (among all the retransmissions) and the time of emission of the last retransmission.
                 </li>
 
             </ul>
@@ -491,13 +491,13 @@ Fab: +1 (no interest to restrict so much the possibility)
 
     <section title="Information Collection">
            <t>
-               The model to exchange information should be the same as for DetNet network, for the sake of inter-operability.
+               The model for exchanging information should be the same as for a DetNet network to ensure inter-operability.
                YANG may typically fulfill this objective.
             </t>
            
            <t>
                However, RAW networks imply specific constraints (e.g., low bandwidth, packet losses, cost of medium access) that may require to minimize the volume of information to collect.
-               Thus, we discuss in <xref target="measurementretrieval"/> different ways to collect information, i.e., transfer physically the OAM information from the emitter to the receiver.
+               Thus, we discuss in <xref target="measurementretrieval"/> different ways to collect information, i.e., transfer the OAM information physically from the emitter to the receiver.
                This corresponds to passive OAM as defined in <xref target="RFC7799"/>
                </t>
            </section>
@@ -555,8 +555,8 @@ Fab: +1 (no interest to restrict so much the possibility)
        </t>
         
         <t>
-            Thus, multipath routing / multi-attachment can be considered to make the network fault-tolerant.
-            Even better, we can exploit the broadcast nature of wireless networks to exploit: we may have multiple Monitoring Endpoints (MonEP) for each of this kind of hop.
+            Thus, multipath routing / multi-attachment can be viewed as making the network more fault-tolerant.
+            Even better, we can exploit the broadcast nature of wireless networks: we may have multiple Monitoring Endpoints (MonEP) for each of these kinds of hop.
             While it may be reasonable in the multi-attachment case, the complexity quickly increases with the path length.
             Indeed, each Maintenance Intermediate Endpoint has several possible next hops in the forwarding plane.
 			Thus, all the possible paths between two maintenance endpoints should be retrieved, which may quickly become intractable if we apply a naive approach.
@@ -585,7 +585,7 @@ Fab: +1 (no interest to restrict so much the possibility)
         </t>
         <t>
             For instance, the decrease in the link quality may be caused by several factors: external interference, obstacles, multipath fading, mobility.
-            It it fundamental to be able to discriminate the different causes to make the right decision.
+            It is fundamental to be able to discriminate the different causes to make the right decision.
         </t>
         
         
@@ -604,7 +604,7 @@ Fab: +1 (no interest to restrict so much the possibility)
          <li>
             Packet losses: the time-window average and maximum values of the
             number of packet losses have to be measured. Many critical applications
-            stop to work if a few consecutive packets are dropped;
+            stop working if a few consecutive packets are dropped;
             </li>
          
          <li>
@@ -625,8 +625,8 @@ Fab: +1 (no interest to restrict so much the possibility)
             </li>
          <li>
             Battery lifetime: the expected remaining battery lifetime of the
-            device. Since many RAW devices might be battery powered, this is an
-            important metric for an operator to take proper decisions.
+            device. Since many RAW devices might be battery-powered, this is an
+            important metric for an operator to make proper decisions.
             </li>
 
          <li>
@@ -638,19 +638,19 @@ Fab: +1 (no interest to restrict so much the possibility)
       </ul>
 
    <t>
-      These metrics should be collected per device, virtual circuit, and path, as detnet already does.
-      However, we have to face in RAW to a finer granularity:
+      These metrics should be collected per device, virtual circuit, and path, as DetNet already does.
+      However, in RAW, we have to deal with them at a finer granularity:
      </t>
      <ul>
          
          <li>per radio channel to measure, e.g., the level of external interference,
             and to be able to apply counter-measures (e.g., blacklisting).
             </li>
-         <li>per physical radio technology / interface if a device has multiple NIC.
+         <li>per physical radio technology / interface, if a device has multiple NICs.
              </li>
          
          <li>
-            per link to detect misbehaving link (assymetrical link, fluctuating quality).
+            per link to detect misbehaving link (asymmetrical link, fluctuating quality).
         </li>
          
         <li>
@@ -674,7 +674,7 @@ Fab: +1 (no interest to restrict so much the possibility)
      <t>
          Wireless networks are known to be lossy, and RAW has to implement strategies to improve reliability on top of unreliable links.
          Reliability is typically achieved through Automatic Repeat Request (ARQ), and Forward Error Correction (FEC).
-         Since the different flows have not the same SLO, RAW must adjust the ARQ and FEC based on the link and path characteristics.
+         Since the different flows don't have the same SLO, RAW must adjust the ARQ and FEC based on the link and path characteristics.
       </t>
       
     
@@ -723,9 +723,9 @@ Fab: +1 (no interest to restrict so much the possibility)
             
             <li>
                 hierarchical monitoring: localized and centralized mechanisms have to be combined together.
-                Typically, a local mechanism should contiuously monitor a set of metrics and trigger distant OAM exchances only when a fault is detected (but possibly not identified).
+                Typically, a local mechanism should continuously monitor a set of metrics and trigger remote OAM exchanges only when a fault is detected (but possibly not identified).
                 For instance, local temporary defects must not trigger expensive OAM transmissions.
-                Besides, the wireless segments represent often the weakest parts of a path: the volume of control information they produce has to be fixed accordingly.
+                Besides, the wireless segments often represent the weakest parts of a path: the volume of control information they produce has to be fixed accordingly.
 
             </li>
             
@@ -744,7 +744,7 @@ Fab: +1 (no interest to restrict so much the possibility)
                 The Test EndPoint will collect measurements from the OAM probes received in the monitored track.
                 However, the aggregated statistics must then be reported to the other Test Endpoint that injected the probes.
                 Unfortunately, the monitored track MAY be unidirectional.
-                In this case, the statistics have to be reported out-of-band (through e.g., a dedicated control or management channel).
+                In this case, the statistics have to be reported out-of-band (through, e.g., a dedicated control or management channel).
             </t>
             
             <t>
@@ -787,7 +787,7 @@ Fab: +1 (no interest to restrict so much the possibility)
         <t>
             RAW needs to implement self-optimization features.
             While the network is configured to be fault-tolerant, a reconfiguration may be required to keep on respecting long-term objectives.
-            Obviously, the network keeps on respecting the SLO after a node's crash, but a reconfiguration is required to handle the future faults.
+            Obviously, the network keeps on respecting the SLO after a node's crash, but a reconfiguration is required to handle future faults.
             In other words, the reconfiguration delay MUST be strictly smaller than the inter-fault time.
         </t>
         <t>
@@ -828,7 +828,7 @@ Fab: +1 (no interest to restrict so much the possibility)
         </li>
         
         <li>
-            OAM nodes MUST provide aggregated statistics to reduce the volume of trafic for measurements.
+            OAM nodes MUST provide aggregated statistics to reduce the volume of traffic for measurements.
             They MAY send a compressed distribution of measurements, or MIN / MAX values over a time interval.
         </li>
         
