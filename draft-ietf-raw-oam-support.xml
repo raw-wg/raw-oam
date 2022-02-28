@@ -232,9 +232,11 @@
             </li>
 
             <li>control/management/data plane: the control and management planes
-               are used to configure and control the network (long-term). The
-               data plane takes the individual decision. Relative to a data
-               flow, the control and/or management plane can be out-of-band;
+               are used to configure and control the network (long-term).
+               On a per-node basis, the data plane applies rules and policies for each packet.
+               For example, selecting the time-frequency block or the next hop on a
+               packet-by-packet basis.
+               Relative to a data flow, the control and/or management plane can be out-of-band;
                 </li>
 
             <li><t>
@@ -736,6 +738,7 @@ Fab: +1 (no interest to restrict so much the possibility)
              For instance, the DetNet forwarding sublayer MAY combine In-band Network Telemetry (INT) with P4, iOAM and iPath to compute and report different statistics in the track (e.g., number of link-layer retransmissions, link reliability).
          </t>
 
+
       </section>
    
    
@@ -750,7 +753,14 @@ Fab: +1 (no interest to restrict so much the possibility)
             <t>
                 It is worth noting that Active OAM and Passive OAM techniques are not mutually exclusive.
                 In particular, Active OAM is useful when a statistic cannot be acquired accurately passively.
-               
+            </t>
+            
+            
+            <t>
+                Besides, Active OAM may also use piggybacking techniques: the OAM packet may be piggybacked in a frame if the MTU is sufficient.
+                Indeed, increasing the number of transmissions in radio netwrks may impact very negatively the performance of radio networks, particularly for scheduled access, with fixed timeslot durations.
+                Thus, OAM packets may be buffered until another frame has sufficient space, and has to be transmitted to the same neighbor.
+                In conclusion, active OAM packets may be out-of-band or in-band.
             </t>
        </section>
        
