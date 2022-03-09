@@ -18,4 +18,6 @@ after WG adoption:
 * April 2021: the working group adoption call has been positively closed, https://tools.ietf.org/html/draft-ietf-raw-oam-support-00
 * May 2021: delay discussions, PREP removed, predictive maintenance , https://tools.ietf.org/html/draft-ietf-raw-oam-support-01
 * June 2021: bidirect OAM, definition of passive/active/in-band/out-of-band, p2p/p2m links, Xavi's comments,  https://tools.ietf.org/html/draft-ietf-raw-oam-support-02
+* January 2022: requirements (novel section 6), p2mp links
+* March 2022: piggybacking 
 
