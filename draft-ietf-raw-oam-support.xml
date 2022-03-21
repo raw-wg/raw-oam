@@ -145,6 +145,8 @@
         In wired networks, many approaches try to enable Quality of Service (QoS) by
         implementing traffic differentiation so that routers handle each type of packets differently.
         However, this differentiated treatment was expensive for most applications.
+	<!-- DB: I don't understand this sentence. Why "was" and not "is"? Why for most applications and not all?
+          This sentence says too little or too much, it open more questions than it closes -->
     </t>
     
     <t>
@@ -284,11 +286,14 @@
             control information may be encapsulated in specific (dedicated) control packets.
             Alternatively, it may be piggybacked in existing data packets, when the MTU is larger than the actual packet length.
             Piggybacking makes specifically sense in wireless networks, as the cost (bandwidth and energy) is not linear with the packet size.
+	    <!-- DB: do you mean "sublinear"? If it is supralinear, then it is a bad idea to use piggybacking. -->
             </li>
             
             <li> router-over vs. mesh under:
                 a control packet is either forwarded directly to the layer-3 next hop (mesh under) or handled hop-by-hop by each router.
+		<!-- DB: what is a "layer-3 next hop"? to me, this looks like looking into the routing table, i.e., route-over. -->
                 While the latter option consumes more resources, it allows collecting additional intermediary information, particularly relevant in wireless networks.
+		<!-- DB: additional intermediary information: can you provide an exemple? -->
             </li>
             
              <li>
@@ -298,6 +303,7 @@
     
            <li>
                Fault: a definite change which may affect the network performance, e.g., a node runs out of energy.
+		<!-- DB: "definite": do you mean "long-term" (as opposed to temporary)? "definite" means "very clear, sharp". -->
            </li>
            <li>
                 End-to-end delay: the time between the packet generation and its reception by the destination.
@@ -344,6 +350,7 @@
       generates.
       RAW considers network plane protocol elements such as OAM to improve the RAW operation 
       at the service and the forwarding sub-layers.
+      <!-- DB: I don't understand the structure of this sentence: RAW considers something as ..., RAW considers doing ..., ? -->
 	</t>
 
 
@@ -351,7 +358,7 @@
 To respect strict guarantees, RAW relies on the Path Selection Engine (PSE) (as
 defined in <xref target="I-D.pthubert-raw-architecture" /> to monitor and
 maintain the L3 network. An L2 scheduler may be used to allocate transmission opportunities,
-based on the radio link characteristics, SLO of the flows, the number of packets to forward.
+based on the radio link characteristics, the SLO of the flows, or the number of packets to forward.
 The PSE exploits the L2 resources reserved by the scheduler and organizes the L3 paths to
 introduce redundancy, fault tolerance and create backup paths.
 OAM represents the core of the pre-provisioning process by supervising the network.
@@ -374,7 +381,7 @@ Fab: +1 (no interest to restrict so much the possibility)
 -->
 	<t>
       To be energy-efficient, out-of-band OAM SHOULD only be used to report aggregated statistics (e.g., counters, histograms) from the nodes using, e.g., SNMP or Netconf/Restconf using YANG-based data models.
-      The out-of-band OAM flow MAY use a dedicated control and management channel, dedicated for this purpose.
+      The out-of-band OAM flow MAY use a dedicated control and management channel, dedicated to this purpose.
 	</t>
 
 
@@ -410,7 +417,7 @@ Fab: +1 (no interest to restrict so much the possibility)
     
             <t>
             In scheduled radio networks, p2mp and p2p links are commonly not scheduled simultaneously to save energy and/or to reduce the number of collisions.
-            More precisely, only one part of the neighbors may wake up at a given instant.
+            More precisely, only a fraction of the neighbors may wake up at a given instant.
             </t>
         <t>
             Anycast is used in p2mp links to improve the reliability.
@@ -431,8 +438,8 @@ Fab: +1 (no interest to restrict so much the possibility)
     
     <section title="Broadcast Transmissions">
         <t>
-            The unicast transmission is delivered exclusively to the destination in modern switching networks.
-            Wireless networks are much closer to the traditional <strong>shared access</strong> networks.
+            In modern switched networks, unicast transmissions are delivered exclusively to the destination .
+            Wireless networks are much closer to the traditional <strong>shared access</strong> wired networks.
             Practically, unicast and broadcast frames are handled similarly at the physical layer.
             The link layer is just in charge of filtering the frames to discard irrelevant receptions (e.g., different unicast MAC addresses).
             </t>
@@ -461,7 +468,7 @@ Fab: +1 (no interest to restrict so much the possibility)
   
     <section title="End-to-end delay">
       <t>
-            In a wireless network, additional transmissions opportunities are provisioned to accommodate packet losses.
+            In a wireless network, additional transmissions opportunities are provisioned to accommodate for packet losses.
             Thus, the end-to-end delay consists of:
         </t>
             <ul>
@@ -500,7 +507,7 @@ Fab: +1 (no interest to restrict so much the possibility)
            <t>
                However, RAW networks imply specific constraints (e.g., low bandwidth, packet losses, cost of medium access) that may require to minimize the volume of information to collect.
                Thus, we discuss in <xref target="measurementretrieval"/> different ways to collect information, i.e., transfer the OAM information physically from the emitter to the receiver.
-               This corresponds to passive OAM as defined in <xref target="RFC7799"/>
+               This corresponds to passive OAM as defined in <xref target="RFC7799"/>.
                </t>
            </section>
 
@@ -508,7 +515,7 @@ Fab: +1 (no interest to restrict so much the possibility)
     
     <section title="Continuity Check">
 		<t>
-			Similarly to DetNet, we need to verify that the source and the destination are connected (at least one valid path exists)
+			Similarly to DetNet, we need to verify that the source and the destination are connected (at least one valid path exists).
  		</t>
         
         </section>
@@ -752,13 +759,13 @@ Fab: +1 (no interest to restrict so much the possibility)
             
             <t>
                 It is worth noting that Active OAM and Passive OAM techniques are not mutually exclusive.
-                In particular, Active OAM is useful when a statistic cannot be acquired accurately passively.
+                In particular, Active OAM is useful when a statistic cannot be accurately acquired passively.
             </t>
             
             
             <t>
                 Besides, Active OAM may also use piggybacking techniques: the OAM packet may be piggybacked in a frame if the MTU is sufficient.
-                Indeed, increasing the number of transmissions in radio netwrks may impact very negatively the performance of radio networks, particularly for scheduled access, with fixed timeslot durations.
+                Indeed, increasing the number of transmissions in radio networks may very negatively impact the performance of radio networks, particularly for scheduled access, with fixed timeslot durations.
                 Thus, OAM packets may be buffered until another frame has sufficient space, and has to be transmitted to the same neighbor.
                 In conclusion, active OAM packets may be out-of-band or in-band.
             </t>
@@ -790,6 +797,7 @@ Fab: +1 (no interest to restrict so much the possibility)
             Because of the wireless medium, the link quality may fluctuate, and the network needs to reconfigure itself continuously.
             During this transient state, flows may begin to be gradually re-forwarded, consuming resources in different parts of the network.
             OAM has to make a distinction between a metric that changed because of a legal network change (e.g., flow  redirection) and an unexpected event (e.g., a fault).
+		<!-- DB: "legal" feels strange. A hardware fault is not illegal, it's just unfortunate. -->
        </t>
     </section>
  
@@ -797,7 +805,7 @@ Fab: +1 (no interest to restrict so much the possibility)
         <t>
             RAW needs to implement self-optimization features.
             While the network is configured to be fault-tolerant, a reconfiguration may be required to keep on respecting long-term objectives.
-            Obviously, the network keeps on respecting the SLO after a node's crash, but a reconfiguration is required to handle future faults.
+            Obviously, the network keeps on respecting the SLO after a node crash, but a reconfiguration is required to handle future faults.
             In other words, the reconfiguration delay MUST be strictly smaller than the inter-fault time.
         </t>
         <t>
