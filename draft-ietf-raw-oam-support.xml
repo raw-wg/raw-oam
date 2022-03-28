@@ -144,9 +144,6 @@
         includes scheduled wireless segments.
         In wired networks, many approaches try to enable Quality of Service (QoS) by
         implementing traffic differentiation so that routers handle each type of packets differently.
-        However, this differentiated treatment was expensive for most applications.
-	<!-- DB: I don't understand this sentence. Why "was" and not "is"? Why for most applications and not all?
-          This sentence says too little or too much, it open more questions than it closes -->
     </t>
     
     <t>
@@ -285,15 +282,14 @@
             <li> piggybacking vs. dedicated control packets:
             control information may be encapsulated in specific (dedicated) control packets.
             Alternatively, it may be piggybacked in existing data packets, when the MTU is larger than the actual packet length.
-            Piggybacking makes specifically sense in wireless networks, as the cost (bandwidth and energy) is not linear with the packet size.
-	    <!-- DB: do you mean "sublinear"? If it is supralinear, then it is a bad idea to use piggybacking. -->
+            Piggybacking makes specifically sense in wireless networks, as the cost (bandwidth and energy) is sublinear with the packet size.
+            Indeed, the cost to access the medium (e.g., early wake-up to deal with clock drifts) cannot be neglected, and is counted once, whatever the packet size.
             </li>
             
             <li> router-over vs. mesh under:
-                a control packet is either forwarded directly to the layer-3 next hop (mesh under) or handled hop-by-hop by each router.
-		<!-- DB: what is a "layer-3 next hop"? to me, this looks like looking into the routing table, i.e., route-over. -->
+                a control packet is either forwarded directly without being processed (mesh under) or handled hop-by-hop by each router.
                 While the latter option consumes more resources, it allows collecting additional intermediary information, particularly relevant in wireless networks.
-		<!-- DB: additional intermediary information: can you provide an exemple? -->
+                For instance, each router may insert its own ID in the packet's hader, so that the destination can a posteriori know the list of IDs that actually forwarded a packet.
             </li>
             
              <li>
@@ -302,8 +298,7 @@
            </li>
     
            <li>
-               Fault: a definite change which may affect the network performance, e.g., a node runs out of energy.
-		<!-- DB: "definite": do you mean "long-term" (as opposed to temporary)? "definite" means "very clear, sharp". -->
+               Fault: a irrevocable change which may affect the network performance, e.g., a node runs out of energy.
            </li>
            <li>
                 End-to-end delay: the time between the packet generation and its reception by the destination.
@@ -348,9 +343,7 @@
       wireless network infrastructure. 
       Most critical applications will define an SLO required for the data flows it
       generates.
-      RAW considers network plane protocol elements such as OAM to improve the RAW operation 
-      at the service and the forwarding sub-layers.
-      <!-- DB: I don't understand the structure of this sentence: RAW considers something as ..., RAW considers doing ..., ? -->
+      RAW expcts to exploit OAM to improve the RAW operation at the service and the forwarding sub-layers.
 	</t>
 
 
@@ -796,8 +789,7 @@ Fab: +1 (no interest to restrict so much the possibility)
         <t>
             Because of the wireless medium, the link quality may fluctuate, and the network needs to reconfigure itself continuously.
             During this transient state, flows may begin to be gradually re-forwarded, consuming resources in different parts of the network.
-            OAM has to make a distinction between a metric that changed because of a legal network change (e.g., flow  redirection) and an unexpected event (e.g., a fault).
-		<!-- DB: "legal" feels strange. A hardware fault is not illegal, it's just unfortunate. -->
+            OAM has to make a distinction between a metric that changed because of an usual network change (e.g., flow  redirection) and an unexpected event (e.g., a fault).
        </t>
     </section>
  
