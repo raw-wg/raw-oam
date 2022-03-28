@@ -843,7 +843,7 @@ Fab: +1 (no interest to restrict so much the possibility)
         </li>
         
         <li>
-            Monitoring Endpoints SHOULD support route tracing with passive OAM techniques.
+            Monitoring Endpoints SHOULD support route tracing with hybrid OAM techniques.
         </li>
         
         
