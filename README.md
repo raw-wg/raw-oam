@@ -1,9 +1,12 @@
-# raw-oam
-The wireless medium presents significant specific challenges to achieve
-properties similar to those of wired deterministic networks. At the same
-time, a number of use cases cannot be solved with wires and justify the
-extra effort of going wireless. This document lists the requirements of
-the Operation, Administration, and Maintenance (OAM) features recommended to provide reliability and availability on top of a collection of wireless segments.  This document describes the benefits, problems, and trade-offs for using OAM in wireless networks to achieve Service Level Objectives.
+# raw-oam (IETF draft)
+
+Some critical applications may use a wireless infrastructure.
+However, wireless networks exhibit a bandwidth of several orders of magnitude lower than wired networks.
+Besides, wireless transmissions are lossy by nature; the probability that a packet cannot be decoded correctly  by the receiver may be quite high.
+In these conditions, providing high reliability and a low delay is challenging.
+This document lists the requirements of  the Operation, Administration, and Maintenance (OAM) features are recommended to provide availability and reliability on top of a collection of wireless segments.
+This document describes the benefits, problems, and trade-offs for using OAM in wireless networks to achieve Service Level Objectives (SLO).
+
 
 # versions of the draft
 
