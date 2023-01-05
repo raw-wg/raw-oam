@@ -20,6 +20,5 @@ after WG adoption:
 * June 2021: bidirect OAM, definition of passive/active/in-band/out-of-band, p2p/p2m links, Xavi's comments,  https://tools.ietf.org/html/draft-ietf-raw-oam-support-02
 * January 2022: requirements (novel section 6), p2mp links, https://tools.ietf.org/html/draft-ietf-raw-oam-support-03
 * March 2022: piggybacking, https://tools.ietf.org/html/draft-ietf-raw-oam-support-04
-* https://tools.ietf.org/html/draft-ietf-raw-oam-support-05
-* https://tools.ietf.org/html/draft-ietf-raw-oam-support-06
-* January 2023: terminology harmonization with detnet, only what is specific to wireless, revamped of the maintenance section, https://tools.ietf.org/html/draft-ietf-raw-oam-support-07
+* September 2022: cleaning of a few definitions in terminology, comments of Dominique Barthel (https://github.com/raw-wg/raw-oam/pull/2), editorial changes, https://tools.ietf.org/html/draft-ietf-raw-oam-support-05
+* January 2023: terminology harmonization with detnet, only what is specific to wireless, revamped of the maintenance section, https://tools.ietf.org/html/draft-ietf-raw-oam-support-06
