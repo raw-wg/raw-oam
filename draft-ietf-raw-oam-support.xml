@@ -42,14 +42,14 @@
  
  
 	<author initials="F." surname="Theoleyre" fullname="Fabrice Theoleyre">
-    	<organization>CNRS</organization>
+    	<organization abbrev="CNRS">Centre National de la Recherche Scientifique</organization>
      	<address>
         	<postal>
             	<street>Building B</street>
              	<street>300 boulevard Sebastien Brant - CS 10413</street>
              	<city>Illkirch - Strasbourg</city>
              	<code>67400</code>
-             	<country>FRANCE</country>
+             	<country>France</country>
          	</postal>
          	<phone>+33 368 85 45 33</phone>
             <email>fabrice.theoleyre@cnrs.fr</email>
@@ -65,7 +65,7 @@
            <street>2 Rue de la Chataigneraie</street>
            <city>Cesson-Sevigne - Rennes</city>
             <code>35510</code>
-            <country>FRANCE</country>
+            <country>France</country>
          </postal>
          <phone>+33 299 12 70 04</phone>
     <email>georgios.papadopoulos@imt-atlantique.fr</email>
@@ -75,6 +75,9 @@
     <author initials="G." surname="Mirsky" fullname="Greg Mirsky">
       <organization>Ericsson</organization>
       <address>
+          <postal>
+            <country>US</country>
+          </postal>
           <email>gregimirsky@gmail.com</email>
       </address>
     </author>
