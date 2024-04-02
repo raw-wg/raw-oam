@@ -1,5 +1,6 @@
 
-draft-ietf-raw-oam-support.pdf
-draft-ietf-raw-oam-support.txt
-draft-ietf-raw-oam-support.html
+draft-ietf-*.pdf
+draft-ietf-*.txt
+draft-ietf-*.html
 rfc2pdf.sh
+.venv

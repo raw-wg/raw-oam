@@ -4,7 +4,7 @@
 <!-- Compiles with XML2RFC v3 https://xml2rfc.tools.ietf.org/cgi-bin/xml2rfc-dev.cgi -->
 
 
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" ipr="trust200902" docName="draft-ietf-raw-oam-support-06" obsoletes="" updates="" submissionType="IETF" xml:lang="en" tocInclude="true" tocDepth="3" symRefs="true" sortRefs="true" version="3">
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" ipr="trust200902" docName="draft-ietf-detnet-raw-oam-support-00" obsoletes="" updates="draft-ietf-raw-oam-support" submissionType="IETF" xml:lang="en" tocInclude="true" tocDepth="3" symRefs="true" sortRefs="true" version="3">
 
 
 
@@ -37,7 +37,7 @@
         
 <front> 
 
-    <title abbrev="OAM features for RAW">Operations, Administration and Maintenance (OAM) features for RAW</title>
+    <title abbrev="OAM features for RAW">Operations, Administration and Maintenance (OAM) features for Reliable and Available Wireless</title>
    
  
  
