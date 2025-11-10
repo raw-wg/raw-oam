@@ -37,7 +37,7 @@
         
 <front> 
 
-    <title abbrev="OAM features for RAW">Operations, Administration and Maintenance (OAM) features for Reliable and Available Wireless</title>
+    <title abbrev="OAM features for Wireless">Operations, Administration and Maintenance (OAM) features for all-Wireless Segments</title>
    
  
  
@@ -104,7 +104,7 @@
    <date/>
 
    <area>Routing</area>
-   <workgroup>RAW</workgroup>
+   <workgroup>Detnet</workgroup>
 
    <abstract>
    		<t>
@@ -144,16 +144,9 @@
 
 
 <section title="Introduction">
-	<t>
-        The Reliable and Available Wireless (RAW) working group aims to extends DetNet
-        to approach end-to-end deterministic performances over a network that
-        includes scheduled wireless segments.
-        In wired networks, many approaches try to enable Quality of Service (QoS) by
-        implementing traffic differentiation so that routers handle each type of packets differently.
-    </t>
     
     <t>
-        Deterministic Networking (DetNet) <xref target="RFC8655"/> has proposed to provide a bounded end-to-end latency
+        Deterministic Networking (DetNet) <xref target="RFC8655"/> expects to provide a bounded end-to-end latency
         on top of the network infrastructure, comprising both Layer 2 bridged and Layer 3 routed segments.
         Their work encompasses the data plane, OAM, time synchronization, management, control, and security aspects.
     </t>
@@ -162,9 +155,8 @@
         However, wireless networks create specific challenges.
         First of all, radio bandwidth is significantly lower than in wired networks.
         In these conditions, the volume of signaling messages has to be very limited.
-        Even worse, wireless links are lossy: a Layer 2 transmission may or may not be 
-        decoded correctly by the receiver, depending on a broad set of parameters.
-        Thus, providing high reliability through wireless segments is particularly challenging.
+        Even worse, wireless links are lossy. Thus, providing high reliability through
+        wireless segments is particularly challenging.
     </t>
     
     <t>
@@ -185,7 +177,9 @@
         consecutive packets may be dropped because of, e.g., temporary external interference.
         Thus, providing availability and reliability on top of the wireless infrastructure 
         requires specific Layer 3 mechanisms to counteract these bursty losses.
-        Besides, Layer 3 has to be <em>informed</em> of the physical characteristics to make the right decision, and to avoid exacerbating physical issues (e.g., overloaded link because it became unreliable, overloaded radio channels).
+        Besides, Layer 3 has to be <em>informed</em> of the physical characteristics to make the right decision,
+        and to avoid making the situation worse (e.g., more transmissions scheduled on unreliable
+        links and transitively overloaded radio channels impacting other links).
     </t>
 	   
     <t>
@@ -207,14 +201,12 @@
    <t>
       	In this document, the term OAM will be used according to its definition specified 
       	in <xref target="RFC6291"/>.
-      	We expect to implement an OAM framework in RAW networks to maintain a real-time 
-      	view of the network infrastructure, and its ability to respect the Service Level
-          Objectives (SLO), such as delay and reliability, assigned to each data flow.
+        We expect to maintain a real-time view of the network infrastructure and its ability to
+        respect the Service Level Objectives (SLO), such as delay and reliability assigned to
+        each data flow.
+        This document complements the generic OAM framework as designed for detnet infrastructures
+        <xref target="I-D.ietf-detnet-oam-framework"/> and use the same terminology:
    </t>
-
-    	<t>
-            We re-use here the same terminology as <xref target="I-D.ietf-detnet-oam-framework"/>:
-        </t>
         <ul>
             <li><t>
                 OAM entity: a data flow to be monitored for defects and/or its performance metrics measured.
@@ -258,7 +250,7 @@
                For example, selecting the time-frequency block or the next hop on a
                packet-by-packet basis.
                Relative to a data flow, the control and/or management plane can be out-of-band.
-                </li>
+            </li>
 
             <li><t>
                 Active measurement methods (as defined in
@@ -295,7 +287,7 @@
         
         
         <t>
-        We also adopt the following terminology, which is particularly relevant for RAW-specific (aka wireless) segments.
+        We also adopt the following terminology, which is particularly relevant for all-wireless segments.
         </t>
         
         <ul>
@@ -359,26 +351,25 @@
 
 
 <!-- INTEREST OF OAM          -->
-<section title="Role of OAM in RAW">
+<section title="Role of OAM in wireless segments">
 	<t>
-      RAW networks expect to provide availability and reliability over a
-      wireless network infrastructure. 
+      Wireless segments expect to provide availability and reliability.
       Most critical applications will define an SLO required for the data flows it
       generates.
-      RAW expects to exploit OAM to improve the RAW operation at the service and the forwarding sub-layers.
+      OAM guides the wireless operations at the service and the forwarding sub-layers.
 	</t>
 
 
 	<t>
-To respect strict guarantees, RAW relies on the Path Selection Engine (PSE) (as
-defined in <xref target="I-D.pthubert-raw-architecture" /> to monitor and
-maintain the L3 network. Any L2 scheduling mechanism may be used to allocate transmission opportunities,
-based on the radio link characteristics, the SLO of the flows, or the number of packets to forward.
-The PSE exploits the L2 resources reserved by the scheduler and organizes the L3 paths to
-introduce redundancy, fault tolerance and create backup paths.
-OAM represents the core of the pre-provisioning process by supervising the network.
-It maintains a global view of the network resources to detect defects, faults, over-provisioning, anomalies.
-
+        To respect strict guarantees in wireless segments, the Path Selection Engine (PSE)
+        (as defined in <xref target="I-D.pthubert-raw-architecture" /> monitors and
+        maintains the L3 network.
+        Any L2 scheduling mechanism may be used to allocate transmission opportunities,
+        based on the radio link characteristics, the SLO of the flows, or the number of packets to forward.
+        The PSE exploits the L2 resources reserved by the scheduler and organizes the L3 paths to
+        introduce redundancy, fault tolerance and create backup paths.
+        OAM represents the core of the pre-provisioning process by supervising the network.
+        It maintains a global view of the network resources to detect defects, faults, over-provisioning, anomalies.
 	</t>
 
 
@@ -386,8 +377,9 @@ It maintains a global view of the network resources to detect defects, faults, o
 	<t>
       Fault tolerance also assumes that multiple paths must be
    provisioned so that an end-to-end circuit remains operational regardless of the conditions.
-   The Packet Replication and Elimination Function (<xref target="I-D.pthubert-raw-architecture"/>) on a node is typically controlled by the PSE.
-    OAM mechanisms can be used to monitor that PREOF is working correctly on a node and within the domain.
+   The Packet Replication and Elimination Function (<xref target="I-D.pthubert-raw-architecture"/>)
+   on a node is typically controlled by the PSE.
+   OAM mechanisms can be used to monitor that PREOF is working correctly on a node and within the domain.
 
 	</t>
     
@@ -396,20 +388,23 @@ Greg: I think that out-of-band OAM is useful in case of passive OAM that collect
 Fab: +1 (no interest to restrict so much the possibility)
 -->
 	<t>
-      To be energy-efficient, out-of-band OAM SHOULD only be used to report aggregated statistics (e.g., counters, histograms) from the nodes using, e.g., SNMP or Netconf/Restconf using YANG-based data models.
-      The out-of-band OAM flow MAY use a dedicated control and management channel, dedicated to this purpose.
+      To be energy-efficient, out-of-band OAM SHOULD only be used to report aggregated statistics (e.g., counters, histograms)
+      from the nodes using, e.g., SNMP or Netconf/Restconf using YANG-based data models.
+      The out-of-band OAM flow MAY use a specific control and management channel, dedicated to this purpose.
 	</t>
 
 
 	<t>
-      RAW supports both proactive and on-demand troubleshooting.
+      We need to support both proactive and on-demand troubleshooting.
       Proactively, it is necessary to detect anomalies, report defects, or reduce over-provisioning if it is not required.
-      However, on-demand may also be required to identify the cause of a specific defect.
-      Indeed, some specific faults may only be detected with a global, detailed view of the network, which is too expensive to acquire in the normal operating mode.
+      However, on-demand may also be required to identify the cause of a specific defect, which is specifically
+      critical for all-wireless segments.
+      Some local faults (e.g, a link becomes unreliable) can only be interpreted with a global knowledge
+      (e.g. overleaded radio channels, or an interfering radio link).
 	</t>
     
     <t>
-        The specific characteristics of RAW are discussed below.
+        The specific characteristics of all-wireless segments are discussed below.
         </t>
     
     
@@ -449,8 +444,7 @@ Fab: +1 (no interest to restrict so much the possibility)
             interference, the presence of concurrent transmissions, or the radio channel state.
             This link quality is even time-variant.
             For p2mp links, consequently, we have a collection of PDR (one value per receiver).
-            Other more sophisticated, aggregated metrics exist for these p2mp links, such as <xref target="anycast-property"/>
-            </t>
+       </t>
         
         </section>
     
@@ -473,15 +467,16 @@ Fab: +1 (no interest to restrict so much the possibility)
     
 
 
-    <section title="Complex Layer 2 Forwarding">
+    <section title="Complex Layer 2 Forwarding with p2mp links">
         <t>
-            Multiple neighbors may receive a transmission.
-            Thus, anycast Layer 2 forwarding helps to maximize reliability by assigning multiple receivers to a single transmission.
-            That way, the packet is lost only if <strong>none</strong> of the receivers decode it.
+            Multiple neighbors may receive a transmission in p2mp links.
             Practically, it has been proven that different neighbors may exhibit very different radio conditions, and
             that reception independence may hold for some of them <xref target="anycast-property"/>.
-            Anycast transmission typically exploit p2mp links.
-            </t>
+            Thus, anycast Layer 2 forwarding helps to maximize reliability by assigning multiple receivers to a single transmission.
+            That way, the packet is lost only if <strong>none</strong> of the receivers decode it.
+            Anycast links order receivers so that only one of them forward practically a packet to avoid flooding the network
+            and increase the energy consumption.
+        </t>
 
         </section>
 
@@ -525,7 +520,7 @@ Fab: +1 (no interest to restrict so much the possibility)
             </t>
            
            <t>
-               However, RAW networks imply specific constraints (e.g., low bandwidth, packet losses, cost of medium access) that may require to minimize the volume of information to collect.
+               However, all-wireless segments imply specific constraints (e.g., low bandwidth, packet losses, cost of medium access) that may require to minimize the volume of information to collect.
                Thus, we discuss in <xref target="measurementretrieval"/> different ways to collect information, i.e., transfer the OAM information physically from the emitter to the receiver.
                This corresponds to passive OAM as defined in <xref target="RFC7799"/>.
                </t>
@@ -546,7 +541,7 @@ Fab: +1 (no interest to restrict so much the possibility)
 		<t>
             As in DetNet, we have to verify the absence of
             misconnection.
-            We focus here on the RAW specificities.
+            We focus here on the wireless specificities.
         </t>
      
         
@@ -615,9 +610,10 @@ Fab: +1 (no interest to restrict so much the possibility)
             We must consequently collect metrics and implement algorithms tailored for wireless networking.
         </t>
         <t>
-            For instance, the decrease in the link quality may be caused by several factors: external interference, obstacles, multipath fading, mobility.
-            It is fundamental to be able to discriminate the different causes to make the right decision.
-        </t>
+            For example, a decrease in link quality can result from various factors such as external interference,
+            physical obstacles, multipath fading, or node mobility.
+            It is therefore essential to distinguish among these causes in order to make an appropriate decision.
+           </t>
         
         
 	</section>
@@ -629,7 +625,7 @@ Fab: +1 (no interest to restrict so much the possibility)
 <section title="Administration">
    
    <t>
-      The RAW network has to expose a collection of metrics to support an operator making proper decisions, including:
+      The all-wireless segments have to expose a collection of metrics to support an operator making proper decisions, including:
     </t>
       <ul>
          <li>
@@ -658,7 +654,7 @@ Fab: +1 (no interest to restrict so much the possibility)
       -->
          <li>
             Battery lifetime: the expected remaining battery lifetime of the
-            device. Since many RAW devices might be battery-powered, this is an
+            device. Since many wireless devices might be battery-powered, this is an
             important metric for an operator to make proper decisions.
             </li>
 
@@ -672,7 +668,7 @@ Fab: +1 (no interest to restrict so much the possibility)
 
    <t>
       These metrics should be collected per device, virtual circuit, and path, as DetNet already does.
-      However, in RAW, we have to deal with them at a finer granularity:
+      However, wireless segments deal with them at a finer granularity:
      </t>
      <ul>
          
@@ -697,7 +693,7 @@ Fab: +1 (no interest to restrict so much the possibility)
    
          
       <t>
-         RAW inherits the same requirements as DetNet: we need to know the distribution of a collection of metrics.
+         We inherit the same requirements as DetNet: we need to know the distribution of a collection of metrics.
          Besides, wireless networks are known to be highly variable.
          Changes may be frequent, and may exhibit a periodical pattern.
          Collecting and analyzing this amount of measurements is challenging.
@@ -754,9 +750,9 @@ Fab: +1 (no interest to restrict so much the possibility)
                flags/fields: we have to set-up flags in the packets to monitor to be able
                to monitor the forwarding process accurately.
                A sequence number field may help to detect packet losses.
-               Similarly, path inference tools such as <xref target="ipath"/> insert
-               additional information in the headers to identify the path followed by a
-               packet a posteriori.
+               Similarly, path inference tools such as <xref target="ipath"/> add only a small
+               amount of information to packet headers, enabling the a posteriori reconstruction
+               of the path taken by a packet.
                </li>
             
             <li>
@@ -816,7 +812,7 @@ Fab: +1 (no interest to restrict so much the possibility)
       <t>
         Maintenance needs to facilitate the maintenance (repairs and upgrades).
         In wireless networks, repairs are expected to occur much more frequently, since the link quality may be highly time-variant.
-        Thus, maintenance represents a key feature for RAW.
+        Thus, maintenance represents a key feature for all-wireless segments.
      </t>
 
 
@@ -832,7 +828,7 @@ Fab: +1 (no interest to restrict so much the possibility)
  
     <section title="Predictions">
         <t>
-            RAW needs to implement self-optimization features.
+            We need to implement self-optimization features.
             While the network is configured to be fault-tolerant, a reconfiguration may be required to keep on respecting long-term objectives.
             The network must continuously retrieve the state of the network,
             to judge about the relevance of a reconfiguration.
@@ -857,7 +853,7 @@ Fab: +1 (no interest to restrict so much the possibility)
    <section anchor="req-list" numbered="true" toc="default">
      <name>Requirements</name>
      <t>
-         This section lists requirements for OAM in a RAW domain:
+         This section lists requirements for OAM in a wireless domain:
      </t>
     <ol>
         <li>
