@@ -108,13 +108,16 @@
 
    <abstract>
    		<t>
-            Some critical applications may use a wireless infrastructure.
-              However, wireless networks exhibit a bandwidth of several orders of magnitude lower than wired networks.
-              Besides, wireless transmissions are lossy by nature; the probability that a packet cannot be decoded correctly  by the receiver may be quite high.
-              In these conditions, providing high reliability and a low delay is challenging.
-                   This document lists the requirements of  the Operation, Administration, and Maintenance (OAM) features are recommended to provide availability and reliability on top of a collection of wireless segments.
-              This document describes the benefits, problems, and trade-offs for using OAM in wireless networks to achieve Service Level Objectives (SLO).
-
+            Some critical applications may use all-wireless segments, i.e., a collection of wireless routers that forward packets
+            from the source to the destination.
+            However, wireless networks exhibit a bandwidth of several orders of magnitude lower than wired networks.
+            Besides, wireless transmissions are lossy by nature; the probability that a packet cannot be decoded correctly
+            by the receiver may be quite high.
+            In these conditions, providing high reliability and a low delay is challenging.
+            This document lists the requirements of  the Operation, Administration, and Maintenance (OAM) features are recommended
+            to provide availability and reliability on top of a collection of wireless segments.
+            This document describes the benefits, problems, and trade-offs for using OAM in wireless networks to achieve
+            Service Level Objectives (SLO).
    		</t>
    </abstract>
    
@@ -152,12 +155,26 @@
     </t>
     
     <t>
-        However, wireless networks create specific challenges.
+        However, wireless segments create specific challenges.
         First of all, radio bandwidth is significantly lower than in wired networks.
         In these conditions, the volume of signaling messages has to be very limited.
         Even worse, wireless links are lossy. Thus, providing high reliability through
         wireless segments is particularly challenging.
     </t>
+    
+    <t>
+        We consider in this document specifically all-wireless segments: a collection of routers use
+        We consider both:
+    </t>
+    <ul>
+        <li>Single hop: each device can reach directly a gateway / Access Point / Base Station with a single wireless transmission.
+        </li>
+        <li>Multi hop: a collection of wireless routers forward packets from the source to the destination.
+            In some cases, a wireless router may also generate directly data packets.
+        </li>
+    </ul>
+        
+    
     
     <t>
         Wired networks rely on the concept of <em>links</em>. All the devices attached
