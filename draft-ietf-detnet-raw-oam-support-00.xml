@@ -881,6 +881,111 @@ Fab: +1 (no interest to restrict so much the possibility)
   <section anchor="iana-consider" title="IANA Considerations">
   <t>This document has no actionable requirements for IANA. This section can be removed before the publication.</t>
   </section>
+
+    <section anchor="operational-sect" numbered="true" toc="default">
+      <name>Operational Considerations</name>
+      <t>
+        OAM capabilities described in this document are intended to support
+        the deployment and operation of RAW networks. RAW environments introduce
+        operational challenges that differ from those of traditional wired networks because
+        wireless links may exhibit time-varying quality, bursty loss characteristics,
+        mobility effects, interference, and multi-path forwarding behaviors.
+        These characteristics influence how OAM information is collected, interpreted,
+        and acted upon. 
+      </t>
+    <section anchor="monitoring-op-sect" numbered="true" toc="default">
+      <name>Network Monitoring</name>
+      <t>
+        Operators continuously monitor service-level and path-level performance metrics associated
+        with RAW forwarding. Relevant metrics include packet loss, PDR,
+        latency, latency variation, retransmission activity, radio link quality indicators,
+        resource utilization, and path availability. Because wireless conditions can fluctuate rapidly,
+        operators continuously evaluate both instantaneous measurements and longer-term trends
+        to distinguish transient impairments from persistent faults. 
+      </t>
+      <t>
+        When PREOF is used, the combination of proactive and on-demand monitoring MUST be used to verify
+        that replication and elimination processes operate correctly and continue
+        to satisfy the service objectives associated with the protected flows. 
+      </t>
+      </section>
+    <section anchor="fault-trouble-op-sect" numbered="true" toc="default">
+      <name>Fault Detection and Troubleshooting</name>
+      <t>
+        RAW OAM mechanisms support proactive fault detection as well as on-demand diagnostics.
+        Operators MUST establish thresholds and policies appropriate to the deployed radio technologies
+        and service objectives. Because wireless environments naturally experience performance variations,
+        detection mechanisms MUST enable operators to distinguish expected variations
+        from conditions that require operational intervention. 
+      </t>
+      <t>
+        Route tracing and connectivity verification functions can assist in identifying forwarding anomalies,
+        misconfigurations, path degradation, or failures affecting wireless segments.
+        In deployments that support multiple candidate forwarding paths or anycast forwarding techniques,
+        operators should be aware that observed forwarding behavior may vary over time
+        as radio conditions change. 
+      </t>
+    </section>
+     <section anchor="oam-traffic-op-sect" numbered="true" toc="default">
+      <name>OAM Traffic Engineering in RAW Environments</name>
+      <t>
+        OAM traffic consumes network resources that may otherwise be available to user traffic.
+        This consideration is particularly important in wireless environments where bandwidth
+        and device energy resources can be constrained. Operators MUST configure OAM measurement frequencies,
+        reporting intervals, telemetry export policies, and diagnostic procedures to balance
+        operational visibility against resource consumption. 
+      </t>
+      <t>
+        Where possible, passive and hybrid measurements (<xref target="RFC7799"/>), aggregation of collected
+        statistics, can reduce operational overhead. More detailed active measurements can be activated
+        when anomalies or performance degradations are detected. 
+      </t>
+      </section>     
+     <section anchor="config-op-sect" numbered="true" toc="default">
+      <name>Configuration and Management</name>
+      <t>
+        Implementations MUST provide operators with the capability to configure OAM functions,
+        including measurement intervals, reporting policies, telemetry export parameters,
+        continuity-check behavior, and fault-detection thresholds. The management interfaces
+        MAY support automated provisioning and integration with network management
+        and controller-based systems. Guidance from operational manageability best practices
+        recommends that protocol specifications consider how configuration and state information
+        can be exposed to management systems and operational tooling. 
+      </t>
+      <t>
+        RAW networks are expected to adapt to changing wireless conditions by modifying forwarding behavior,
+        schedules, or path selection. During such transitions, measured performance may temporarily differ
+        from steady-state conditions. Intelligent correlation of the collected telemetry information
+        enables operators to account for these transient conditions when evaluating
+        OAM reports and diagnosing faults. OAM data collected during reconfiguration events provides
+        valuable information for validating network adaptation procedures and assessing their effectiveness. 
+      </t>
+      </section>
+     <section anchor="sap-op-sect" numbered="true" toc="default">
+      <name>Service Activation Procedures</name>
+      <t>
+        Before carrying production traffic, operators MAY use Service Activation Procedures (SAP)
+        to verify that OAM functions correctly measure and report performance information across RAW paths.
+        Verification with SAP MUST include continuity checks,
+        connectivity verification, telemetry collection, fault reporting, and route-tracing capabilities,
+        as applicable to the deployment. SAP MUST also enable verification that OAM packets receive
+        forwarding treatment representative of the monitored services whenever
+        in-band measurement techniques are used. 
+        </t>
+      </section>
+       <section anchor="telemetry-op-sect" numbered="true" toc="default">
+      <name>Operational Data and Telemetry</name>
+      <t>
+        Implementations MAY expose operational state and performance information using mechanisms
+        that enable integration with existing operational workflows and telemetry systems.
+        Examples include standardized data models, telemetry export functions, and controller interfaces.
+        The selection of a particular management protocol or data-modeling technology
+        is deployment-specific and outside the scope of this document. Guidance from manageability
+        best practices recommends that protocol specifications identify the operational information
+        required to deploy, monitor, and maintain the technology. 
+      </t>
+      </section>
+      </section>
    
      <section anchor="security" title="Security Considerations">
      <t>
