@@ -28,3 +28,4 @@ after WG adoption:
 * September 2022: cleaning of a few definitions in terminology, comments of Dominique Barthel (https://github.com/raw-wg/raw-oam/pull/2), editorial changes, https://tools.ietf.org/html/draft-ietf-raw-oam-support-05
 * January 2023: terminology harmonization with detnet, only what is specific to wireless, revamped of the maintenance section, https://tools.ietf.org/html/draft-ietf-raw-oam-support-06
 * October 2025: resubmission to the detnet working group (which has integrated the RAW activities)
+* November 2026: operational section + minor modifications
