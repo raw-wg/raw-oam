@@ -4,7 +4,7 @@
 <!-- Compiles with XML2RFC v3 https://xml2rfc.tools.ietf.org/cgi-bin/xml2rfc-dev.cgi -->
 
 
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" ipr="trust200902" docName="draft-ietf-raw-oam-support-07" obsoletes="" updates="draft-ietf-raw-oam-support" submissionType="IETF" xml:lang="en" tocInclude="true" tocDepth="3" symRefs="true" sortRefs="true" version="3">
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" ipr="trust200902" docName="draft-ietf-detnet-wireless-oam-support-07" obsoletes="" updates="draft-ietf-raw-oam-support" submissionType="IETF" xml:lang="en" tocInclude="true" tocDepth="3" symRefs="true" sortRefs="true" version="3">
 
 
 
@@ -68,12 +68,13 @@
     </author>
 
     <author initials="G." surname="Mirsky" fullname="Greg Mirsky">
-      <organization>Ericsson</organization>
+      <organization>Ciena Corporation</organization>
       <address>
           <postal>
             <country>US</country>
           </postal>
           <email>gregimirsky@gmail.com</email>
+		  <email>gmirsky@ciena.com</email>
       </address>
     </author>
 
@@ -140,23 +141,23 @@
 
 <section title="Introduction">
 	<t>
-        The Reliable and Available Wireless (RAW) working group aims to extends DetNet
-        to approach end-to-end deterministic performances over a network that
+        The Reliable and Available Wireless (RAW) working group aims to extend DetNet
+        to approach end-to-end deterministic performance over a network that
         includes scheduled wireless segments.
         In wired networks, many approaches try to enable Quality of Service (QoS) by
-        implementing traffic differentiation so that routers handle each type of packets differently.
+        implementing traffic differentiation so that routers handle each type of packet differently.
     </t>
     
     <t>
         Deterministic Networking (DetNet) <xref target="RFC8655"/> has proposed to provide a bounded end-to-end latency
         on top of the network infrastructure, comprising both Layer 2 bridged and Layer 3 routed segments.
-        Their work encompasses the data plane, OAM, time synchronization, management, control, and security aspects.
+        Their work covers the data plane, OAM, time synchronization, management, control, and security.
     </t>
     
     <t>
         However, wireless networks create specific challenges.
-        First of all, radio bandwidth is significantly lower than in wired networks.
-        In these conditions, the volume of signaling messages has to be very limited.
+        First, radio bandwidth is significantly lower than in wired networks.
+        Under these conditions, the volume of signaling messages must be very limited.
         Even worse, wireless links are lossy: a Layer 2 transmission may or may not be 
         decoded correctly by the receiver, depending on a broad set of parameters.
         Thus, providing high reliability through wireless segments is particularly challenging.
@@ -174,7 +175,7 @@
     
     <t>
         Last but not least, radio links present volatile characteristics.
-        If the wireless networks use an unlicensed band, packet losses are not anymore temporally
+        If the wireless networks use an unlicensed band, packet losses are no longer temporally
         and spatially independent.
         Typically, links may exhibit a very bursty characteristic, where several 
         consecutive packets may be dropped because of, e.g., temporary external interference.
@@ -196,8 +197,11 @@
       	This document describes the benefits, problems, and trade-offs for using OAM in 
     	wireless networks to provide these properties.
 	</t>
-
-	<section title="Terminology">
+</section>
+    <section anchor="conv-sec" numbered="true" toc="default">
+        <name>Conventions used in this document</name>
+    <section anchor="term-sec" numbered="true" toc="default">
+        <name>Terminology</name>
 
    <t>
       	In this document, the term OAM will be used according to its definition specified 
@@ -208,23 +212,24 @@
    </t>
 
     	<t>
-            We re-use here the same terminology as <xref target="I-D.ietf-detnet-oam-framework"/>:
+            We re-use here the same terminology as <xref target="RFC9551"/>:
         </t>
         <ul>
             <li><t>
-                OAM entity: a data flow to be monitored for defects and/or its performance metrics measured.
-                For such entity, we define the following terms:
+                OAM entity: a data flow to be monitored for defects and/or whose performance metrics are measured.
+                For such an entity, we define the following terms:
             
             </t>
             <ul>
                 <li>
-                    OAM domain: a network used by the monitored flow.
+                    OAM domain: a network used for monitored flows.
                     An OAM domain may have MEPs on its edge and MIPs within.
                 </li>
         
             
             <!--
-            Greg: I think it is useful to differentiate between MEP and MIP. But we need to consider the origin of the term is Layer 2. For IETF we might choose/define somewhat different terms, e.g., Test Point for MEP and Monitor Point for MIP.
+            Greg: I think it is useful to differentiate between MEP and MIP. But we need to consider
+				that the origin of the term is Layer 2. For IETF, we might choose/define somewhat different terms, e.g., Test Point for MEP and Monitor Point for MIP.
             
             Fab: ok; I use TEP and MonEP (to avoid making a confusion with MEP)
             
@@ -232,11 +237,11 @@
             <li>
                 Test End Point (TEP): OAM devices crossed when entering/exiting
                 the network. In RAW, it corresponds mostly to the source or destination
-                of a data flow. OAM message can be exchanged between two TEPs;
+                of a data flow. OAM messages can be exchanged between two TEPs;
             </li>
      -->
                 <li>
-                    Maintenance End Point (MEP): an OAM instance that is capable of generating OAM test packets in the particular sub-layer of the OAM domain.
+                    Maintenance End Point (MEP): an OAM instance capable of generating OAM test packets in a particular sub-layer of the OAM domain.
 
                 </li>
 
@@ -275,8 +280,8 @@
                         In other words, a failure in the data plane may prevent the control information from reaching the destination (e.g., end-device or controller).
                     </li>
                     <li>
-                        out-of-band: control information is sent separately from the data packets.
-                        Thus, the behavior of control vs. data packets may differ.
+                        Out-of-band: control information is sent separately from the data packets.
+                        Thus, control and data packets may behave differently.
                     </li>
                 </ul>
 
@@ -299,14 +304,14 @@
             <li> piggybacking vs. dedicated control packets:
             control information may be encapsulated in specific (dedicated) control packets.
             Alternatively, it may be piggybacked in existing data packets, when the MTU is larger than the actual packet length.
-            Piggybacking makes specifically sense in wireless networks, as the cost (bandwidth and energy) is sublinear with the packet size.
-            Indeed, the cost to access the medium (e.g., early wake-up to deal with clock drifts) cannot be neglected, and is counted once, whatever the packet size.
+            Piggybacking makes specific sense in wireless networks, as the cost (bandwidth and energy) is sublinear with the packet size.
+            Indeed, the cost to access the medium (e.g., early wake-up to deal with clock drift) cannot be neglected and is counted once, regardless of packet size.
             </li>
             
             <li> router-over vs. mesh under:
                 a control packet is either forwarded directly without being processed (mesh under) or handled hop-by-hop by each router.
-                While the latter option consumes more resources, it allows collecting additional intermediary information, particularly relevant in wireless networks.
-                For instance, each router is a MIP and inserts its own ID in the packet's hader, so that the destination reconstructs a posteriori the list of IDs that actually forwarded a packet.
+                While the latter option consumes more resources, it allows collection of additional intermediary information, which is particularly relevant in wireless networks.
+                For instance, each router is a MIP and inserts its own ID in the packet header, so the destination can reconstruct a posteriori the list of IDs that actually forwarded the packet.
             </li>
             
              <li>
@@ -315,7 +320,7 @@
            </li>
     
            <li>
-               Fault: an irrevocable change which may affect the network performance, e.g., a node runs out of energy.
+               Fault: an irrevocable change that may affect the network performance, e.g., a node runs out of energy.
            </li>
            <li>
                 End-to-end delay: the time between the packet generation and its reception by the destination.
@@ -324,13 +329,16 @@
  
     </section>
     
-    
-    <section anchor="acronyms-sec" title="Acronyms">
+      <section anchor="acr-sec" numbered="true" toc="default">
+        <name>Acronyms</name>
     <t>OAM                   Operations, Administration, and Maintenance</t>
     <t>DetNet               Deterministic Networking</t>
-    <t>PSE                   Path Selection Engine <xref target="I-D.pthubert-raw-architecture"/> </t>
+	<t>PDR                  Packet Delivery Ratio</t>
+    <t>PREOF                Packet Replication, Elimination, and Ordering Functions</t>
+    <t>PSE                   Path Selection Engine <xref target="RFC9912"/> </t>
     <t>QoS                   Quality of Service</t>
     <t>RAW                   Reliable and Available Wireless</t>
+	<t>SAP                   Service Activation Procedures</t>
     <t>SLO                    Service Level Objective</t>
     <t>SNMP               Simple Network Management Protocol</t>
     <t>SDN                  Software-Defined Network</t>
@@ -358,21 +366,21 @@
 	<t>
       RAW networks expect to provide availability and reliability over a
       wireless network infrastructure. 
-      Most critical applications will define an SLO required for the data flows it
+      Most critical applications will define an SLO required for the data flows they
       generates.
-      RAW expects to exploit OAM to improve the RAW operation at the service and the forwarding sub-layers.
+      RAW expects to use OAM to improve RAW operation at the service and forwarding sub-layers.
 	</t>
 
 
 	<t>
 To respect strict guarantees, RAW relies on the Path Selection Engine (PSE) (as
-defined in <xref target="I-D.pthubert-raw-architecture" /> to monitor and
+defined in <xref target="RFC9912" /> to monitor and
 maintain the L3 network. Any L2 scheduling mechanism may be used to allocate transmission opportunities,
 based on the radio link characteristics, the SLO of the flows, or the number of packets to forward.
 The PSE exploits the L2 resources reserved by the scheduler and organizes the L3 paths to
-introduce redundancy, fault tolerance and create backup paths.
+introduce redundancy, fault tolerance, and create backup paths.
 OAM represents the core of the pre-provisioning process by supervising the network.
-It maintains a global view of the network resources to detect defects, faults, over-provisioning, anomalies.
+It maintains a global view of the network resources to detect defects, faults, over-provisioning, and anomalies.
 
 	</t>
 
@@ -381,18 +389,18 @@ It maintains a global view of the network resources to detect defects, faults, o
 	<t>
       Fault tolerance also assumes that multiple paths must be
    provisioned so that an end-to-end circuit remains operational regardless of the conditions.
-   The Packet Replication and Elimination Function (<xref target="I-D.pthubert-raw-architecture"/>) on a node is typically controlled by the PSE.
+   The Packet Replication and Elimination Function (<xref target="RFC9912"/>) on a node is typically controlled by the PSE.
     OAM mechanisms can be used to monitor that PREOF is working correctly on a node and within the domain.
 
 	</t>
     
 <!--
-Greg: I think that out-of-band OAM is useful in case of passive OAM that collects counters, statistics from the nodes, e.g., SNMP or Netconf/Restconf using YANG-based data models. Such methods may be used as systems have control and management channels already.
-Fab: +1 (no interest to restrict so much the possibility)
+Greg: I think that out-of-band OAM is useful in case of passive OAM that collects counters and statistics from the nodes, e.g., SNMP or Netconf/Restconf using YANG-based data models. Such methods may be used as systems have control and management channels already.
+Fab: +1 (no interest in restricting the possibility so much)
 -->
 	<t>
       To be energy-efficient, out-of-band OAM SHOULD only be used to report aggregated statistics (e.g., counters, histograms) from the nodes using, e.g., SNMP or Netconf/Restconf using YANG-based data models.
-      The out-of-band OAM flow MAY use a dedicated control and management channel, dedicated to this purpose.
+      The out-of-band OAM flow MAY use a dedicated control and management channel for this purpose.
 	</t>
 
 
@@ -411,7 +419,7 @@ Fab: +1 (no interest to restrict so much the possibility)
     <section title="Link concept and quality">
         <t>
             In wireless networks, a <em>link</em> does not exist physically.
-            A device has a set of <strong>neighbors</strong> that correspond to all the devices that have a non-null probability of receiving its packets correctly.
+            A device has a set of <strong>neighbors</strong> corresponding to all devices that have a non-null probability of receiving its packets correctly.
             We make a distinction between:
             </t>
         
@@ -443,7 +451,7 @@ Fab: +1 (no interest to restrict so much the possibility)
             It is worth noting that this link quality depends on many criteria, such as the level of external
             interference, the presence of concurrent transmissions, or the radio channel state.
             This link quality is even time-variant.
-            For p2mp links, consequently, we have a collection of PDR (one value per receiver).
+            For p2mp links, consequently, we have a collection of PDRs (one value per receiver).
             Other more sophisticated, aggregated metrics exist for these p2mp links, such as <xref target="anycast-property"/>
             </t>
         
@@ -451,10 +459,10 @@ Fab: +1 (no interest to restrict so much the possibility)
     
     <section title="Broadcast Transmissions">
         <t>
-            In modern switched networks, unicast transmissions are delivered exclusively to the destination .
+            In modern switched networks, unicast transmissions are delivered exclusively to the destination.
             Wireless networks are much closer to the traditional <strong>shared access</strong> wired networks.
             Practically, unicast and broadcast frames are handled similarly at the physical layer.
-            The link layer is just in charge of filtering the frames to discard irrelevant receptions (e.g., different unicast MAC addresses).
+            The link layer filters frames to discard irrelevant receptions (e.g., different unicast MAC addresses).
             </t>
         
         <t>
@@ -475,7 +483,7 @@ Fab: +1 (no interest to restrict so much the possibility)
             That way, the packet is lost only if <strong>none</strong> of the receivers decode it.
             Practically, it has been proven that different neighbors may exhibit very different radio conditions, and
             that reception independence may hold for some of them <xref target="anycast-property"/>.
-            Anycast transmission typically exploit p2mp links.
+            Anycast transmission typically exploits p2mp links.
             </t>
 
         </section>
@@ -483,7 +491,7 @@ Fab: +1 (no interest to restrict so much the possibility)
   
     <section title="End-to-end delay">
       <t>
-            In a wireless network, additional transmissions opportunities are provisioned to accommodate packet losses.
+            In a wireless network, additional transmission opportunities are provisioned to accommodate packet losses.
             Thus, the end-to-end delay consists of:
         </t>
             <ul>
@@ -491,8 +499,8 @@ Fab: +1 (no interest to restrict so much the possibility)
                     Transmission delay, which is fixed and depends mainly on the data rate, and the presence or absence of an acknowledgement.
                 </li>
                 <li>
-                    Residence time, corresponds to the buffering delay and depends on the schedule.
-                    To account for retransmissions, the residence time is equal to the difference between the time of last reception from the previous hop (among all the retransmissions) and the time of emission of the last retransmission.
+                    Residence time corresponds to the buffering delay and depends on the schedule.
+                    To account for retransmissions, residence time equals the difference between the time of the last reception from the previous hop (among all retransmissions) and the time of the last retransmission.
                 </li>
 
             </ul>
@@ -515,7 +523,7 @@ Fab: +1 (no interest to restrict so much the possibility)
 
     <section title="Information Collection">
            <t>
-               The model for exchanging information should be the same as for a DetNet network to ensure inter-operability.
+               The information-exchange model should match that of a DetNet network to ensure interoperability.
                YANG may typically fulfill this objective.
             </t>
            
@@ -541,7 +549,7 @@ Fab: +1 (no interest to restrict so much the possibility)
 		<t>
             As in DetNet, we have to verify the absence of
             misconnection.
-            We focus here on the RAW specificities.
+            Here, we focus on the RAW specifics.
         </t>
      
         
@@ -1022,12 +1030,12 @@ Fab: +1 (no interest to restrict so much the possibility)
        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9055.xml"/> <!-- security for detnet -->
 
  
-       <xi:include href="https://datatracker.ietf.org/doc/bibxml3/draft-pthubert-raw-architecture.xml"/>
+	   <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9912.xml"/>
      <!--
      Fabrice: seems deprecated
      <xi:include href="https://datatracker.ietf.org/doc/bibxml3/draft-thubert-bier-replication-elimination.xml"/>
      -->
-        <xi:include href="https://datatracker.ietf.org/doc/bibxml3/draft-ietf-detnet-oam-framework.xml"/>
+	   	<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9551.xml"/>
         
         
         
